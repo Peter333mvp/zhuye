@@ -1,63 +1,57 @@
 // @ts-ignore;
 import React from 'react';
 // @ts-ignore;
-import { Github, Linkedin, Mail, Download, ChevronDown } from 'lucide-react';
+import { Github, Linkedin, Mail, ArrowDown, Download } from 'lucide-react';
 
 export function HeroSection() {
-  return <section id="home" className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 overflow-hidden">
+  return <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 relative overflow-hidden">
       {/* 背景装饰 */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-        <div className="absolute top-40 right-20 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-40 w-80 h-80 bg-indigo-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-4000"></div>
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-pink-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
       </div>
-      
-      <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="mb-8">
-          <div className="relative inline-block">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-600 rounded-full blur-xl opacity-60 animate-pulse"></div>
-            <img src="https://test-8gpj9zlw85dcc92a-1387284530.tcloudbaseapp.com/resources/2025-11/lowcode-2396664" alt="Profile" className="relative w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto border-4 border-white/30 shadow-2xl" />
+          <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white shadow-xl">
+            <img src="https://picsum.photos/seed/avatar123/200/200.jpg" alt="个人头像" className="w-full h-full object-cover" />
           </div>
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
+            你好，我是 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">张三</span>
+          </h1>
+          <p className="text-xl md:text-2xl text-gray-600 mb-6">
+            机械设计制造及其自动化专业
+          </p>
+          <p className="text-lg text-gray-500 max-w-2xl mx-auto">
+            热衷于机械设计、CAD制图、产品开发和技术创新，具备扎实的专业基础和实践经验
+          </p>
         </div>
-        
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-white">
-          Peter Zhao
-        </h1>
-        
-        <h2 className="text-xl md:text-2xl lg:text-3xl text-blue-100 mb-8 font-light">
-          机械电子工程专业 | 机器人技术爱好者
-        </h2>
-        
-        <p className="text-lg md:text-xl text-blue-50 mb-12 max-w-3xl mx-auto leading-relaxed">
-          热衷于机器人技术、自动控制和机械设计，拥有丰富的竞赛经验和项目实践。
-          致力于将理论知识转化为实际工程应用，追求技术创新和卓越品质。
-        </p>
-        
-        <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
-          <a href="#contact" className="px-8 py-4 bg-white text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-xl flex items-center justify-center">
-            <Mail size={20} className="mr-2" />
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center">
+            <Download size={20} className="mr-2" />
+            下载简历
+          </button>
+          <button className="px-8 py-3 border-2 border-gray-300 text-gray-700 rounded-full hover:border-blue-500 hover:text-blue-500 transform hover:scale-105 transition-all duration-300">
             联系我
+          </button>
+        </div>
+
+        <div className="flex justify-center space-x-6 mb-16">
+          <a href="#" className="text-gray-600 hover:text-blue-600 transform hover:scale-110 transition-all duration-300">
+            <Github size={24} />
           </a>
-          
-          <a href="#projects" className="px-8 py-4 bg-transparent text-white border-2 border-white/30 rounded-xl font-semibold hover:bg-white/10 transition-all duration-300 transform hover:scale-105 backdrop-blur-sm flex items-center justify-center">
-            查看项目
+          <a href="#" className="text-gray-600 hover:text-blue-600 transform hover:scale-110 transition-all duration-300">
+            <Linkedin size={24} />
+          </a>
+          <a href="#" className="text-gray-600 hover:text-blue-600 transform hover:scale-110 transition-all duration-300">
+            <Mail size={24} />
           </a>
         </div>
-        
-        <div className="flex justify-center space-x-8 mb-16">
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-all duration-300 transform hover:scale-110">
-            <Github size={28} />
-          </a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-all duration-300 transform hover:scale-110">
-            <Linkedin size={28} />
-          </a>
-          <a href="mailto:zptynl@163.com" className="text-white/80 hover:text-white transition-all duration-300 transform hover:scale-110">
-            <Mail size={28} />
-          </a>
-        </div>
-        
+
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <ChevronDown size={32} className="text-white/60" />
+          <ArrowDown size={32} className="text-gray-400" />
         </div>
       </div>
     </section>;

@@ -1,150 +1,95 @@
 // @ts-ignore;
 import React from 'react';
 // @ts-ignore;
-import { ExternalLink, Github, Calendar, Users, Award, BookOpen, Target, Code, Calculator, Rocket } from 'lucide-react';
+import { ExternalLink, Github, Calendar, Users } from 'lucide-react';
 
 export function ProjectsSection() {
   const projects = [{
-    title: '太空蜘蛛机器人系统',
-    description: '针对太空特殊环境航天器维护和星体探索等多任务应用场景，设计并实现适应太空微重力等特殊环境要求的六足机器人系统。通过融合机械设计、运动学建模、智能控制与仿真验证等多学科技术，研究了面向太空极端环境多任务应用场景仿生机器人运动稳定性、环境适应性和系统可靠性等关键技术问题。',
-    image: 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=500&h=300&fit=crop',
-    tags: ['机器人设计', '运动学建模', '智能控制', '太空应用', 'D-H参数法', 'ESP32控制'],
-    features: ['D-H参数法运动学建模', '六足协同控制策略', 'ESP32双核主控', 'Arduino+ROS架构', '太空环境适应性实验', '样机性能测试'],
-    award: '全国三等奖、华东赛区一等奖',
-    competition: '中国大学生机械工程创新创意大赛',
-    year: '2025',
-    icon: <Rocket className="text-purple-500" />
+    id: 1,
+    title: '机械臂设计项目',
+    description: '设计并制造了一台六轴机械臂，用于自动化装配线。项目包括机械结构设计、控制系统开发和运动学算法实现。',
+    image: 'https://picsum.photos/seed/project1/400/300.jpg',
+    tags: ['SolidWorks', 'Arduino', 'C++', '机械设计'],
+    date: '2023年6月',
+    team: '团队项目',
+    github: '#',
+    demo: '#'
   }, {
-    title: '篮球机器人系统',
-    description: '参与篮球机器人组比赛，机器人具备自动拾球、路径规划、多任务并行处理、定点投篮等功能',
-    image: 'https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=500&h=300&fit=crop',
-    tags: ['机器人竞赛', '机械设计', '自动控制'],
-    features: ['自动拾球系统', '路径规划算法', '多任务并行处理', '精准投篮控制'],
-    award: '亚军（国赛二等奖）',
-    competition: '中国机器人大赛暨ROBOTCUP世界杯中国赛',
-    year: '2024',
-    icon: <Award className="text-yellow-500" />
+    id: 2,
+    title: '智能仓储系统',
+    description: '开发了一套智能仓储管理系统，包括自动化立体仓库、AGV小车调度系统和库存管理软件。',
+    image: 'https://picsum.photos/seed/project2/400/300.jpg',
+    tags: ['AutoCAD', 'PLC', 'Python', '数据库'],
+    date: '2023年3月',
+    team: '团队项目',
+    github: '#',
+    demo: '#'
   }, {
-    title: '一维伺服工作平台',
-    description: '基于功能设想与草图，选用电机、丝杠导轨等标准件，完成非标零件与整体平台设计',
-    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&h=300&fit=crop',
-    tags: ['机械设计', 'SolidWorks', '课程设计'],
-    features: ['零件选型计算', 'SolidWorks建模', '装配图绘制', '优秀课程设计'],
-    award: '优秀',
-    competition: '课程设计',
-    year: '2024',
-    icon: <Code className="text-blue-500" />
-  }, {
-    title: '五大湖水资源调控模型',
-    description: '针对五大湖水资源调控问题，建立模型平衡水位与利益相关者需求，设计算法并分析敏感性',
-    image: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=500&h=300&fit=crop',
-    tags: ['数学建模', '算法设计', 'MATLAB'],
-    features: ['水资源平衡模型', '利益相关者分析', '敏感性分析', '算法优化'],
-    award: 'M奖（国赛二等奖）',
-    competition: '美国大学生数学建模竞赛（MCM）',
-    year: '2024',
-    icon: <Calculator className="text-green-500" />
+    id: 3,
+    title: '3D打印机改装',
+    description: '对现有3D打印机进行改装升级，提升了打印精度和速度。设计了新的挤出机构和热端系统。',
+    image: 'https://picsum.photos/seed/project3/400/300.jpg',
+    tags: ['3D打印', '机械改装', 'CAD', '电子'],
+    date: '2022年12月',
+    team: '个人项目',
+    github: '#',
+    demo: '#'
   }];
-  const ProjectCard = ({
-    project,
-    index
-  }) => {
-    return <div className="group bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-white/50 hover:border-indigo-200 transform hover:-translate-y-2">
-        {/* 项目图片 */}
-        <div className="relative h-56 overflow-hidden">
-          <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          
-          {/* 奖项标签 */}
-          <div className="absolute top-4 right-4">
-            <div className="bg-white/95 backdrop-blur-sm rounded-full px-3 py-1 shadow-lg">
-              <span className="text-xs font-bold text-yellow-600 flex items-center">
-                <Award size={12} className="mr-1" />
-                {project.award}
-              </span>
-            </div>
-          </div>
-
-          {/* 年份标签 */}
-          <div className="absolute top-4 left-4">
-            <div className="bg-indigo-600/90 backdrop-blur-sm rounded-full px-3 py-1 shadow-lg">
-              <span className="text-xs font-bold text-white">
-                {project.year}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* 项目内容 */}
-        <div className="p-6">
-          <div className="flex items-center mb-3">
-            <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center mr-3">
-              {project.icon}
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 group-hover:text-indigo-600 transition-colors duration-300">
-              {project.title}
-            </h3>
-          </div>
-
-          <p className="text-gray-600 text-sm mb-4 line-clamp-3 leading-relaxed">
-            {project.description}
-          </p>
-
-          {/* 竞赛名称 */}
-          <div className="text-xs font-semibold text-indigo-600 mb-3">
-            {project.competition}
-          </div>
-
-          {/* 技术标签 */}
-          <div className="flex flex-wrap gap-2 mb-4">
-            {project.tags.map((tag, idx) => <span key={idx} className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full">
-                {tag}
-              </span>)}
-          </div>
-
-          {/* 项目特点 */}
-          <div className="space-y-2">
-            {project.features.slice(0, 3).map((feature, idx) => <div key={idx} className="flex items-center text-xs text-gray-600">
-                <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-2" />
-                {feature}
-              </div>)}
-          </div>
-        </div>
-      </div>;
-  };
-  return <section id="projects" className="py-24 bg-white">
+  return <section id="projects" className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
-            我的项目
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            项目展示
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            展示我在机器人设计、数学建模等领域的代表性项目成果
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            我参与和主导的机械设计与开发项目
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-          {projects.map((project, index) => <ProjectCard key={index} project={project} index={index} />)}
-        </div>
-
-        {/* 项目统计 */}
-        <div className="mt-20 text-center">
-          <div className="inline-flex items-center justify-center p-8 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100 shadow-lg">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-indigo-600 mb-2">4+</div>
-              <div className="text-sm text-gray-600">获奖项目</div>
-            </div>
-            <div className="w-px h-16 bg-indigo-200 mx-12" />
-            <div className="text-center">
-              <div className="text-4xl font-bold text-purple-600 mb-2">2+</div>
-              <div className="text-sm text-gray-600">国家级奖项</div>
-            </div>
-            <div className="w-px h-16 bg-indigo-200 mx-12" />
-            <div className="text-center">
-              <div className="text-4xl font-bold text-green-600 mb-2">100%</div>
-              <div className="text-sm text-gray-600">项目完成率</div>
-            </div>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map(project => <div key={project.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+              <div className="relative h-48 overflow-hidden">
+                <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+              
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  {project.title}
+                </h3>
+                <p className="text-gray-600 mb-4 line-clamp-3">
+                  {project.description}
+                </p>
+                
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.tags.map(tag => <span key={tag} className="px-3 py-1 bg-blue-100 text-blue-600 text-sm rounded-full">
+                      {tag}
+                    </span>)}
+                </div>
+                
+                <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                  <div className="flex items-center">
+                    <Calendar size={14} className="mr-1" />
+                    {project.date}
+                  </div>
+                  <div className="flex items-center">
+                    <Users size={14} className="mr-1" />
+                    {project.team}
+                  </div>
+                </div>
+                
+                <div className="flex space-x-3">
+                  <a href={project.github} className="flex-1 text-center px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-300 flex items-center justify-center">
+                    <Github size={16} className="mr-2" />
+                    源码
+                  </a>
+                  <a href={project.demo} className="flex-1 text-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center">
+                    <ExternalLink size={16} className="mr-2" />
+                    演示
+                  </a>
+                </div>
+              </div>
+            </div>)}
         </div>
       </div>
     </section>;
