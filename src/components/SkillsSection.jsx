@@ -1,7 +1,7 @@
 // @ts-ignore;
 import React from 'react';
 // @ts-ignore;
-import { BookOpen, Monitor, Wrench, Languages, Palette, Brain, Code, Cpu, GitBranch, Circle, CheckCircle2, Lock, User } from 'lucide-react';
+import { BookOpen, Monitor, Wrench, Languages, Palette, Brain, Code, Cpu, GitBranch, Circle, CheckCircle2, Lock, User, Star } from 'lucide-react';
 
 export function SkillsSection() {
   const skillTreeData = {
@@ -85,7 +85,8 @@ export function SkillsSection() {
           border: 'border-blue-300',
           line: 'stroke-blue-400',
           node: 'bg-blue-500',
-          hover: 'hover:bg-blue-200'
+          hover: 'hover:bg-blue-200',
+          gradient: 'from-blue-400 to-blue-600'
         };
       case 'green':
         return {
@@ -94,7 +95,8 @@ export function SkillsSection() {
           border: 'border-green-300',
           line: 'stroke-green-400',
           node: 'bg-green-500',
-          hover: 'hover:bg-green-200'
+          hover: 'hover:bg-green-200',
+          gradient: 'from-green-400 to-green-600'
         };
       case 'purple':
         return {
@@ -103,7 +105,8 @@ export function SkillsSection() {
           border: 'border-purple-300',
           line: 'stroke-purple-400',
           node: 'bg-purple-500',
-          hover: 'hover:bg-purple-200'
+          hover: 'hover:bg-purple-200',
+          gradient: 'from-purple-400 to-purple-600'
         };
       case 'indigo':
         return {
@@ -112,7 +115,8 @@ export function SkillsSection() {
           border: 'border-indigo-300',
           line: 'stroke-indigo-400',
           node: 'bg-indigo-500',
-          hover: 'hover:bg-indigo-200'
+          hover: 'hover:bg-indigo-200',
+          gradient: 'from-indigo-400 to-indigo-600'
         };
       default:
         return {
@@ -121,28 +125,39 @@ export function SkillsSection() {
           border: 'border-gray-300',
           line: 'stroke-gray-400',
           node: 'bg-gray-500',
-          hover: 'hover:bg-gray-200'
+          hover: 'hover:bg-gray-200',
+          gradient: 'from-gray-400 to-gray-600'
         };
     }
   };
   const getProgressColor = level => {
-    if (level >= 85) return 'bg-green-500';
-    if (level >= 75) return 'bg-blue-500';
-    if (level >= 65) return 'bg-yellow-500';
-    return 'bg-gray-500';
+    if (level >= 85) return 'bg-gradient-to-r from-green-400 to-green-600';
+    if (level >= 75) return 'bg-gradient-to-r from-blue-400 to-blue-600';
+    if (level >= 65) return 'bg-gradient-to-r from-yellow-400 to-yellow-600';
+    return 'bg-gradient-to-r from-gray-400 to-gray-600';
   };
   const CenterNode = () => {
     const colors = getBranchColor(skillTreeData.center.color);
     const CenterIcon = skillTreeData.center.icon;
     return <div className="relative z-20">
-        <div className={`w-32 h-32 ${colors.bg} ${colors.border} border-4 rounded-full flex flex-col items-center justify-center shadow-2xl hover:scale-105 transition-transform duration-300`}>
-          <CenterIcon size={32} className={colors.text + ' mb-2'} />
-          <div className={`text-sm font-bold ${colors.text} text-center`}>
-            {skillTreeData.center.name}
+        <div className={`w-36 h-36 bg-gradient-to-br ${colors.gradient} rounded-full flex flex-col items-center justify-center shadow-2xl hover:scale-105 transition-all duration-300 border-4 border-white`}>
+          <div className="w-32 h-32 bg-white rounded-full flex flex-col items-center justify-center">
+            <CenterIcon size={36} className={colors.text + ' mb-2'} />
+            <div className={`text-sm font-bold ${colors.text} text-center`}>
+              {skillTreeData.center.name}
+            </div>
+            <div className={`text-xs ${colors.text} opacity-75`}>
+              {skillTreeData.center.title}
+            </div>
           </div>
-          <div className={`text-xs ${colors.text} opacity-75`}>
-            {skillTreeData.center.title}
-          </div>
+        </div>
+        
+        {/* 装饰性星星 */}
+        <div className="absolute -top-2 -right-2">
+          <Star size={16} className="text-yellow-400 fill-yellow-400" />
+        </div>
+        <div className="absolute -bottom-2 -left-2">
+          <Star size={16} className="text-yellow-400 fill-yellow-400" />
         </div>
       </div>;
   };
@@ -155,27 +170,38 @@ export function SkillsSection() {
     const getPositionClasses = () => {
       switch (branch.position) {
         case 'top':
-          return 'absolute -top-24 left-1/2 transform -translate-x-1/2';
+          return 'absolute -top-32 left-1/2 transform -translate-x-1/2';
         case 'left':
-          return 'absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-32';
+          return 'absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-40';
         case 'right':
-          return 'absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-32';
+          return 'absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-40';
         default:
           return 'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2';
       }
     };
     return <div className={getPositionClasses()}>
         <div className={`relative group cursor-pointer`}>
-          <div className={`w-24 h-24 ${colors.bg} ${colors.border} border-2 rounded-full flex flex-col items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 ${colors.hover}`}>
-            <BranchIcon size={20} className={colors.text + ' mb-1'} />
-            <div className={`text-xs font-bold ${colors.text} text-center px-1`}>
-              {branch.name}
+          <div className={`w-28 h-28 bg-gradient-to-br ${colors.gradient} rounded-full flex flex-col items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-3 border-white`}>
+            <div className="w-24 h-24 bg-white rounded-full flex flex-col items-center justify-center">
+              <BranchIcon size={24} className={colors.text + ' mb-1'} />
+              <div className={`text-xs font-bold ${colors.text} text-center px-1`}>
+                {branch.name}
+              </div>
+              <div className={`text-xs ${colors.text} opacity-60`}>
+                {branch.skills.length} 项
+              </div>
             </div>
           </div>
           
-          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-32 p-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-30">
-            <div className="font-semibold mb-1">{branch.name}</div>
-            <div className="text-center">{branch.skills.length} 项技能</div>
+          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-36 p-3 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-30">
+            <div className="font-semibold mb-2">{branch.name}</div>
+            <div className="text-center mb-2">{branch.skills.length} 项技能</div>
+            <div className="space-y-1">
+              {branch.skills.map(skill => <div key={skill.name} className="flex items-center justify-between">
+                  <span className="text-xs">{skill.name}</span>
+                  <span className="text-xs font-bold">{skill.level}%</span>
+                </div>)}
+            </div>
             <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900" />
           </div>
         </div>
@@ -183,16 +209,23 @@ export function SkillsSection() {
   };
   const SkillLeaf = ({
     skill,
-    branchColor,
+    branch,
     index,
     total
   }) => {
-    const colors = getBranchColor(branchColor);
+    const colors = getBranchColor(branch.color);
     const getLeafPosition = () => {
-      const angleStep = 30;
-      const startAngle = -15;
-      const angle = startAngle + index * angleStep;
-      const distance = 120;
+      let angle, distance;
+      if (branch.position === 'top') {
+        angle = -30 + index * 20;
+        distance = 100;
+      } else if (branch.position === 'left') {
+        angle = 150 + index * 15;
+        distance = 120;
+      } else if (branch.position === 'right') {
+        angle = -30 + index * 15;
+        distance = 120;
+      }
       const x = Math.cos(angle * Math.PI / 180) * distance;
       const y = Math.sin(angle * Math.PI / 180) * distance;
       return {
@@ -206,28 +239,34 @@ export function SkillsSection() {
       transform: position.transform,
       left: '50%',
       top: '50%',
-      marginLeft: '-40px',
-      marginTop: '-30px'
+      marginLeft: '-45px',
+      marginTop: '-25px',
+      zIndex: 15
     }}>
         <div className="relative group cursor-pointer">
-          <div className={`w-20 h-16 ${colors.bg} ${colors.border} border rounded-lg flex flex-col items-center justify-center shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 ${colors.hover}`}>
-            <div className={`text-xs font-bold ${colors.text} text-center px-1`}>
-              {skill.name.length > 8 ? skill.name.substring(0, 6) + '...' : skill.name}
+          <div className={`w-24 h-20 bg-white ${colors.border} border-2 rounded-xl flex flex-col items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1`}>
+            <div className={`text-xs font-bold ${colors.text} text-center px-1 mb-1`}>
+              {skill.name.length > 8 ? skill.name.substring(0, 7) + '..' : skill.name}
             </div>
-            <div className="text-xs text-gray-600 mt-1">
+            <div className="w-16 bg-gray-200 rounded-full h-1.5 mb-1">
+              <div className={`${getProgressColor(skill.level)} h-1.5 rounded-full transition-all duration-500`} style={{
+              width: `${skill.level}%`
+            }} />
+            </div>
+            <div className="text-xs font-bold text-gray-600">
               {skill.level}%
             </div>
           </div>
           
-          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-36 p-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-30">
-            <div className="font-semibold mb-1">{skill.name}</div>
-            <div className="mb-1">{skill.description}</div>
-            <div className="flex items-center justify-between">
-              <span>熟练度: {skill.level}%</span>
-              {skill.unlocked ? <CheckCircle2 size={10} /> : <Lock size={10} />}
+          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-40 p-3 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-30">
+            <div className="font-semibold mb-2 text-sm">{skill.name}</div>
+            <div className="mb-2 text-xs">{skill.description}</div>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs">熟练度: {skill.level}%</span>
+              {skill.unlocked ? <CheckCircle2 size={12} className="text-green-400" /> : <Lock size={12} className="text-gray-400" />}
             </div>
-            <div className="w-full bg-gray-600 rounded-full h-1 mt-1">
-              <div className={`${getProgressColor(skill.level)} h-1 rounded-full`} style={{
+            <div className="w-full bg-gray-600 rounded-full h-2">
+              <div className={`${getProgressColor(skill.level)} h-2 rounded-full transition-all duration-500`} style={{
               width: `${skill.level}%`
             }} />
             </div>
@@ -236,35 +275,31 @@ export function SkillsSection() {
         </div>
       </div>;
   };
-  const ConnectionLine = ({
-    from,
-    to,
-    color
-  }) => {
-    const colors = getBranchColor(color);
-    return <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{
-      zIndex: 1
-    }}>
-        <line x1={from.x} y1={from.y} x2={to.x} y2={to.y} stroke="currentColor" strokeWidth="2" className={colors.line + ' opacity-50'} />
-      </svg>;
-  };
-  return <section id="skills" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+  return <section id="skills" className="py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4">
             技能树
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            从中心发散的技能树展示我的技术能力体系
+            从中心发散的技能树，全面展示我的技术能力体系
           </p>
         </div>
 
-        <div className="relative bg-white rounded-2xl shadow-xl p-8 mb-12" style={{
-        minHeight: '600px'
+        <div className="relative bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-8 mb-12 border border-white/50" style={{
+        minHeight: '700px'
       }}>
           <div className="relative w-full h-full flex items-center justify-center" style={{
-          minHeight: '500px'
+          minHeight: '600px'
         }}>
+            {/* 背景装饰 */}
+            <div className="absolute inset-0 overflow-hidden rounded-3xl">
+              <div className="absolute top-10 left-10 w-20 h-20 bg-blue-200 rounded-full opacity-20 blur-xl" />
+              <div className="absolute top-20 right-20 w-32 h-32 bg-purple-200 rounded-full opacity-20 blur-xl" />
+              <div className="absolute bottom-20 left-20 w-24 h-24 bg-green-200 rounded-full opacity-20 blur-xl" />
+              <div className="absolute bottom-10 right-10 w-16 h-16 bg-indigo-200 rounded-full opacity-20 blur-xl" />
+            </div>
+
             {/* 连接线 */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{
             zIndex: 1
@@ -276,16 +311,16 @@ export function SkillsSection() {
                   case 'top':
                     return {
                       x: '50%',
-                      y: '15%'
+                      y: '12%'
                     };
                   case 'left':
                     return {
-                      x: '15%',
+                      x: '12%',
                       y: '50%'
                     };
                   case 'right':
                     return {
-                      x: '85%',
+                      x: '88%',
                       y: '50%'
                     };
                   default:
@@ -297,7 +332,10 @@ export function SkillsSection() {
               };
               const branchPos = getBranchPosition();
               const colors = getBranchColor(branch.color);
-              return <line key={branch.name} x1="50%" y1="50%" x2={branchPos.x} y2={branchPos.y} stroke="currentColor" strokeWidth="3" className={colors.line + ' opacity-60'} />;
+              return <g key={branch.name}>
+                  <line x1="50%" y1="50%" x2={branchPos.x} y2={branchPos.y} stroke="currentColor" strokeWidth="4" className={colors.line + ' opacity-60'} strokeLinecap="round" />
+                  <circle cx={branchPos.x} cy={branchPos.y} r="6" fill="currentColor" className={colors.line + ' opacity-80'} />
+                </g>;
             })}
               
               {/* 分支到技能的连接线 */}
@@ -307,16 +345,16 @@ export function SkillsSection() {
                   case 'top':
                     return {
                       x: '50%',
-                      y: '15%'
+                      y: '12%'
                     };
                   case 'left':
                     return {
-                      x: '15%',
+                      x: '12%',
                       y: '50%'
                     };
                   case 'right':
                     return {
-                      x: '85%',
+                      x: '88%',
                       y: '50%'
                     };
                   default:
@@ -329,13 +367,23 @@ export function SkillsSection() {
               const branchPos = getBranchPosition();
               const colors = getBranchColor(branch.color);
               return branch.skills.map((skill, index) => {
-                const angleStep = branch.position === 'top' ? 25 : 20;
-                const startAngle = branch.position === 'top' ? -25 : -10;
-                const angle = startAngle + index * angleStep;
-                const distance = 80;
+                let angle, distance;
+                if (branch.position === 'top') {
+                  angle = -30 + index * 20;
+                  distance = 100;
+                } else if (branch.position === 'left') {
+                  angle = 150 + index * 15;
+                  distance = 120;
+                } else if (branch.position === 'right') {
+                  angle = -30 + index * 15;
+                  distance = 120;
+                }
                 const x = parseFloat(branchPos.x) + Math.cos(angle * Math.PI / 180) * distance / 5;
                 const y = parseFloat(branchPos.y) + Math.sin(angle * Math.PI / 180) * distance / 5;
-                return <line key={`${branch.name}-${skill.name}`} x1={branchPos.x} y1={branchPos.y} x2={`${x}%`} y2={`${y}%`} stroke="currentColor" strokeWidth="1.5" className={colors.line + ' opacity-40'} />;
+                return <g key={`${branch.name}-${skill.name}`}>
+                    <line x1={branchPos.x} y1={branchPos.y} x2={`${x}%`} y2={`${y}%`} stroke="currentColor" strokeWidth="2" className={colors.line + ' opacity-40'} strokeLinecap="round" />
+                    <circle cx={`${x}%`} cy={`${y}%`} r="4" fill="currentColor" className={colors.line + ' opacity-60'} />
+                  </g>;
               });
             })}
             </svg>
@@ -347,108 +395,69 @@ export function SkillsSection() {
             {skillTreeData.branches.map((branch, index) => <BranchNode key={branch.name} branch={branch} index={index} />)}
 
             {/* 技能叶子节点 */}
-            {skillTreeData.branches.map(branch => {
-            const getBranchPosition = () => {
-              switch (branch.position) {
-                case 'top':
-                  return {
-                    x: '50%',
-                    y: '15%'
-                  };
-                case 'left':
-                  return {
-                    x: '15%',
-                    y: '50%'
-                  };
-                case 'right':
-                  return {
-                    x: '85%',
-                    y: '50%'
-                  };
-                default:
-                  return {
-                    x: '50%',
-                    y: '50%'
-                  };
-              }
-            };
-            const branchPos = getBranchPosition();
-            return branch.skills.map((skill, index) => {
-              const angleStep = branch.position === 'top' ? 25 : 20;
-              const startAngle = branch.position === 'top' ? -25 : -10;
-              const angle = startAngle + index * angleStep;
-              const distance = 80;
-              const x = parseFloat(branchPos.x) + Math.cos(angle * Math.PI / 180) * distance / 5;
-              const y = parseFloat(branchPos.y) + Math.sin(angle * Math.PI / 180) * distance / 5;
-              return <div key={`${branch.name}-${skill.name}`} className="absolute" style={{
-                left: `${x}%`,
-                top: `${y}%`,
-                transform: 'translate(-50%, -50%)',
-                zIndex: 10
-              }}>
-                    <div className="relative group cursor-pointer">
-                      <div className={`w-16 h-12 ${getBranchColor(branch.color).bg} ${getBranchColor(branch.color).border} border rounded flex flex-col items-center justify-center shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 ${getBranchColor(branch.color).hover}`}>
-                        <div className={`text-xs font-bold ${getBranchColor(branch.color).text} text-center px-1`}>
-                          {skill.name.length > 6 ? skill.name.substring(0, 5) + '..' : skill.name}
-                        </div>
-                        <div className="text-xs text-gray-600">
-                          {skill.level}%
-                        </div>
-                      </div>
-                      
-                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-32 p-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-30">
-                        <div className="font-semibold mb-1">{skill.name}</div>
-                        <div className="mb-1">{skill.description}</div>
-                        <div className="flex items-center justify-between">
-                          <span>熟练度: {skill.level}%</span>
-                          {skill.unlocked ? <CheckCircle2 size={10} /> : <Lock size={10} />}
-                        </div>
-                        <div className="w-full bg-gray-600 rounded-full h-1 mt-1">
-                          <div className={`${getProgressColor(skill.level)} h-1 rounded-full`} style={{
-                        width: `${skill.level}%`
-                      }} />
-                        </div>
-                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900" />
-                      </div>
-                    </div>
-                  </div>;
-            });
-          })}
+            {skillTreeData.branches.map(branch => branch.skills.map((skill, index) => <SkillLeaf key={`${branch.name}-${skill.name}`} skill={skill} branch={branch} index={index} total={branch.skills.length} />))}
           </div>
         </div>
 
-        {/* 统计信息 */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-200">
-            <div className="text-2xl font-bold text-indigo-600">
-              {skillTreeData.branches.length}
+        {/* 统计信息卡片 */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div className="group relative overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
+            <div className="absolute inset-0 bg-gradient-to-br from-indigo-400 to-purple-600 opacity-5 group-hover:opacity-10 transition-opacity duration-300" />
+            <div className="relative p-6 text-center">
+              <div className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
+                {skillTreeData.branches.length}
+              </div>
+              <div className="text-sm text-gray-600 font-medium">技能分支</div>
+              <div className="mt-2 flex justify-center">
+                <GitBranch size={16} className="text-indigo-500" />
+              </div>
             </div>
-            <div className="text-sm text-gray-600">技能分支</div>
           </div>
-          <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-200">
-            <div className="text-2xl font-bold text-green-600">
-              {skillTreeData.branches.reduce((total, branch) => total + branch.skills.filter(s => s.unlocked).length, 0)}
+          
+          <div className="group relative overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
+            <div className="absolute inset-0 bg-gradient-to-br from-green-400 to-emerald-600 opacity-5 group-hover:opacity-10 transition-opacity duration-300" />
+            <div className="relative p-6 text-center">
+              <div className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-2">
+                {skillTreeData.branches.reduce((total, branch) => total + branch.skills.filter(s => s.unlocked).length, 0)}
+              </div>
+              <div className="text-sm text-gray-600 font-medium">已掌握技能</div>
+              <div className="mt-2 flex justify-center">
+                <CheckCircle2 size={16} className="text-green-500" />
+              </div>
             </div>
-            <div className="text-sm text-gray-600">已掌握技能</div>
           </div>
-          <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-200">
-            <div className="text-2xl font-bold text-blue-600">
-              {Math.round(skillTreeData.branches.reduce((total, branch) => total + branch.skills.reduce((sum, skill) => sum + skill.level, 0), 0) / skillTreeData.branches.reduce((total, branch) => total + branch.skills.length, 0))}%
+          
+          <div className="group relative overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-cyan-600 opacity-5 group-hover:opacity-10 transition-opacity duration-300" />
+            <div className="relative p-6 text-center">
+              <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">
+                {Math.round(skillTreeData.branches.reduce((total, branch) => total + branch.skills.reduce((sum, skill) => sum + skill.level, 0), 0) / skillTreeData.branches.reduce((total, branch) => total + branch.skills.length, 0))}%
+              </div>
+              <div className="text-sm text-gray-600 font-medium">平均熟练度</div>
+              <div className="mt-2 flex justify-center">
+                <Star size={16} className="text-blue-500" />
+              </div>
             </div>
-            <div className="text-sm text-gray-600">平均熟练度</div>
           </div>
-          <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-200">
-            <div className="text-2xl font-bold text-purple-600">
-              {Math.max(...skillTreeData.branches.map(branch => Math.max(...branch.skills.map(skill => skill.level))))}%
+          
+          <div className="group relative overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-400 to-pink-600 opacity-5 group-hover:opacity-10 transition-opacity duration-300" />
+            <div className="relative p-6 text-center">
+              <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
+                {Math.max(...skillTreeData.branches.map(branch => Math.max(...branch.skills.map(skill => skill.level))))}%
+              </div>
+              <div className="text-sm text-gray-600 font-medium">最高熟练度</div>
+              <div className="mt-2 flex justify-center">
+                <Star size={16} className="text-purple-500" />
+              </div>
             </div>
-            <div className="text-sm text-gray-600">最高熟练度</div>
           </div>
         </div>
 
-        <div className="mt-8 text-center">
-          <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg border border-indigo-200">
-            <GitBranch size={20} className="mr-2 text-indigo-600" />
-            <span className="text-indigo-800 font-medium">
+        <div className="text-center">
+          <div className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 rounded-2xl border border-indigo-200 shadow-lg">
+            <GitBranch size={24} className="mr-3 text-indigo-600" />
+            <span className="text-indigo-800 font-medium text-lg">
               从中心发散的技能树，展示全面的技术能力体系
             </span>
           </div>
