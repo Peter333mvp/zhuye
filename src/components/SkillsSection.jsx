@@ -179,7 +179,7 @@ export function SkillsSection() {
     // 使用随机颜色
     return bubbleColors[skill.id] || 'bg-blue-300 bg-opacity-40 border-blue-400 text-blue-900 backdrop-blur-sm';
   };
-  return <section id="skills" className="py-20 bg-white">
+  return <section id="skills" className="py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
