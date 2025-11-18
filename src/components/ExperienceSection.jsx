@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 // @ts-ignore;
 import { GraduationCap, Calendar, MapPin, Award, Trophy, Briefcase, Users, BookOpen, Target, Code, Calculator, Rocket, ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react';
-
 export function ExperienceSection() {
   const [activeTab, setActiveTab] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(false);
@@ -11,88 +10,88 @@ export function ExperienceSection() {
     college: '机电工程与自动化学院',
     major: '机械电子工程',
     tags: ['211工程', '双一流建设高校', '双一流优势学科'],
-    courses: ['高等数学', 'C语言', '机械设计', '机械原理', '工程力学', '材料力学', '自动控制原理', '数字电路技术', '电子技术基础', '机器人工学', '深度学习与人工智能']
-  };
+    courses: ['高等数学', 'C语言', '机械设计', '机械原理', '工程力学', '材料力学', '自动控制原理', '数字电路技术', '电子技术基础', '机器人工学', '深度学习与人工智能'] };
+
   const competitions = [{
     title: '中国大学生机械工程创新创意大赛',
     award: '全国三等奖、华东赛区一等奖',
     year: '2025',
     content: '针对太空特殊环境航天器维护和星体探索等多任务应用场景，提出并实现了一种适应太空微重力等特殊环境要求的六足机器人系统设计。通过融合机械设计、运动学建模、智能控制与仿真验证等多学科技术，研究了面向太空极端环境多任务应用场景仿生机器人运动稳定性、环境适应性和系统可靠性等关键技术问题。',
     responsibilities: ['机械系统设计与优化', '运动学建模与仿真', '样机制作与性能测试', '太空环境适应性实验'],
-    icon: <Rocket className="text-purple-500" />
-  }, {
+    icon: <Rocket className="text-purple-500" /> },
+  {
     title: '中国机器人大赛暨ROBOTCUP世界杯中国赛',
     award: '亚军（国赛二等奖）',
     year: '2024',
     content: '参与篮球机器人组比赛，机器人具备自动拾球、路径规划、多任务并行处理、定点投篮等功能',
     responsibilities: ['机械结构设计', '零件加工', '现场改装'],
-    icon: <Trophy className="text-yellow-500" />
-  }, {
+    icon: <Trophy className="text-yellow-500" /> },
+  {
     title: '美国大学生数学建模竞赛（MCM）',
     award: 'M奖（国赛二等奖）',
     year: '2024',
     content: '针对五大湖水资源调控问题，建立模型平衡水位与利益相关者需求，设计算法并分析敏感性',
     responsibilities: ['模型推导与建立', 'MATLAB 求解与检验', '论文撰写'],
-    icon: <Calculator className="text-green-500" />
-  }];
+    icon: <Calculator className="text-green-500" /> }];
+
   const practices = [{
     title: '上海大学学生创新创业指导中心',
     position: '中心主任',
     period: '2021.09 - 2024.06',
     description: '负责组织创新创业活动与项目指导',
-    icon: <Users className="text-purple-500" />
-  }, {
+    icon: <Users className="text-purple-500" /> },
+  {
     title: '全国第十六届精密工程学术研讨会暨青年学者创新论坛',
     position: '志愿者负责人',
     period: '2023.06',
     description: '协调志愿者团队，保障会议顺利进行',
-    icon: <Briefcase className="text-indigo-500" />
-  }, {
+    icon: <Briefcase className="text-indigo-500" /> },
+  {
     title: '上海大学第十三期青年马克思主义者工程',
     position: '学员',
     period: '2023.03 - 2024.03',
     description: '青年马克思主义者培养工程学员',
-    icon: <BookOpen className="text-red-500" />
-  }, {
+    icon: <BookOpen className="text-red-500" /> },
+  {
     title: '上海大学第十七期人才学院',
     position: '学员',
     period: '2023.04 - 2024.04',
     description: '人才学院培养计划学员',
-    icon: <Target className="text-orange-500" />
-  }, {
+    icon: <Target className="text-orange-500" /> },
+  {
     title: '沃顿青年领导力项目',
     position: '学员',
     period: '2024.03 - 2024.06',
     description: '沃顿商学院青年领导力培养项目',
-    icon: <Award className="text-teal-500" />
-  }];
+    icon: <Award className="text-teal-500" /> }];
+
   const tabs = [{
     id: 0,
     name: '教育背景',
-    icon: <GraduationCap size={20} />
-  }, {
+    icon: <GraduationCap size={20} /> },
+  {
     id: 1,
     name: '竞赛项目',
-    icon: <Trophy size={20} />
-  }, {
+    icon: <Trophy size={20} /> },
+  {
     id: 2,
     name: '实践经历',
-    icon: <Briefcase size={20} />
-  }];
+    icon: <Briefcase size={20} /> }];
+
 
   // 自动播放功能
-  useEffect(() => {
-    if (!isAutoPlay) return;
+  // 自动播放功能
+  useEffect(() => {if (!isAutoPlay) return;
     const interval = setInterval(() => {
-      setActiveTab(prev => (prev + 1) % 3);
+      setActiveTab((prev) => (prev + 1) % 3);
     }, 4000); // 每4秒切换一次
-
+    // 每4秒切换一次
     return () => clearInterval(interval);
   }, [isAutoPlay]);
   const TimelineItem = ({
     item,
-    isLast = false
-  }) => {
+    isLast = false }) =>
+  {
     return <div className="relative flex items-start group">
         {/* 时间线节点 */}
         <div className="flex flex-col items-center mr-6">
@@ -206,15 +205,15 @@ export function ExperienceSection() {
             </div>
           </div>;
       default:
-        return null;
-    }
+        return null;}
+
   };
   return <section id="experience" className="py-20 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4">
-            经历与成就
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text mb-4 text-gray-900">我的经历
+
+        </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             教育背景、竞赛项目与实践经历的全面展示
           </p>
@@ -229,20 +228,20 @@ export function ExperienceSection() {
             </button>
 
             {/* 左切换按钮 */}
-            <button onClick={() => setActiveTab(prev => (prev - 1 + 3) % 3)} className="p-2 rounded-full hover:bg-indigo-100 transition-colors duration-200" title="上一个">
+            <button onClick={() => setActiveTab((prev) => (prev - 1 + 3) % 3)} className="p-2 rounded-full hover:bg-indigo-100 transition-colors duration-200" title="上一个">
               <ChevronLeft size={18} className="text-indigo-600" />
             </button>
 
             {/* Tab按钮 */}
             <div className="flex space-x-1">
-              {tabs.map(tab => <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`px-4 py-2 rounded-full flex items-center space-x-2 transition-all duration-300 ${activeTab === tab.id ? 'bg-indigo-600 text-white shadow-md' : 'text-gray-600 hover:bg-indigo-50 hover:text-indigo-600'}`}>
+              {tabs.map((tab) => <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`px-4 py-2 rounded-full flex items-center space-x-2 transition-all duration-300 ${activeTab === tab.id ? 'bg-indigo-600 text-white shadow-md' : 'text-gray-600 hover:bg-indigo-50 hover:text-indigo-600'}`}>
                   {tab.icon}
                   <span className="text-sm font-medium">{tab.name}</span>
                 </button>)}
             </div>
 
             {/* 右切换按钮 */}
-            <button onClick={() => setActiveTab(prev => (prev + 1) % 3)} className="p-2 rounded-full hover:bg-indigo-100 transition-colors duration-200" title="下一个">
+            <button onClick={() => setActiveTab((prev) => (prev + 1) % 3)} className="p-2 rounded-full hover:bg-indigo-100 transition-colors duration-200" title="下一个">
               <ChevronRight size={18} className="text-indigo-600" />
             </button>
           </div>
@@ -257,7 +256,7 @@ export function ExperienceSection() {
 
         {/* 进度指示器 */}
         <div className="flex justify-center mt-6 space-x-2">
-          {tabs.map(tab => <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`transition-all duration-300 ${activeTab === tab.id ? 'w-8 h-2 bg-indigo-600 rounded-full' : 'w-2 h-2 bg-gray-300 rounded-full hover:bg-gray-400'}`} />)}
+          {tabs.map((tab) => <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`transition-all duration-300 ${activeTab === tab.id ? 'w-8 h-2 bg-indigo-600 rounded-full' : 'w-2 h-2 bg-gray-300 rounded-full hover:bg-gray-400'}`} />)}
         </div>
 
         {/* 统计信息 - 进一步增大卡片尺寸 */}
