@@ -6,56 +6,47 @@ export function SkillsSection() {
     id: 1,
     name: '英语CET-4',
     description: '大学英语四级证书',
-    unlocked: true,
-    level: 1
+    unlocked: true
   }, {
     id: 2,
     name: 'Office系列',
     description: 'Word, Excel, PowerPoint等办公软件',
-    unlocked: true,
-    level: 2
+    unlocked: true
   }, {
     id: 3,
     name: 'PS/PR',
     description: 'Photoshop和Premiere Pro图像视频处理',
-    unlocked: true,
-    level: 1
+    unlocked: true
   }, {
     id: 4,
     name: 'AI大模型应用',
     description: 'ChatGPT, Claude等AI工具应用',
-    unlocked: false,
-    level: 0
+    unlocked: false
   }, {
     id: 5,
     name: 'SolidWorks',
     description: '三维机械设计软件',
-    unlocked: true,
-    level: 3
+    unlocked: true
   }, {
     id: 6,
     name: 'AutoCAD',
     description: '二维制图软件',
-    unlocked: true,
-    level: 2
+    unlocked: true
   }, {
     id: 7,
     name: 'CATIA',
     description: '高端CAD/CAE/CAM软件',
-    unlocked: false,
-    level: 0
+    unlocked: false
   }, {
     id: 8,
     name: 'MATLAB',
     description: '数值计算与仿真软件',
-    unlocked: true,
-    level: 1
+    unlocked: true
   }, {
     id: 9,
     name: 'Visual Studio',
     description: '集成开发环境',
-    unlocked: false,
-    level: 0
+    unlocked: false
   }]);
   const [hoveredSkill, setHoveredSkill] = useState(null);
   const [bubblePositions, setBubblePositions] = useState({});
@@ -149,8 +140,8 @@ export function SkillsSection() {
     if (!skill.unlocked) {
       return 'bg-gray-300 bg-opacity-30 border-gray-400 text-gray-600 backdrop-blur-sm';
     }
-    const levelColors = ['bg-green-300 bg-opacity-40 border-green-400 text-green-900 backdrop-blur-sm', 'bg-blue-300 bg-opacity-40 border-blue-400 text-blue-900 backdrop-blur-sm', 'bg-purple-300 bg-opacity-40 border-purple-400 text-purple-900 backdrop-blur-sm', 'bg-orange-300 bg-opacity-40 border-orange-400 text-orange-900 backdrop-blur-sm', 'bg-red-300 bg-opacity-40 border-red-400 text-red-900 backdrop-blur-sm'];
-    return levelColors[skill.level - 1] || levelColors[0];
+    // 统一使用蓝色系，不再根据等级区分颜色
+    return 'bg-blue-300 bg-opacity-40 border-blue-400 text-blue-900 backdrop-blur-sm';
   };
   return <section id="skills" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -205,7 +196,7 @@ export function SkillsSection() {
                       <div className="font-bold mb-2">{skill.name}</div>
                       <div className="mb-2">{skill.description}</div>
                       <div className="text-yellow-300">
-                        {skill.unlocked ? `等级 ${skill.level}/5` : '未解锁'}
+                        {skill.unlocked ? '已掌握' : '未解锁'}
                       </div>
                       <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1">
                         <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
