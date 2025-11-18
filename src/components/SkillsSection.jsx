@@ -1,100 +1,129 @@
 // @ts-ignore;
 import React from 'react';
 // @ts-ignore;
-import { BookOpen, Monitor, Wrench, Languages, Palette, Brain, Code, Cpu, GitBranch, Circle, CheckCircle2, Lock } from 'lucide-react';
+import { BookOpen, Monitor, Wrench, Languages, Palette, Brain, Code, Cpu, GitBranch, Circle, CheckCircle2, Lock, User } from 'lucide-react';
 
 export function SkillsSection() {
-  const skillTree = {
-    language: {
-      name: '语言能力',
+  const skillTreeData = {
+    center: {
+      name: 'Peter Zhao',
+      title: '技能体系',
+      icon: User,
+      color: 'indigo'
+    },
+    branches: [{
+      name: '语言技能',
       icon: Languages,
       color: 'blue',
+      position: 'top',
       skills: [{
-        name: '英语',
+        name: '英语CET-4',
         level: 75,
-        description: 'CET-4，具备良好的英语阅读和写作能力',
+        description: '具备良好的英语阅读和写作能力',
         unlocked: true
       }]
-    },
-    technical: {
-      name: '技术技能',
-      icon: Cpu,
-      color: 'purple',
-      branches: [{
-        name: '工程设计软件',
-        icon: Wrench,
-        skills: [{
-          name: 'SolidWorks',
-          level: 85,
-          description: '精通三维建模和装配设计',
-          unlocked: true,
-          prerequisites: []
-        }, {
-          name: 'AutoCAD',
-          level: 80,
-          description: '熟练掌握二维制图和基础三维设计',
-          unlocked: true,
-          prerequisites: []
-        }, {
-          name: 'CATIA',
-          level: 75,
-          description: '掌握复杂曲面设计和装配管理',
-          unlocked: true,
-          prerequisites: ['SolidWorks']
-        }]
+    }, {
+      name: '办公技能',
+      icon: Monitor,
+      color: 'green',
+      position: 'left',
+      skills: [{
+        name: 'Office系列',
+        level: 90,
+        description: '熟练使用Word、Excel、PowerPoint等办公软件',
+        unlocked: true
       }, {
-        name: '编程与开发',
-        icon: Code,
-        skills: [{
-          name: 'MATLAB',
-          level: 85,
-          description: '擅长数学建模、仿真和数据分析',
-          unlocked: true,
-          prerequisites: []
-        }, {
-          name: 'Visual Studio',
-          level: 80,
-          description: '熟悉C++和C#开发环境',
-          unlocked: true,
-          prerequisites: []
-        }]
+        name: 'PS/PR',
+        level: 70,
+        description: '掌握图像处理和视频剪辑基础',
+        unlocked: true
       }, {
-        name: '办公与创意软件',
-        icon: Monitor,
-        skills: [{
-          name: 'Office套件',
-          level: 90,
-          description: '熟练使用Word、Excel、PowerPoint等办公软件',
-          unlocked: true,
-          prerequisites: []
-        }, {
-          name: 'Photoshop',
-          level: 70,
-          description: '掌握图像处理和设计基础',
-          unlocked: true,
-          prerequisites: []
-        }, {
-          name: 'Premiere Pro',
-          level: 65,
-          description: '能够进行视频剪辑和后期制作',
-          unlocked: true,
-          prerequisites: ['Photoshop']
-        }, {
-          name: 'AI大模型应用',
-          level: 80,
-          description: '熟悉各类AI工具的应用和集成',
-          unlocked: true,
-          prerequisites: ['Office套件']
-        }]
+        name: 'AI大模型应用',
+        level: 80,
+        description: '熟悉各类AI工具的应用和集成',
+        unlocked: true
       }]
-    }
+    }, {
+      name: '技术技能',
+      icon: Wrench,
+      color: 'purple',
+      position: 'right',
+      skills: [{
+        name: 'SolidWorks',
+        level: 85,
+        description: '精通三维建模和装配设计',
+        unlocked: true
+      }, {
+        name: 'AutoCAD',
+        level: 80,
+        description: '熟练掌握二维制图和基础三维设计',
+        unlocked: true
+      }, {
+        name: 'CATIA',
+        level: 75,
+        description: '掌握复杂曲面设计和装配管理',
+        unlocked: true
+      }, {
+        name: 'MATLAB',
+        level: 85,
+        description: '擅长数学建模、仿真和数据分析',
+        unlocked: true
+      }, {
+        name: 'Visual Studio',
+        level: 80,
+        description: '熟悉C++和C#开发环境',
+        unlocked: true
+      }]
+    }]
   };
-  const getSkillNodeColor = (level, unlocked) => {
-    if (!unlocked) return 'bg-gray-200 border-gray-300';
-    if (level >= 85) return 'bg-green-100 border-green-400 text-green-800';
-    if (level >= 75) return 'bg-blue-100 border-blue-400 text-blue-800';
-    if (level >= 65) return 'bg-yellow-100 border-yellow-400 text-yellow-800';
-    return 'bg-gray-100 border-gray-400 text-gray-800';
+  const getBranchColor = color => {
+    switch (color) {
+      case 'blue':
+        return {
+          bg: 'bg-blue-100',
+          text: 'text-blue-800',
+          border: 'border-blue-300',
+          line: 'stroke-blue-400',
+          node: 'bg-blue-500',
+          hover: 'hover:bg-blue-200'
+        };
+      case 'green':
+        return {
+          bg: 'bg-green-100',
+          text: 'text-green-800',
+          border: 'border-green-300',
+          line: 'stroke-green-400',
+          node: 'bg-green-500',
+          hover: 'hover:bg-green-200'
+        };
+      case 'purple':
+        return {
+          bg: 'bg-purple-100',
+          text: 'text-purple-800',
+          border: 'border-purple-300',
+          line: 'stroke-purple-400',
+          node: 'bg-purple-500',
+          hover: 'hover:bg-purple-200'
+        };
+      case 'indigo':
+        return {
+          bg: 'bg-indigo-100',
+          text: 'text-indigo-800',
+          border: 'border-indigo-300',
+          line: 'stroke-indigo-400',
+          node: 'bg-indigo-500',
+          hover: 'hover:bg-indigo-200'
+        };
+      default:
+        return {
+          bg: 'bg-gray-100',
+          text: 'text-gray-800',
+          border: 'border-gray-300',
+          line: 'stroke-gray-400',
+          node: 'bg-gray-500',
+          hover: 'hover:bg-gray-200'
+        };
+    }
   };
   const getProgressColor = level => {
     if (level >= 85) return 'bg-green-500';
@@ -102,189 +131,326 @@ export function SkillsSection() {
     if (level >= 65) return 'bg-yellow-500';
     return 'bg-gray-500';
   };
-  const SkillNode = ({
-    skill,
-    isPrerequisite = false,
-    showConnection = false
+  const CenterNode = () => {
+    const colors = getBranchColor(skillTreeData.center.color);
+    const CenterIcon = skillTreeData.center.icon;
+    return <div className="relative z-20">
+        <div className={`w-32 h-32 ${colors.bg} ${colors.border} border-4 rounded-full flex flex-col items-center justify-center shadow-2xl hover:scale-105 transition-transform duration-300`}>
+          <CenterIcon size={32} className={colors.text + ' mb-2'} />
+          <div className={`text-sm font-bold ${colors.text} text-center`}>
+            {skillTreeData.center.name}
+          </div>
+          <div className={`text-xs ${colors.text} opacity-75`}>
+            {skillTreeData.center.title}
+          </div>
+        </div>
+      </div>;
+  };
+  const BranchNode = ({
+    branch,
+    index
   }) => {
-    const nodeColor = getSkillNodeColor(skill.level, skill.unlocked);
-    return <div className="relative">
-        {showConnection && <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-0.5 h-6 bg-gray-300" />}
-        
-        <div className={`relative group cursor-pointer transition-all duration-300 hover:scale-105 ${isPrerequisite ? 'scale-95 opacity-75' : ''}`}>
-          <div className={`w-20 h-20 rounded-full border-2 ${nodeColor} flex flex-col items-center justify-center mx-auto mb-2 shadow-md hover:shadow-lg transition-shadow duration-200`}>
-            {skill.unlocked ? <CheckCircle2 size={20} className="mb-1" /> : <Lock size={20} className="mb-1" />}
-            <div className="text-xs font-semibold text-center px-1">
-              {skill.name.length > 8 ? skill.name.substring(0, 6) + '...' : skill.name}
+    const colors = getBranchColor(branch.color);
+    const BranchIcon = branch.icon;
+    const getPositionClasses = () => {
+      switch (branch.position) {
+        case 'top':
+          return 'absolute -top-24 left-1/2 transform -translate-x-1/2';
+        case 'left':
+          return 'absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-32';
+        case 'right':
+          return 'absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-32';
+        default:
+          return 'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2';
+      }
+    };
+    return <div className={getPositionClasses()}>
+        <div className={`relative group cursor-pointer`}>
+          <div className={`w-24 h-24 ${colors.bg} ${colors.border} border-2 rounded-full flex flex-col items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 ${colors.hover}`}>
+            <BranchIcon size={20} className={colors.text + ' mb-1'} />
+            <div className={`text-xs font-bold ${colors.text} text-center px-1`}>
+              {branch.name}
             </div>
           </div>
           
-          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-48 p-3 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10">
+          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-32 p-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-30">
+            <div className="font-semibold mb-1">{branch.name}</div>
+            <div className="text-center">{branch.skills.length} 项技能</div>
+            <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900" />
+          </div>
+        </div>
+      </div>;
+  };
+  const SkillLeaf = ({
+    skill,
+    branchColor,
+    index,
+    total
+  }) => {
+    const colors = getBranchColor(branchColor);
+    const getLeafPosition = () => {
+      const angleStep = 30;
+      const startAngle = -15;
+      const angle = startAngle + index * angleStep;
+      const distance = 120;
+      const x = Math.cos(angle * Math.PI / 180) * distance;
+      const y = Math.sin(angle * Math.PI / 180) * distance;
+      return {
+        transform: `translate(${x}px, ${y}px)`,
+        x: x,
+        y: y
+      };
+    };
+    const position = getLeafPosition();
+    return <div className="absolute" style={{
+      transform: position.transform,
+      left: '50%',
+      top: '50%',
+      marginLeft: '-40px',
+      marginTop: '-30px'
+    }}>
+        <div className="relative group cursor-pointer">
+          <div className={`w-20 h-16 ${colors.bg} ${colors.border} border rounded-lg flex flex-col items-center justify-center shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 ${colors.hover}`}>
+            <div className={`text-xs font-bold ${colors.text} text-center px-1`}>
+              {skill.name.length > 8 ? skill.name.substring(0, 6) + '...' : skill.name}
+            </div>
+            <div className="text-xs text-gray-600 mt-1">
+              {skill.level}%
+            </div>
+          </div>
+          
+          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-36 p-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-30">
             <div className="font-semibold mb-1">{skill.name}</div>
             <div className="mb-1">{skill.description}</div>
             <div className="flex items-center justify-between">
               <span>熟练度: {skill.level}%</span>
-              {skill.unlocked ? <CheckCircle2 size={12} /> : <Lock size={12} />}
+              {skill.unlocked ? <CheckCircle2 size={10} /> : <Lock size={10} />}
+            </div>
+            <div className="w-full bg-gray-600 rounded-full h-1 mt-1">
+              <div className={`${getProgressColor(skill.level)} h-1 rounded-full`} style={{
+              width: `${skill.level}%`
+            }} />
             </div>
             <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900" />
           </div>
-          
-          <div className="w-full bg-gray-200 rounded-full h-1.5">
-            <div className={`${getProgressColor(skill.level)} h-1.5 rounded-full transition-all duration-1000 ease-out`} style={{
-            width: `${skill.level}%`
-          }} />
-          </div>
         </div>
       </div>;
   };
-  const SkillBranch = ({
-    branch
+  const ConnectionLine = ({
+    from,
+    to,
+    color
   }) => {
-    const BranchIcon = branch.icon;
-    return <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200">
-        <div className="flex items-center mb-6">
-          <div className="p-2 bg-purple-100 rounded-lg mr-3">
-            <BranchIcon size={20} className="text-purple-600" />
-          </div>
-          <h4 className="text-lg font-semibold text-gray-900">
-            {branch.name}
-          </h4>
-          <div className="ml-auto">
-            <span className="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-medium">
-              {branch.skills.length} 项技能
-            </span>
-          </div>
-        </div>
-        
-        <div className="space-y-8">
-          {branch.skills.map((skill, index) => {
-          const hasPrerequisites = skill.prerequisites && skill.prerequisites.length > 0;
-          const prerequisiteSkills = hasPrerequisites ? branch.skills.filter(s => skill.prerequisites.includes(s.name)) : [];
-          return <div key={skill.name} className="relative">
-              {hasPrerequisites && <div className="flex items-center justify-center mb-4">
-                  <div className="flex items-center space-x-2">
-                    {prerequisiteSkills.map((prereq, prereqIndex) => <div key={prereq.name} className="relative">
-                        <SkillNode skill={prereq} isPrerequisite={true} />
-                        {prereqIndex < prerequisiteSkills.length - 1 && <div className="absolute top-10 -right-4 w-8 h-0.5 bg-gray-300" />}
-                      </div>)}
-                    <div className="w-8 h-0.5 bg-gray-300" />
-                    <GitBranch size={16} className="text-gray-400" />
-                    <div className="w-8 h-0.5 bg-gray-300" />
-                  </div>
-                </div>}
-              
-              <div className="flex justify-center">
-                <SkillNode skill={skill} showConnection={hasPrerequisites} />
-              </div>
-              
-              {index < branch.skills.length - 1 && <div className="flex justify-center mt-4">
-                  <div className="w-0.5 h-8 bg-gray-200" />
-                </div>}
-            </div>;
-        })}
-        </div>
-      </div>;
+    const colors = getBranchColor(color);
+    return <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{
+      zIndex: 1
+    }}>
+        <line x1={from.x} y1={from.y} x2={to.x} y2={to.y} stroke="currentColor" strokeWidth="2" className={colors.line + ' opacity-50'} />
+      </svg>;
   };
-  return <section id="skills" className="py-20 bg-gray-50">
+  return <section id="skills" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             技能树
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            通过技能树展示我的技术能力成长路径和专业技能掌握程度
+            从中心发散的技能树展示我的技术能力体系
           </p>
         </div>
 
-        <div className="space-y-12">
-          {/* 语言能力部分 */}
-          <div className="bg-white rounded-lg shadow-md p-8">
-            <div className="flex items-center mb-8">
-              <div className="p-3 bg-blue-100 rounded-lg mr-4">
-                <Languages size={24} className="text-blue-600" />
-              </div>
-              <h3 className="text-2xl font-semibold text-gray-900">
-                {skillTree.language.name}
-              </h3>
-            </div>
+        <div className="relative bg-white rounded-2xl shadow-xl p-8 mb-12" style={{
+        minHeight: '600px'
+      }}>
+          <div className="relative w-full h-full flex items-center justify-center" style={{
+          minHeight: '500px'
+        }}>
+            {/* 连接线 */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{
+            zIndex: 1
+          }}>
+              {/* 中心到各分支的连接线 */}
+              {skillTreeData.branches.map((branch, index) => {
+              const getBranchPosition = () => {
+                switch (branch.position) {
+                  case 'top':
+                    return {
+                      x: '50%',
+                      y: '15%'
+                    };
+                  case 'left':
+                    return {
+                      x: '15%',
+                      y: '50%'
+                    };
+                  case 'right':
+                    return {
+                      x: '85%',
+                      y: '50%'
+                    };
+                  default:
+                    return {
+                      x: '50%',
+                      y: '50%'
+                    };
+                }
+              };
+              const branchPos = getBranchPosition();
+              const colors = getBranchColor(branch.color);
+              return <line key={branch.name} x1="50%" y1="50%" x2={branchPos.x} y2={branchPos.y} stroke="currentColor" strokeWidth="3" className={colors.line + ' opacity-60'} />;
+            })}
+              
+              {/* 分支到技能的连接线 */}
+              {skillTreeData.branches.map(branch => {
+              const getBranchPosition = () => {
+                switch (branch.position) {
+                  case 'top':
+                    return {
+                      x: '50%',
+                      y: '15%'
+                    };
+                  case 'left':
+                    return {
+                      x: '15%',
+                      y: '50%'
+                    };
+                  case 'right':
+                    return {
+                      x: '85%',
+                      y: '50%'
+                    };
+                  default:
+                    return {
+                      x: '50%',
+                      y: '50%'
+                    };
+                }
+              };
+              const branchPos = getBranchPosition();
+              const colors = getBranchColor(branch.color);
+              return branch.skills.map((skill, index) => {
+                const angleStep = branch.position === 'top' ? 25 : 20;
+                const startAngle = branch.position === 'top' ? -25 : -10;
+                const angle = startAngle + index * angleStep;
+                const distance = 80;
+                const x = parseFloat(branchPos.x) + Math.cos(angle * Math.PI / 180) * distance / 5;
+                const y = parseFloat(branchPos.y) + Math.sin(angle * Math.PI / 180) * distance / 5;
+                return <line key={`${branch.name}-${skill.name}`} x1={branchPos.x} y1={branchPos.y} x2={`${x}%`} y2={`${y}%`} stroke="currentColor" strokeWidth="1.5" className={colors.line + ' opacity-40'} />;
+              });
+            })}
+            </svg>
 
-            <div className="flex justify-center">
-              {skillTree.language.skills.map(skill => <div key={skill.name} className="text-center">
-                  <div className={`w-24 h-24 rounded-full border-2 ${getSkillNodeColor(skill.level, skill.unlocked)} flex flex-col items-center justify-center mx-auto mb-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105`}>
-                    <CheckCircle2 size={24} className="mb-2" />
-                    <div className="text-sm font-bold">{skill.name}</div>
-                  </div>
-                  <div className="w-32 bg-gray-200 rounded-full h-2">
-                    <div className={`${getProgressColor(skill.level)} h-2 rounded-full transition-all duration-1000 ease-out`} style={{
-                  width: `${skill.level}%`
-                }} />
-                  </div>
-                  <div className="mt-2 text-sm text-gray-600 font-medium">
-                    {skill.level}%
-                  </div>
-                  <p className="mt-2 text-sm text-gray-500 max-w-xs">
-                    {skill.description}
-                  </p>
-                </div>)}
-            </div>
-          </div>
+            {/* 中心节点 */}
+            <CenterNode />
 
-          {/* 技术技能部分 */}
-          <div className="bg-white rounded-lg shadow-md p-8">
-            <div className="flex items-center mb-8">
-              <div className="p-3 bg-purple-100 rounded-lg mr-4">
-                <Cpu size={24} className="text-purple-600" />
-              </div>
-              <h3 className="text-2xl font-semibold text-gray-900">
-                {skillTree.technical.name}
-              </h3>
-              <div className="ml-auto">
-                <div className="flex items-center space-x-2">
-                  <div className="flex items-center">
-                    <Circle size={12} className="text-green-500 mr-1" />
-                    <span className="text-sm text-gray-600">已掌握</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Lock size={12} className="text-gray-400 mr-1" />
-                    <span className="text-sm text-gray-600">待解锁</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {/* 分支节点 */}
+            {skillTreeData.branches.map((branch, index) => <BranchNode key={branch.name} branch={branch} index={index} />)}
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {skillTree.technical.branches.map((branch, index) => <SkillBranch key={branch.name} branch={branch} />)}
-            </div>
+            {/* 技能叶子节点 */}
+            {skillTreeData.branches.map(branch => {
+            const getBranchPosition = () => {
+              switch (branch.position) {
+                case 'top':
+                  return {
+                    x: '50%',
+                    y: '15%'
+                  };
+                case 'left':
+                  return {
+                    x: '15%',
+                    y: '50%'
+                  };
+                case 'right':
+                  return {
+                    x: '85%',
+                    y: '50%'
+                  };
+                default:
+                  return {
+                    x: '50%',
+                    y: '50%'
+                  };
+              }
+            };
+            const branchPos = getBranchPosition();
+            return branch.skills.map((skill, index) => {
+              const angleStep = branch.position === 'top' ? 25 : 20;
+              const startAngle = branch.position === 'top' ? -25 : -10;
+              const angle = startAngle + index * angleStep;
+              const distance = 80;
+              const x = parseFloat(branchPos.x) + Math.cos(angle * Math.PI / 180) * distance / 5;
+              const y = parseFloat(branchPos.y) + Math.sin(angle * Math.PI / 180) * distance / 5;
+              return <div key={`${branch.name}-${skill.name}`} className="absolute" style={{
+                left: `${x}%`,
+                top: `${y}%`,
+                transform: 'translate(-50%, -50%)',
+                zIndex: 10
+              }}>
+                    <div className="relative group cursor-pointer">
+                      <div className={`w-16 h-12 ${getBranchColor(branch.color).bg} ${getBranchColor(branch.color).border} border rounded flex flex-col items-center justify-center shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 ${getBranchColor(branch.color).hover}`}>
+                        <div className={`text-xs font-bold ${getBranchColor(branch.color).text} text-center px-1`}>
+                          {skill.name.length > 6 ? skill.name.substring(0, 5) + '..' : skill.name}
+                        </div>
+                        <div className="text-xs text-gray-600">
+                          {skill.level}%
+                        </div>
+                      </div>
+                      
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-32 p-2 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-30">
+                        <div className="font-semibold mb-1">{skill.name}</div>
+                        <div className="mb-1">{skill.description}</div>
+                        <div className="flex items-center justify-between">
+                          <span>熟练度: {skill.level}%</span>
+                          {skill.unlocked ? <CheckCircle2 size={10} /> : <Lock size={10} />}
+                        </div>
+                        <div className="w-full bg-gray-600 rounded-full h-1 mt-1">
+                          <div className={`${getProgressColor(skill.level)} h-1 rounded-full`} style={{
+                        width: `${skill.level}%`
+                      }} />
+                        </div>
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900" />
+                      </div>
+                    </div>
+                  </div>;
+            });
+          })}
           </div>
         </div>
 
-        <div className="mt-12 text-center">
-          <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg border border-purple-200">
-            <GitBranch size={20} className="mr-2 text-purple-600" />
-            <span className="text-purple-800 font-medium">
-              技能树展示了技能之间的关联关系和学习路径
-            </span>
+        {/* 统计信息 */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-200">
+            <div className="text-2xl font-bold text-indigo-600">
+              {skillTreeData.branches.length}
+            </div>
+            <div className="text-sm text-gray-600">技能分支</div>
           </div>
-        </div>
-
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="text-center p-4 bg-green-50 rounded-lg border border-green-200">
+          <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-200">
             <div className="text-2xl font-bold text-green-600">
-              {skillTree.technical.branches.reduce((total, branch) => total + branch.skills.filter(s => s.unlocked).length, 0)}
+              {skillTreeData.branches.reduce((total, branch) => total + branch.skills.filter(s => s.unlocked).length, 0)}
             </div>
-            <div className="text-sm text-green-800">已掌握技能</div>
+            <div className="text-sm text-gray-600">已掌握技能</div>
           </div>
-          <div className="text-center p-4 bg-blue-50 rounded-lg border border-blue-200">
+          <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-200">
             <div className="text-2xl font-bold text-blue-600">
-              {Math.round(skillTree.technical.branches.reduce((total, branch) => total + branch.skills.reduce((sum, skill) => sum + skill.level, 0), 0) / skillTree.technical.branches.reduce((total, branch) => total + branch.skills.length, 0))}%
+              {Math.round(skillTreeData.branches.reduce((total, branch) => total + branch.skills.reduce((sum, skill) => sum + skill.level, 0), 0) / skillTreeData.branches.reduce((total, branch) => total + branch.skills.length, 0))}%
             </div>
-            <div className="text-sm text-blue-800">平均熟练度</div>
+            <div className="text-sm text-gray-600">平均熟练度</div>
           </div>
-          <div className="text-center p-4 bg-purple-50 rounded-lg border border-purple-200">
+          <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-200">
             <div className="text-2xl font-bold text-purple-600">
-              {skillTree.technical.branches.length}
+              {Math.max(...skillTreeData.branches.map(branch => Math.max(...branch.skills.map(skill => skill.level))))}%
             </div>
-            <div className="text-sm text-purple-800">技能分支</div>
+            <div className="text-sm text-gray-600">最高熟练度</div>
+          </div>
+        </div>
+
+        <div className="mt-8 text-center">
+          <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg border border-indigo-200">
+            <GitBranch size={20} className="mr-2 text-indigo-600" />
+            <span className="text-indigo-800 font-medium">
+              从中心发散的技能树，展示全面的技术能力体系
+            </span>
           </div>
         </div>
       </div>
