@@ -1,7 +1,7 @@
 // @ts-ignore;
 import React, { useState, useRef, useEffect } from 'react';
 // @ts-ignore;
-import { User, Star, CheckCircle2, Lock, Move } from 'lucide-react';
+import { User, Star, CheckCircle2, Lock, Move, Plus, X } from 'lucide-react';
 
 export function SkillsSection() {
   const [skills, setSkills] = useState([{
@@ -77,6 +77,14 @@ export function SkillsSection() {
     width: 0,
     height: 0
   });
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [newSkill, setNewSkill] = useState({
+    name: '',
+    level: 50,
+    description: '',
+    color: 'blue'
+  });
+  const [formErrors, setFormErrors] = useState({});
   const containerRef = useRef(null);
 
   // 获取容器尺寸
@@ -113,7 +121,103 @@ export function SkillsSection() {
       };
     });
     setSkills(updatedSkills);
-  }, [containerSize]);
+  }, [containerSize, skills.length]);
+
+  // 颜色选项
+  const colorOptions = [{
+    value: 'blue',
+    label: '蓝色',
+    class: 'bg-blue-500'
+  }, {
+    value: 'green',
+    label: '绿色',
+    class: 'bg-green-500'
+  }, {
+    value: 'purple',
+    label: '紫色',
+    class: 'bg-purple-500'
+  }, {
+    value: 'indigo',
+    label: '靛蓝',
+    class: 'bg-indigo-500'
+  }, {
+    value: 'pink',
+    label: '粉色',
+    class: 'bg-pink-500'
+  }, {
+    value: 'yellow',
+    label: '黄色',
+    class: 'bg-yellow-500'
+  }, {
+    value: 'red',
+    label: '红色',
+    class: 'bg-red-500'
+  }, {
+    value: 'orange',
+    label: '橙色',
+    class: 'bg-orange-500'
+  }, {
+    value: 'teal',
+    label: '青色',
+    class: 'bg-teal-500'
+  }];
+
+  // 表单验证
+  const validateForm = () => {
+    const errors = {};
+    if (!newSkill.name.trim()) {
+      errors.name = '技能名称不能为空';
+    }
+    if (newSkill.name.length > 20) {
+      errors.name = '技能名称不能超过20个字符';
+    }
+    if (!newSkill.description.trim()) {
+      errors.description = '技能描述不能为空';
+    }
+    if (newSkill.description.length > 100) {
+      errors.description = '技能描述不能超过100个字符';
+    }
+    if (newSkill.level < 0 || newSkill.level > 100) {
+      errors.level = '熟练度必须在0-100之间';
+    }
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  // 添加新技能
+  const handleAddSkill = () => {
+    if (!validateForm()) return;
+    const newId = Math.max(...skills.map(s => s.id), 0) + 1;
+    const skillToAdd = {
+      id: newId,
+      name: newSkill.name.trim(),
+      level: newSkill.level,
+      description: newSkill.description.trim(),
+      unlocked: true,
+      color: newSkill.color
+    };
+    setSkills([...skills, skillToAdd]);
+    setNewSkill({
+      name: '',
+      level: 50,
+      description: '',
+      color: 'blue'
+    });
+    setFormErrors({});
+    setShowAddModal(false);
+  };
+
+  // 重置表单
+  const resetForm = () => {
+    setNewSkill({
+      name: '',
+      level: 50,
+      description: '',
+      color: 'blue'
+    });
+    setFormErrors({});
+    setShowAddModal(false);
+  };
   const getSkillColor = color => {
     switch (color) {
       case 'blue':
@@ -327,10 +431,16 @@ export function SkillsSection() {
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-4">
             拖动技能节点来自由排列，展示我的技术能力体系
           </p>
-          <div className="flex items-center justify-center space-x-2 text-sm text-gray-500">
+          <div className="flex items-center justify-center space-x-2 text-sm text-gray-500 mb-6">
             <Move size={16} />
             <span>提示：可以拖动技能节点调整位置，让它们围绕中心排列</span>
           </div>
+          
+          {/* 添加技能按钮 */}
+          <button onClick={() => setShowAddModal(true)} className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+            <Plus size={20} className="mr-2" />
+            添加新技能
+          </button>
         </div>
 
         <div className="relative bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-8 mb-12 border border-white/50">
@@ -436,5 +546,92 @@ export function SkillsSection() {
           </div>
         </div>
       </div>
+
+      {/* 添加技能模态框 */}
+      {showAddModal && <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-2xl font-bold text-gray-900">添加新技能</h3>
+                <button onClick={resetForm} className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                  <X size={20} className="text-gray-500" />
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                {/* 技能名称 */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    技能名称 <span className="text-red-500">*</span>
+                  </label>
+                  <input type="text" value={newSkill.name} onChange={e => setNewSkill({
+                ...newSkill,
+                name: e.target.value
+              })} className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 ${formErrors.name ? 'border-red-500' : 'border-gray-300'}`} placeholder="请输入技能名称" maxLength={20} />
+                  {formErrors.name && <p className="mt-1 text-sm text-red-600">{formErrors.name}</p>}
+                  <p className="mt-1 text-xs text-gray-500">{newSkill.name.length}/20 字符</p>
+                </div>
+
+                {/* 熟练度 */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    熟练度 <span className="text-red-500">*</span>
+                  </label>
+                  <div className="space-y-2">
+                    <input type="range" min="0" max="100" value={newSkill.level} onChange={e => setNewSkill({
+                  ...newSkill,
+                  level: parseInt(e.target.value)
+                })} className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600" />
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-500">0%</span>
+                      <span className="text-lg font-bold text-indigo-600">{newSkill.level}%</span>
+                      <span className="text-sm text-gray-500">100%</span>
+                    </div>
+                  </div>
+                  {formErrors.level && <p className="mt-1 text-sm text-red-600">{formErrors.level}</p>}
+                </div>
+
+                {/* 技能描述 */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    技能描述 <span className="text-red-500">*</span>
+                  </label>
+                  <textarea value={newSkill.description} onChange={e => setNewSkill({
+                ...newSkill,
+                description: e.target.value
+              })} className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 resize-none ${formErrors.description ? 'border-red-500' : 'border-gray-300'}`} placeholder="请输入技能描述" rows={3} maxLength={100} />
+                  {formErrors.description && <p className="mt-1 text-sm text-red-600">{formErrors.description}</p>}
+                  <p className="mt-1 text-xs text-gray-500">{newSkill.description.length}/100 字符</p>
+                </div>
+
+                {/* 颜色分类 */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    颜色分类 <span className="text-red-500">*</span>
+                  </label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {colorOptions.map(color => <button key={color.value} onClick={() => setNewSkill({
+                  ...newSkill,
+                  color: color.value
+                })} className={`flex items-center justify-center p-3 rounded-lg border-2 transition-all duration-200 ${newSkill.color === color.value ? 'border-indigo-500 bg-indigo-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                        <div className={`w-4 h-4 rounded-full ${color.class} mr-2`} />
+                        <span className="text-sm font-medium">{color.label}</span>
+                      </button>)}
+                  </div>
+                </div>
+              </div>
+
+              {/* 按钮组 */}
+              <div className="flex space-x-3 mt-6">
+                <button onClick={resetForm} className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-200">
+                  取消
+                </button>
+                <button onClick={handleAddSkill} className="flex-1 px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200">
+                  添加技能
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>}
     </section>;
 }
