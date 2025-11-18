@@ -1,110 +1,82 @@
 // @ts-ignore;
 import React, { useState, useEffect, useRef } from 'react';
 // @ts-ignore;
-import { Globe, Briefcase, Bot, Circle, Lock, CheckCircle, Star } from 'lucide-react';
+import { Lock, CheckCircle, Star } from 'lucide-react';
 
 export function SkillsSection() {
-  const [skills, setSkills] = useState({
-    language: [{
-      id: 1,
-      name: '英语CET-4',
-      description: '大学英语四级证书',
-      unlocked: true,
-      level: 1
-    }],
-    office: [{
-      id: 2,
-      name: 'Office系列',
-      description: 'Word, Excel, PowerPoint等办公软件',
-      unlocked: true,
-      level: 2
-    }, {
-      id: 3,
-      name: 'PS/PR',
-      description: 'Photoshop和Premiere Pro图像视频处理',
-      unlocked: true,
-      level: 1
-    }, {
-      id: 4,
-      name: 'AI大模型应用',
-      description: 'ChatGPT, Claude等AI工具应用',
-      unlocked: false,
-      level: 0
-    }],
-    technical: [{
-      id: 5,
-      name: 'SolidWorks',
-      description: '三维机械设计软件',
-      unlocked: true,
-      level: 3
-    }, {
-      id: 6,
-      name: 'AutoCAD',
-      description: '二维制图软件',
-      unlocked: true,
-      level: 2
-    }, {
-      id: 7,
-      name: 'CATIA',
-      description: '高端CAD/CAE/CAM软件',
-      unlocked: false,
-      level: 0
-    }, {
-      id: 8,
-      name: 'MATLAB',
-      description: '数值计算与仿真软件',
-      unlocked: true,
-      level: 1
-    }, {
-      id: 9,
-      name: 'Visual Studio',
-      description: '集成开发环境',
-      unlocked: false,
-      level: 0
-    }]
-  });
+  const [skills, setSkills] = useState([{
+    id: 1,
+    name: '英语CET-4',
+    description: '大学英语四级证书',
+    unlocked: true,
+    level: 1
+  }, {
+    id: 2,
+    name: 'Office系列',
+    description: 'Word, Excel, PowerPoint等办公软件',
+    unlocked: true,
+    level: 2
+  }, {
+    id: 3,
+    name: 'PS/PR',
+    description: 'Photoshop和Premiere Pro图像视频处理',
+    unlocked: true,
+    level: 1
+  }, {
+    id: 4,
+    name: 'AI大模型应用',
+    description: 'ChatGPT, Claude等AI工具应用',
+    unlocked: false,
+    level: 0
+  }, {
+    id: 5,
+    name: 'SolidWorks',
+    description: '三维机械设计软件',
+    unlocked: true,
+    level: 3
+  }, {
+    id: 6,
+    name: 'AutoCAD',
+    description: '二维制图软件',
+    unlocked: true,
+    level: 2
+  }, {
+    id: 7,
+    name: 'CATIA',
+    description: '高端CAD/CAE/CAM软件',
+    unlocked: false,
+    level: 0
+  }, {
+    id: 8,
+    name: 'MATLAB',
+    description: '数值计算与仿真软件',
+    unlocked: true,
+    level: 1
+  }, {
+    id: 9,
+    name: 'Visual Studio',
+    description: '集成开发环境',
+    unlocked: false,
+    level: 0
+  }]);
   const [hoveredSkill, setHoveredSkill] = useState(null);
   const [selectedSkill, setSelectedSkill] = useState(null);
   const [bubblePositions, setBubblePositions] = useState({});
   const containerRef = useRef(null);
   const animationRef = useRef(null);
-  const categories = [{
-    key: 'language',
-    name: '语言技能',
-    icon: <Globe size={24} />,
-    color: 'from-blue-400 to-blue-600',
-    bgColor: 'bg-blue-50',
-    borderColor: 'border-blue-200'
-  }, {
-    key: 'office',
-    name: '办公技能',
-    icon: <Briefcase size={24} />,
-    color: 'from-green-400 to-green-600',
-    bgColor: 'bg-green-50',
-    borderColor: 'border-green-200'
-  }, {
-    key: 'technical',
-    name: '技术技能',
-    icon: <Bot size={24} />,
-    color: 'from-purple-400 to-purple-600',
-    bgColor: 'bg-purple-50',
-    borderColor: 'border-purple-200'
-  }];
 
   // 初始化气泡位置
   useEffect(() => {
     const initialPositions = {};
-    Object.keys(skills).forEach(category => {
-      skills[category].forEach(skill => {
-        initialPositions[skill.id] = {
-          x: Math.random() * 80 + 10,
-          // 10% - 90%
-          y: Math.random() * 80 + 10,
-          // 10% - 90%
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5
-        };
-      });
+    skills.forEach(skill => {
+      initialPositions[skill.id] = {
+        x: Math.random() * 80 + 10,
+        // 10% - 90%
+        y: Math.random() * 80 + 10,
+        // 10% - 90%
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3
+      };
     });
     setBubblePositions(initialPositions);
   }, []);
@@ -135,11 +107,11 @@ export function SkillsSection() {
 
           // 添加随机扰动
           if (Math.random() < 0.01) {
-            pos.vx += (Math.random() - 0.5) * 0.2;
-            pos.vy += (Math.random() - 0.5) * 0.2;
+            pos.vx += (Math.random() - 0.5) * 0.1;
+            pos.vy += (Math.random() - 0.5) * 0.1;
             // 限制速度
-            pos.vx = Math.max(-1, Math.min(1, pos.vx));
-            pos.vy = Math.max(-1, Math.min(1, pos.vy));
+            pos.vx = Math.max(-0.5, Math.min(0.5, pos.vx));
+            pos.vy = Math.max(-0.5, Math.min(0.5, pos.vy));
           }
         });
         return newPositions;
@@ -161,41 +133,17 @@ export function SkillsSection() {
       alert(`技能 "${skill.name}" 尚未解锁，完成相关任务后即可解锁！`);
     }
   };
-  const handleUnlockSkill = skillId => {
-    setSkills(prev => {
-      const newSkills = {
-        ...prev
-      };
-      Object.keys(newSkills).forEach(category => {
-        newSkills[category] = newSkills[category].map(skill => skill.id === skillId ? {
-          ...skill,
-          unlocked: true,
-          level: 1
-        } : skill);
-      });
-      return newSkills;
-    });
-    setSelectedSkill(null);
-  };
   const handleUpgradeSkill = skillId => {
-    setSkills(prev => {
-      const newSkills = {
-        ...prev
-      };
-      Object.keys(newSkills).forEach(category => {
-        newSkills[category] = newSkills[category].map(skill => skill.id === skillId ? {
-          ...skill,
-          level: Math.min(skill.level + 1, 5)
-        } : skill);
-      });
-      return newSkills;
-    });
+    setSkills(prev => prev.map(skill => skill.id === skillId ? {
+      ...skill,
+      level: Math.min(skill.level + 1, 5)
+    } : skill));
   };
-  const getSkillColor = (skill, category) => {
+  const getSkillColor = skill => {
     if (!skill.unlocked) {
-      return 'bg-gray-300 border-gray-400';
+      return 'bg-gray-300 border-gray-400 text-gray-600';
     }
-    const levelColors = ['bg-green-200 border-green-300', 'bg-blue-200 border-blue-300', 'bg-purple-200 border-purple-300', 'bg-orange-200 border-orange-300', 'bg-red-200 border-red-300'];
+    const levelColors = ['bg-green-200 border-green-300 text-green-800', 'bg-blue-200 border-blue-300 text-blue-800', 'bg-purple-200 border-purple-300 text-purple-800', 'bg-orange-200 border-orange-300 text-orange-800', 'bg-red-200 border-red-300 text-red-800'];
     return levelColors[skill.level - 1] || levelColors[0];
   };
   return <section id="skills" className="py-20 bg-white">
@@ -209,60 +157,42 @@ export function SkillsSection() {
           </p>
         </div>
 
-        {/* 技能气泡图展示 */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {categories.map(category => {
-          const categorySkills = skills[category.key];
-          return <div key={category.key} className="relative">
-                {/* 分类标题 */}
-                <div className="text-center mb-6">
-                  <div className={`w-16 h-16 bg-gradient-to-br ${category.color} rounded-full flex items-center justify-center shadow-xl mx-auto mb-3`}>
-                    <div className="text-center text-white">
-                      {category.icon}
+        {/* 统一气泡容器 */}
+        <div className="flex justify-center">
+          <div ref={containerRef} className="relative bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl border-2 border-indigo-200 w-full max-w-4xl h-96 overflow-hidden">
+            {skills.map(skill => {
+            const position = bubblePositions[skill.id] || {
+              x: 50,
+              y: 50
+            };
+            const isHovered = hoveredSkill === skill.id;
+            return <div key={skill.id} className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 cursor-pointer ${getSkillColor(skill)} border-2 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl ${isHovered ? 'scale-110 z-10' : 'scale-100'}`} style={{
+              left: `${position.x}%`,
+              top: `${position.y}%`,
+              width: isHovered ? '120px' : '100px',
+              height: isHovered ? '60px' : '50px'
+            }} onMouseEnter={() => setHoveredSkill(skill.id)} onMouseLeave={() => setHoveredSkill(null)} onClick={() => handleSkillClick(skill)}>
+                  <div className="text-center">
+                    <div className="text-xs font-bold truncate px-1">
+                      {skill.name}
                     </div>
+                    {skill.unlocked ? skill.level >= 3 ? <Star size={12} className="text-yellow-600 mx-auto mt-1" /> : <CheckCircle size={12} className="text-green-600 mx-auto mt-1" /> : <Lock size={12} className="text-gray-600 mx-auto mt-1" />}
                   </div>
-                  <h3 className="text-xl font-bold text-gray-800">
-                    {category.name}
-                  </h3>
-                  <p className="text-sm text-gray-500">
-                    {categorySkills.filter(s => s.unlocked).length}/{categorySkills.length} 已解锁
-                  </p>
-                </div>
-
-                {/* 气泡容器 */}
-                <div ref={containerRef} className={`relative ${category.bgColor} rounded-xl border-2 ${category.borderColor} h-96 overflow-hidden`}>
-                  {categorySkills.map(skill => {
-                const position = bubblePositions[skill.id] || {
-                  x: 50,
-                  y: 50
-                };
-                const isHovered = hoveredSkill === skill.id;
-                return <div key={skill.id} className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 cursor-pointer ${getSkillColor(skill, category)} border-2 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl ${isHovered ? 'scale-110 z-10' : 'scale-100'}`} style={{
-                  left: `${position.x}%`,
-                  top: `${position.y}%`,
-                  width: isHovered ? '44px' : '40px',
-                  height: isHovered ? '44px' : '40px'
-                }} onMouseEnter={() => setHoveredSkill(skill.id)} onMouseLeave={() => setHoveredSkill(null)} onClick={() => handleSkillClick(skill)}>
-                      {skill.unlocked ? <div className="text-center">
-                          {skill.level >= 3 ? <Star size={16} className="text-yellow-600 mx-auto" /> : <CheckCircle size={16} className="text-green-600 mx-auto" />}
-                        </div> : <Lock size={16} className="text-gray-600" />}
-                      
-                      {/* 悬停工具提示 */}
-                      {isHovered && <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 p-2 bg-gray-900 text-white text-xs rounded-lg whitespace-nowrap z-20">
-                          <div className="font-bold">{skill.name}</div>
-                          <div>{skill.description}</div>
-                          <div className="text-yellow-300">
-                            {skill.unlocked ? `等级 ${skill.level}/5` : '未解锁'}
-                          </div>
-                          <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1">
-                            <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                          </div>
-                        </div>}
-                    </div>;
-              })}
-                </div>
-              </div>;
-        })}
+                  
+                  {/* 悬停工具提示 */}
+                  {isHovered && <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 p-2 bg-gray-900 text-white text-xs rounded-lg whitespace-nowrap z-20">
+                      <div className="font-bold">{skill.name}</div>
+                      <div>{skill.description}</div>
+                      <div className="text-yellow-300">
+                        {skill.unlocked ? `等级 ${skill.level}/5` : '未解锁'}
+                      </div>
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1">
+                        <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                      </div>
+                    </div>}
+                </div>;
+          })}
+          </div>
         </div>
 
         {/* 技能详情弹窗 */}
@@ -295,37 +225,6 @@ export function SkillsSection() {
               </div>
             </div>
           </div>}
-
-        {/* 技能统计 */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 text-center">
-            <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mx-auto mb-3">
-              <CheckCircle size={24} className="text-white" />
-            </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-1">
-              {Object.values(skills).flat().filter(s => s.unlocked).length}
-            </h3>
-            <p className="text-gray-600">已解锁技能</p>
-          </div>
-          <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-6 text-center">
-            <div className="w-12 h-12 bg-yellow-500 rounded-lg flex items-center justify-center mx-auto mb-3">
-              <Star size={24} className="text-white" />
-            </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-1">
-              {Object.values(skills).flat().reduce((acc, s) => acc + s.level, 0)}
-            </h3>
-            <p className="text-gray-600">技能等级总和</p>
-          </div>
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 text-center">
-            <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mx-auto mb-3">
-              <Lock size={24} className="text-white" />
-            </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-1">
-              {Object.values(skills).flat().filter(s => !s.unlocked).length}
-            </h3>
-            <p className="text-gray-600">待解锁技能</p>
-          </div>
-        </div>
       </div>
     </section>;
 }
