@@ -26,13 +26,6 @@ export function ExperienceSection() {
     responsibilities: ['机械结构设计', '零件加工', '现场改装'],
     icon: <Trophy className="text-yellow-500" />
   }, {
-    title: '一维伺服工作平台设计',
-    award: '课程设计 - 优秀',
-    year: '2024',
-    content: '基于功能设想与草图，选用电机、丝杠导轨等标准件，完成非标零件与整体平台设计',
-    responsibilities: ['零件选型计算', 'SolidWorks 建模', '装配图绘制'],
-    icon: <Code className="text-blue-500" />
-  }, {
     title: '美国大学生数学建模竞赛（MCM）',
     award: 'M奖（国赛二等奖）',
     year: '2024',
@@ -212,7 +205,7 @@ export function ExperienceSection() {
             <div className="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
               <Trophy size={32} className="text-white" />
             </div>
-            <div className="text-2xl font-bold text-gray-900 mb-1">4</div>
+            <div className="text-2xl font-bold text-gray-900 mb-1">3</div>
             <div className="text-sm text-gray-600">竞赛奖项</div>
           </div>
 
