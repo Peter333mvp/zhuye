@@ -1,7 +1,7 @@
 // @ts-ignore;
 import React, { useState, useRef, useEffect } from 'react';
 // @ts-ignore;
-import { ChevronLeft, ChevronRight, ExternalLink, Github } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ExternalLink, Github, Trophy, Target, TrendingUp, Bot } from 'lucide-react';
 
 export function ProjectsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -9,28 +9,44 @@ export function ProjectsSection() {
   const containerRef = useRef(null);
   const projects = [{
     id: 1,
-    title: '智能校园导航系统',
-    description: '基于React Native开发的校园导航应用，集成AR导航、实时位置追踪、智能路径规划等功能，为新生和访客提供便捷的校园导览服务。',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',
-    tags: ['React Native', 'AR', 'Node.js', 'MongoDB'],
-    githubUrl: 'https://github.com',
-    demoUrl: 'https://demo.com'
+    title: '中国机器人大赛暨ROBOTCUP世界杯中国赛 2024',
+    subtitle: '亚军（国赛二等奖）',
+    description: '参与篮球机器人组比赛，机器人具备自动拾球、路径规划、多任务并行处理、定点投篮等功能',
+    responsibilities: ['机械结构设计', '零件加工', '现场改装'],
+    image: 'https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=800&h=600&fit=crop',
+    tags: ['机器人技术', '机械设计', '自动控制', '竞赛项目'],
+    icon: Trophy,
+    color: 'bg-yellow-100 text-yellow-800'
   }, {
     id: 2,
-    title: '在线教育平台',
-    description: '全栈在线学习平台，支持视频课程、实时互动、作业管理、成绩分析等功能，已服务超过1000+学生用户。',
-    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop',
-    tags: ['Vue.js', 'Django', 'PostgreSQL', 'WebRTC'],
-    githubUrl: 'https://github.com',
-    demoUrl: 'https://demo.com'
+    title: '一维伺服工作平台设计',
+    subtitle: '课程设计 - 优秀',
+    description: '基于功能设想与草图，选用电机、丝杠导轨等标准件，完成非标零件与整体平台设计',
+    responsibilities: ['零件选型计算', 'SolidWorks 建模', '装配图绘制'],
+    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop',
+    tags: ['机械设计', 'SolidWorks', '课程设计', '工程设计'],
+    icon: Target,
+    color: 'bg-blue-100 text-blue-800'
   }, {
     id: 3,
-    title: '智能数据分析工具',
-    description: '基于机器学习的数据分析平台，提供数据可视化、预测分析、异常检测等功能，帮助企业快速洞察业务数据。',
+    title: '美国大学生数学建模竞赛（MCM）2024',
+    subtitle: 'M奖（国赛二等奖）',
+    description: '针对五大湖水资源调控问题，建立模型平衡水位与利益相关者需求，设计算法并分析敏感性',
+    responsibilities: ['模型推导与建立', 'MATLAB 求解与检验', '论文撰写'],
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
-    tags: ['Python', 'TensorFlow', 'React', 'D3.js'],
-    githubUrl: 'https://github.com',
-    demoUrl: 'https://demo.com'
+    tags: ['数学建模', 'MATLAB', '算法设计', '数据分析'],
+    icon: TrendingUp,
+    color: 'bg-green-100 text-green-800'
+  }, {
+    id: 4,
+    title: '太空蜘蛛机器人系统设计',
+    subtitle: '研究项目',
+    description: '针对太空特殊环境航天器维护和星体探索等多任务应用场景，提出并实现了一种适应太空微重力等特殊环境要求的六足机器人系统设计。通过融合机械设计、运动学建模、智能控制与仿真验证等多学科技术，研究了机器人运动稳定性、环境适应性和系统可靠性等关键技术问题，完成了原型样机的研制与性能测试，达到了设计要求。',
+    responsibilities: ['机械系统设计（基于SolidWorks进行轻量化优化与仿真）', '运动学建模（使用D-H参数法建立正逆运动学模型及足端轨迹控制）', '控制策略开发（设计多步态协同控制与容错算法）', 'MATLAB仿真验证（二步态前进与转弯仿真）', '硬件系统集成（ESP32主控、传感器与舵机驱动）', '实验测试（样机运动性能与模拟太空环境适应性）'],
+    image: 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=800&h=600&fit=crop',
+    tags: ['机器人系统', '太空技术', '运动学建模', '智能控制', 'MATLAB仿真'],
+    icon: Bot,
+    color: 'bg-purple-100 text-purple-800'
   }];
   const nextProject = () => {
     if (isAnimating) return;
@@ -81,7 +97,7 @@ export function ProjectsSection() {
             项目展示
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            我参与开发的一些代表性项目，展示技术能力和创新思维
+            我的学术竞赛、课程设计和研究项目经历
           </p>
         </div>
 
@@ -92,14 +108,22 @@ export function ProjectsSection() {
             <div className="flex transition-transform duration-300 ease-in-out" style={{
             transform: `translateX(-${currentIndex * 100}%)`
           }}>
-              {projects.map(project => <div key={project.id} className="w-full flex-shrink-0 px-4">
+              {projects.map(project => {
+              const IconComponent = project.icon;
+              return <div key={project.id} className="w-full flex-shrink-0 px-4">
                   <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
                     {/* 项目图片 */}
                     <div className="relative h-64 overflow-hidden">
                       <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                       <div className="absolute bottom-4 left-4 right-4">
-                        <h3 className="text-2xl font-bold text-white mb-2">
+                        <div className="flex items-center gap-2 mb-2">
+                          <IconComponent size={20} className="text-white" />
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${project.color}`}>
+                            {project.subtitle}
+                          </span>
+                        </div>
+                        <h3 className="text-2xl font-bold text-white">
                           {project.title}
                         </h3>
                       </div>
@@ -107,31 +131,31 @@ export function ProjectsSection() {
 
                     {/* 项目内容 */}
                     <div className="p-6">
-                      <p className="text-gray-600 mb-4 leading-relaxed">
+                      <p className="text-gray-600 mb-6 leading-relaxed">
                         {project.description}
                       </p>
 
+                      {/* 职责部分 */}
+                      <div className="mb-6">
+                        <h4 className="text-lg font-semibold text-gray-900 mb-3">主要职责：</h4>
+                        <ul className="space-y-2">
+                          {project.responsibilities.map((responsibility, index) => <li key={index} className="flex items-start gap-2">
+                              <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+                              <span className="text-gray-700">{responsibility}</span>
+                            </li>)}
+                        </ul>
+                      </div>
+
                       {/* 技术标签 */}
-                      <div className="flex flex-wrap gap-2 mb-6">
+                      <div className="flex flex-wrap gap-2">
                         {project.tags.map((tag, index) => <span key={index} className="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">
                             {tag}
                           </span>)}
                       </div>
-
-                      {/* 项目链接 */}
-                      <div className="flex gap-4">
-                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors duration-200">
-                          <Github size={18} />
-                          <span>源代码</span>
-                        </a>
-                        <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200">
-                          <ExternalLink size={18} />
-                          <span>在线演示</span>
-                        </a>
-                      </div>
                     </div>
                   </div>
-                </div>)}
+                </div>;
+            })}
             </div>
           </div>
 
