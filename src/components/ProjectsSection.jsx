@@ -1,149 +1,155 @@
 // @ts-ignore;
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 // @ts-ignore;
-import { ExternalLink, Github, Calendar, Users, Award, BookOpen, Target, Code, Calculator, Rocket } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ExternalLink, Github } from 'lucide-react';
 
 export function ProjectsSection() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const sliderRef = useRef(null);
   const projects = [{
-    title: '太空蜘蛛机器人系统',
-    description: '针对太空特殊环境航天器维护和星体探索等多任务应用场景，设计并实现适应太空微重力等特殊环境要求的六足机器人系统。通过融合机械设计、运动学建模、智能控制与仿真验证等多学科技术，研究了面向太空极端环境多任务应用场景仿生机器人运动稳定性、环境适应性和系统可靠性等关键技术问题。',
-    image: 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=500&h=300&fit=crop',
-    tags: ['机器人设计', '运动学建模', '智能控制', '太空应用', 'D-H参数法', 'ESP32控制'],
-    features: ['D-H参数法运动学建模', '六足协同控制策略', 'ESP32双核主控', 'Arduino+ROS架构', '太空环境适应性实验', '样机性能测试'],
-    award: '全国三等奖、华东赛区一等奖',
-    competition: '中国大学生机械工程创新创意大赛',
-    year: '2025',
-    icon: <Rocket className="text-purple-500" />
+    id: 1,
+    title: '智能校园导航系统',
+    description: '基于React Native开发的校园导航应用，集成AR导航、实时位置追踪、智能路径规划等功能，为新生和访客提供便捷的校园导览服务。',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop',
+    tags: ['React Native', 'AR', 'Node.js', 'MongoDB'],
+    githubUrl: 'https://github.com',
+    demoUrl: 'https://demo.com'
   }, {
-    title: '篮球机器人系统',
-    description: '参与篮球机器人组比赛，机器人具备自动拾球、路径规划、多任务并行处理、定点投篮等功能',
-    image: 'https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=500&h=300&fit=crop',
-    tags: ['机器人竞赛', '机械设计', '自动控制'],
-    features: ['自动拾球系统', '路径规划算法', '多任务并行处理', '精准投篮控制'],
-    award: '亚军（国赛二等奖）',
-    competition: '中国机器人大赛暨ROBOTCUP世界杯中国赛',
-    year: '2024',
-    icon: <Award className="text-yellow-500" />
+    id: 2,
+    title: '在线教育平台',
+    description: '全栈在线学习平台，支持视频课程、实时互动、作业管理、成绩分析等功能，已服务超过1000+学生用户。',
+    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop',
+    tags: ['Vue.js', 'Django', 'PostgreSQL', 'WebRTC'],
+    githubUrl: 'https://github.com',
+    demoUrl: 'https://demo.com'
   }, {
-    title: '一维伺服工作平台',
-    description: '基于功能设想与草图，选用电机、丝杠导轨等标准件，完成非标零件与整体平台设计',
-    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&h=300&fit=crop',
-    tags: ['机械设计', 'SolidWorks', '课程设计'],
-    features: ['零件选型计算', 'SolidWorks建模', '装配图绘制', '优秀课程设计'],
-    award: '优秀',
-    competition: '课程设计',
-    year: '2024',
-    icon: <Code className="text-blue-500" />
+    id: 3,
+    title: '智能数据分析工具',
+    description: '基于机器学习的数据分析平台，提供数据可视化、预测分析、异常检测等功能，帮助企业做出数据驱动的决策。',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
+    tags: ['Python', 'TensorFlow', 'React', 'D3.js'],
+    githubUrl: 'https://github.com',
+    demoUrl: 'https://demo.com'
   }, {
-    title: '五大湖水资源调控模型',
-    description: '针对五大湖水资源调控问题，建立模型平衡水位与利益相关者需求，设计算法并分析敏感性',
-    image: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=500&h=300&fit=crop',
-    tags: ['数学建模', '算法设计', 'MATLAB'],
-    features: ['水资源平衡模型', '利益相关者分析', '敏感性分析', '算法优化'],
-    award: 'M奖（国赛二等奖）',
-    competition: '美国大学生数学建模竞赛（MCM）',
-    year: '2024',
-    icon: <Calculator className="text-green-500" />
+    id: 4,
+    title: '社交媒体管理工具',
+    description: '一站式社交媒体管理平台，支持多平台内容发布、数据分析、用户互动等功能，提升社交媒体运营效率。',
+    image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop',
+    tags: ['Next.js', 'GraphQL', 'AWS', 'Redis'],
+    githubUrl: 'https://github.com',
+    demoUrl: 'https://demo.com'
+  }, {
+    id: 5,
+    title: '智能家居控制系统',
+    description: 'IoT智能家居控制平台，支持设备管理、场景自动化、远程控制等功能，打造智能化生活体验。',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop',
+    tags: ['React', 'MQTT', 'Arduino', 'Firebase'],
+    githubUrl: 'https://github.com',
+    demoUrl: 'https://demo.com'
   }];
-  const ProjectCard = ({
-    project,
-    index
-  }) => {
-    return <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-indigo-200">
-        {/* 项目图片 */}
-        <div className="relative h-48 overflow-hidden">
-          <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          
-          {/* 奖项标签 */}
-          <div className="absolute top-4 right-4">
-            <div className="bg-white/95 backdrop-blur-sm rounded-full px-3 py-1 shadow-lg">
-              <span className="text-xs font-bold text-yellow-600 flex items-center">
-                <Award size={12} className="mr-1" />
-                {project.award}
-              </span>
-            </div>
-          </div>
-
-          {/* 年份标签 */}
-          <div className="absolute top-4 left-4">
-            <div className="bg-indigo-600/90 backdrop-blur-sm rounded-full px-3 py-1 shadow-lg">
-              <span className="text-xs font-bold text-white">
-                {project.year}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* 项目内容 */}
-        <div className="p-6">
-          <div className="flex items-center mb-3">
-            <div className="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center mr-3">
-              {project.icon}
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 group-hover:text-indigo-600 transition-colors duration-300">
-              {project.title}
-            </h3>
-          </div>
-
-          <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-            {project.description}
-          </p>
-
-          {/* 竞赛名称 */}
-          <div className="text-xs font-semibold text-indigo-600 mb-3">
-            {project.competition}
-          </div>
-
-          {/* 技术标签 */}
-          <div className="flex flex-wrap gap-2 mb-4">
-            {project.tags.map((tag, idx) => <span key={idx} className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full">
-                {tag}
-              </span>)}
-          </div>
-
-          {/* 项目特点 */}
-          <div className="space-y-2">
-            {project.features.slice(0, 3).map((feature, idx) => <div key={idx} className="flex items-center text-xs text-gray-600">
-                <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-2" />
-                {feature}
-              </div>)}
-          </div>
-        </div>
-      </div>;
+  const projectsPerPage = 3;
+  const totalPages = Math.ceil(projects.length / projectsPerPage);
+  const handlePrev = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrentIndex(prev => prev === 0 ? totalPages - 1 : prev - 1);
+    setTimeout(() => setIsAnimating(false), 500);
   };
-  return <section id="projects" className="py-20 bg-white">
+  const handleNext = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrentIndex(prev => prev === totalPages - 1 ? 0 : prev + 1);
+    setTimeout(() => setIsAnimating(false), 500);
+  };
+  const goToSlide = index => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrentIndex(index);
+    setTimeout(() => setIsAnimating(false), 500);
+  };
+
+  // 自动播放
+  useEffect(() => {
+    const timer = setInterval(() => {
+      handleNext();
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+  const getVisibleProjects = () => {
+    const start = currentIndex * projectsPerPage;
+    const end = start + projectsPerPage;
+    return projects.slice(start, end);
+  };
+  return <section id="projects" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            我的项目
+            项目展示
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            展示我在机器人设计、数学建模等领域的代表性项目成果
+            左右滑动查看更多项目作品，每个项目都体现了我的技术能力和创新思维
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-          {projects.map((project, index) => <ProjectCard key={index} project={project} index={index} />)}
-        </div>
+        {/* 滑动容器 */}
+        <div className="relative">
+          {/* 左右箭头 */}
+          <button onClick={handlePrev} className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white rounded-full p-3 shadow-lg hover:bg-gray-100 transition-colors -translate-x-4" disabled={isAnimating}>
+            <ChevronLeft className="w-6 h-6 text-gray-700" />
+          </button>
+          <button onClick={handleNext} className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white rounded-full p-3 shadow-lg hover:bg-gray-100 transition-colors translate-x-4" disabled={isAnimating}>
+            <ChevronRight className="w-6 h-6 text-gray-700" />
+          </button>
 
-        {/* 项目统计 */}
-        <div className="mt-16 text-center">
-          <div className="inline-flex items-center justify-center p-6 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-indigo-600 mb-2">4+</div>
-              <div className="text-sm text-gray-600">获奖项目</div>
+          {/* 项目卡片容器 */}
+          <div className="overflow-hidden mx-12">
+            <div ref={sliderRef} className={`flex transition-transform duration-500 ease-in-out ${isAnimating ? '' : ''}`} style={{
+            transform: `translateX(-${currentIndex * 100}%)`
+          }}>
+              {Array.from({
+              length: totalPages
+            }).map((_, pageIndex) => <div key={pageIndex} className="w-full flex-shrink-0 px-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {projects.slice(pageIndex * projectsPerPage, (pageIndex + 1) * projectsPerPage).map(project => <div key={project.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                        <div className="relative h-48 overflow-hidden">
+                          <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-300 hover:scale-110" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <div className="p-6">
+                          <h3 className="text-xl font-bold text-gray-900 mb-2">
+                            {project.title}
+                          </h3>
+                          <p className="text-gray-600 mb-4 line-clamp-3">
+                            {project.description}
+                          </p>
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            {project.tags.map(tag => <span key={tag} className="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">
+                                {tag}
+                              </span>)}
+                          </div>
+                          <div className="flex gap-3">
+                            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
+                              <Github className="w-4 h-4" />
+                              <span className="text-sm">源码</span>
+                            </a>
+                            <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                              <ExternalLink className="w-4 h-4" />
+                              <span className="text-sm">演示</span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>)}
+                  </div>
+                </div>)}
             </div>
-            <div className="w-px h-12 bg-indigo-200 mx-8" />
-            <div className="text-center">
-              <div className="text-3xl font-bold text-purple-600 mb-2">2+</div>
-              <div className="text-sm text-gray-600">国家级奖项</div>
-            </div>
-            <div className="w-px h-12 bg-indigo-200 mx-8" />
-            <div className="text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">100%</div>
-              <div className="text-sm text-gray-600">项目完成率</div>
-            </div>
+          </div>
+
+          {/* 指示器 */}
+          <div className="flex justify-center mt-8 gap-2">
+            {Array.from({
+            length: totalPages
+          }).map((_, index) => <button key={index} onClick={() => goToSlide(index)} className={`w-3 h-3 rounded-full transition-all duration-300 ${currentIndex === index ? 'bg-blue-600 w-8' : 'bg-gray-300 hover:bg-gray-400'}`} aria-label={`Go to slide ${index + 1}`}></button>)}
           </div>
         </div>
       </div>
