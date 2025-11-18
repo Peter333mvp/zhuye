@@ -108,9 +108,9 @@ export function SkillsSection() {
               const distance = Math.sqrt(dx * dx + dy * dy);
 
               // 如果距离太近，产生斥力
-              if (distance < 15 && distance > 0) {
+              if (distance < 20 && distance > 0) {
                 // 斥力强度与距离成反比
-                const force = (15 - distance) / 15 * 0.5;
+                const force = (20 - distance) / 20 * 0.5;
                 forceX += dx / distance * force;
                 forceY += dy / distance * force;
               }
@@ -202,8 +202,10 @@ export function SkillsSection() {
               scale: 1
             };
             const isHovered = hoveredSkill === skill.id;
-            const baseSize = 100;
-            const hoverSize = 130;
+            const baseSize = 140;
+            // 增大基础尺寸
+            const hoverSize = 180;
+            // 增大悬停尺寸
             const currentSize = isHovered ? hoverSize : baseSize;
             const finalSize = currentSize * breath.scale;
             return <div key={skill.id} className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 cursor-pointer ${getSkillColor(skill)} border-2 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl ${isHovered ? 'z-20' : 'z-10'}`} style={{
@@ -216,9 +218,9 @@ export function SkillsSection() {
               boxShadow: isHovered ? '0 8px 32px rgba(0, 0, 0, 0.15), 0 0 20px rgba(99, 102, 241, 0.3)' : '0 4px 16px rgba(0, 0, 0, 0.1), 0 0 10px rgba(99, 102, 241, 0.1)',
               transform: `translate(-50%, -50%) scale(${breath.scale})`
             }} onMouseEnter={() => setHoveredSkill(skill.id)} onMouseLeave={() => setHoveredSkill(null)}>
-                  {/* 只保留文字 */}
+                  {/* 只保留文字，增大字体 */}
                   <div className="text-center">
-                    <div className="text-sm font-bold truncate px-2 drop-shadow-sm">
+                    <div className="text-base font-bold truncate px-3 drop-shadow-sm">
                       {skill.name}
                     </div>
                   </div>
