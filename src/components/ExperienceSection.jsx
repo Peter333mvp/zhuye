@@ -1,289 +1,563 @@
 // @ts-ignore;
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 // @ts-ignore;
-import { GraduationCap, Calendar, MapPin, Award, Trophy, Briefcase, Users, BookOpen, Target, Code, Calculator, Rocket, ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react';
+import { Plus, X, GraduationCap, Trophy, Briefcase, Calendar, MapPin, ExternalLink, Award, Users, Target, TrendingUp, BookOpen, Medal, Star } from 'lucide-react';
+// @ts-ignore;
+import { Button, Input, Textarea, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui';
 
+import { useForm } from 'react-hook-form';
+const experienceCategories = {
+  '教育背景': {
+    icon: <GraduationCap size={20} />,
+    color: 'bg-blue-500',
+    bgColor: 'bg-blue-50'
+  },
+  '竞赛项目': {
+    icon: <Trophy size={20} />,
+    color: 'bg-yellow-500',
+    bgColor: 'bg-yellow-50'
+  },
+  '实践经历': {
+    icon: <Briefcase size={20} />,
+    color: 'bg-green-500',
+    bgColor: 'bg-green-50'
+  }
+};
 export function ExperienceSection() {
-  const [activeTab, setActiveTab] = useState(0);
-  const [isAutoPlay, setIsAutoPlay] = useState(false);
-  const education = {
-    school: '上海大学',
-    college: '机电工程与自动化学院',
-    major: '机械电子工程',
-    tags: ['211工程', '双一流建设高校', '双一流优势学科'],
-    courses: ['高等数学', 'C语言', '机械设计', '机械原理', '工程力学', '材料力学', '自动控制原理', '数字电路技术', '电子技术基础', '机器人工学', '深度学习与人工智能']
-  };
-  const competitions = [{
-    title: '中国大学生机械工程创新创意大赛',
-    award: '全国三等奖、华东赛区一等奖',
-    year: '2025',
-    content: '针对太空特殊环境航天器维护和星体探索等多任务应用场景，提出并实现了一种适应太空微重力等特殊环境要求的六足机器人系统设计。通过融合机械设计、运动学建模、智能控制与仿真验证等多学科技术，研究了面向太空极端环境多任务应用场景仿生机器人运动稳定性、环境适应性和系统可靠性等关键技术问题。',
-    responsibilities: ['机械系统设计与优化', '运动学建模与仿真', '样机制作与性能测试', '太空环境适应性实验'],
-    icon: <Rocket className="text-purple-500" />
-  }, {
-    title: '中国机器人大赛暨ROBOTCUP世界杯中国赛',
-    award: '亚军（国赛二等奖）',
-    year: '2024',
-    content: '参与篮球机器人组比赛，机器人具备自动拾球、路径规划、多任务并行处理、定点投篮等功能',
-    responsibilities: ['机械结构设计', '零件加工', '现场改装'],
-    icon: <Trophy className="text-yellow-500" />
-  }, {
-    title: '美国大学生数学建模竞赛（MCM）',
-    award: 'M奖（国赛二等奖）',
-    year: '2024',
-    content: '针对五大湖水资源调控问题，建立模型平衡水位与利益相关者需求，设计算法并分析敏感性',
-    responsibilities: ['模型推导与建立', 'MATLAB 求解与检验', '论文撰写'],
-    icon: <Calculator className="text-green-500" />
-  }];
-  const practices = [{
-    title: '上海大学学生创新创业指导中心',
-    position: '中心主任',
-    period: '2021.09 - 2024.06',
-    description: '负责组织创新创业活动与项目指导',
-    icon: <Users className="text-purple-500" />
-  }, {
-    title: '全国第十六届精密工程学术研讨会暨青年学者创新论坛',
-    position: '志愿者负责人',
-    period: '2023.06',
-    description: '协调志愿者团队，保障会议顺利进行',
-    icon: <Briefcase className="text-indigo-500" />
-  }, {
-    title: '上海大学第十三期青年马克思主义者工程',
-    position: '学员',
-    period: '2023.03 - 2024.03',
-    description: '青年马克思主义者培养工程学员',
-    icon: <BookOpen className="text-red-500" />
-  }, {
-    title: '上海大学第十七期人才学院',
-    position: '学员',
-    period: '2023.04 - 2024.04',
-    description: '人才学院培养计划学员',
-    icon: <Target className="text-orange-500" />
-  }, {
-    title: '沃顿青年领导力项目',
-    position: '学员',
-    period: '2024.03 - 2024.06',
-    description: '沃顿商学院青年领导力培养项目',
-    icon: <Award className="text-teal-500" />
-  }];
-  const tabs = [{
-    id: 0,
-    name: '教育背景',
-    icon: <GraduationCap size={20} />
-  }, {
+  const [experiences, setExperiences] = useState([{
     id: 1,
-    name: '竞赛项目',
-    icon: <Trophy size={20} />
+    type: '教育背景',
+    title: '上海大学',
+    subtitle: '机械电子工程 · 本科',
+    period: '2020.09 - 2024.06',
+    location: '上海',
+    description: '主修机械电子工程专业，GPA 3.8/4.0，获得多次奖学金。参与多个创新项目，培养了扎实的工程实践能力和团队协作精神。',
+    achievements: ['优秀学生奖学金', '创新项目一等奖', '优秀毕业生'],
+    details: {
+      degree: '本科',
+      major: '机械电子工程',
+      gpa: '3.8/4.0'
+    }
   }, {
     id: 2,
-    name: '实践经历',
-    icon: <Briefcase size={20} />
-  }];
-
-  // 自动播放功能
-  useEffect(() => {
-    if (!isAutoPlay) return;
-    const interval = setInterval(() => {
-      setActiveTab(prev => (prev + 1) % 3);
-    }, 4000); // 每4秒切换一次
-
-    return () => clearInterval(interval);
-  }, [isAutoPlay]);
-  const TimelineItem = ({
-    item,
-    isLast = false
-  }) => {
-    return <div className="relative flex items-start group">
-        {/* 时间线节点 */}
-        <div className="flex flex-col items-center mr-4">
-          <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-indigo-200 group-hover:border-indigo-400 transition-colors duration-300 z-10">
-            {item.icon}
-          </div>
-          {!isLast && <div className="w-0.5 h-16 bg-gradient-to-b from-indigo-200 to-transparent mt-2" />}
-        </div>
-
-        {/* 内容 */}
-        <div className="flex-1 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-4 border border-gray-100 group-hover:border-indigo-200">
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="text-lg font-bold text-gray-900 group-hover:text-indigo-600 transition-colors duration-300">
-              {item.title}
-            </h3>
-            {item.year && <span className="text-sm font-semibold text-indigo-600 bg-indigo-50 px-2 py-1 rounded-full">
-                {item.year}
-              </span>}
-            {item.period && <span className="text-sm text-gray-500">
-                {item.period}
-              </span>}
-          </div>
-          
-          {item.award && <div className="text-sm font-semibold text-yellow-600 mb-2">
-              {item.award}
-            </div>}
-          
-          {item.position && <div className="text-sm font-semibold text-indigo-600 mb-2">
-              {item.position}
-            </div>}
-          
-          <p className="text-gray-600 text-sm mb-3">
-            {item.content || item.description}
-          </p>
-          
-          {item.responsibilities && <div className="flex flex-wrap gap-2">
-              {item.responsibilities.map((resp, idx) => <span key={idx} className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full">
-                  {resp}
-                </span>)}
-            </div>}
-        </div>
-      </div>;
-  };
-  const renderContent = () => {
-    switch (activeTab) {
-      case 0:
-        // 教育背景
-        return <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/50">
-            <div className="flex items-center mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mr-3">
-                <GraduationCap size={24} className="text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">教育背景</h3>
-            </div>
-
-            <div className="space-y-4">
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-200">
-                <h4 className="text-lg font-bold text-gray-900 mb-2">
-                  {education.school}
-                </h4>
-                <p className="text-indigo-600 font-semibold mb-1">
-                  {education.college}
-                </p>
-                <p className="text-gray-700 font-medium mb-3">
-                  {education.major}
-                </p>
-                
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {education.tags.map((tag, idx) => <span key={idx} className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full font-medium">
-                      {tag}
-                    </span>)}
-                </div>
-
-                <div>
-                  <h5 className="text-sm font-semibold text-gray-700 mb-2">主修课程：</h5>
-                  <div className="flex flex-wrap gap-1">
-                    {education.courses.map((course, idx) => <span key={idx} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
-                        {course}
-                      </span>)}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>;
-      case 1:
-        // 竞赛项目
-        return <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/50">
-            <div className="flex items-center mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-full flex items-center justify-center mr-3">
-                <Trophy size={24} className="text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">竞赛项目</h3>
-            </div>
-
-            <div className="space-y-6">
-              {competitions.map((competition, index) => <TimelineItem key={index} item={competition} isLast={index === competitions.length - 1} />)}
-            </div>
-          </div>;
-      case 2:
-        // 实践经历
-        return <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/50">
-            <div className="flex items-center mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full flex items-center justify-center mr-3">
-                <Briefcase size={24} className="text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">实践经历</h3>
-            </div>
-
-            <div className="space-y-6">
-              {practices.map((practice, index) => <TimelineItem key={index} item={practice} isLast={index === practices.length - 1} />)}
-            </div>
-          </div>;
-      default:
-        return null;
+    type: '竞赛项目',
+    title: '全国大学生机械创新设计大赛',
+    subtitle: '智能仓储机器人项目',
+    period: '2023.03 - 2023.08',
+    location: '北京',
+    description: '作为团队负责人，设计并开发了智能仓储机器人系统，实现了自动导航、货物识别和智能分拣功能。',
+    achievements: ['全国一等奖', '最佳创新奖', '技术突破奖'],
+    details: {
+      role: '团队负责人',
+      teamSize: '5人',
+      technologies: 'ROS, Python, OpenCV'
     }
+  }, {
+    id: 3,
+    type: '实践经历',
+    title: '华为技术有限公司',
+    subtitle: 'AI算法实习生',
+    period: '2023.07 - 2023.09',
+    location: '深圳',
+    description: '参与华为云AI平台的算法优化工作，主要负责图像识别模型的训练和部署，提升了模型准确率15%。',
+    achievements: ['优秀实习生', '技术创新贡献奖'],
+    details: {
+      department: 'AI算法部',
+      mentor: '张工程师',
+      projects: '图像识别优化'
+    }
+  }]);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedType, setSelectedType] = useState('教育背景');
+  const form = useForm({
+    defaultValues: {
+      type: '教育背景',
+      title: '',
+      subtitle: '',
+      period: '',
+      location: '',
+      description: '',
+      achievements: '',
+      degree: '',
+      major: '',
+      gpa: '',
+      role: '',
+      teamSize: '',
+      technologies: '',
+      department: '',
+      mentor: '',
+      projects: ''
+    }
+  });
+  const handleTypeChange = type => {
+    setSelectedType(type);
+    form.setValue('type', type);
+    // 清空特定字段
+    form.reset({
+      type,
+      title: '',
+      subtitle: '',
+      period: '',
+      location: '',
+      description: '',
+      achievements: '',
+      degree: '',
+      major: '',
+      gpa: '',
+      role: '',
+      teamSize: '',
+      technologies: '',
+      department: '',
+      mentor: '',
+      projects: ''
+    });
   };
-  return <section id="experience" className="py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+  const onSubmit = data => {
+    const newExperience = {
+      id: Date.now(),
+      type: data.type,
+      title: data.title,
+      subtitle: data.subtitle,
+      period: data.period,
+      location: data.location,
+      description: data.description,
+      achievements: data.achievements.split(',').map(achievement => achievement.trim()).filter(achievement => achievement),
+      details: {}
+    };
+    // 根据类型添加特定字段
+    if (data.type === '教育背景') {
+      newExperience.details = {
+        degree: data.degree,
+        major: data.major,
+        gpa: data.gpa
+      };
+    } else if (data.type === '竞赛项目') {
+      newExperience.details = {
+        role: data.role,
+        teamSize: data.teamSize,
+        technologies: data.technologies
+      };
+    } else if (data.type === '实践经历') {
+      newExperience.details = {
+        department: data.department,
+        mentor: data.mentor,
+        projects: data.projects
+      };
+    }
+    setExperiences([...experiences, newExperience]);
+    setIsDialogOpen(false);
+    form.reset();
+  };
+  const getExperiencesByType = type => experiences.filter(exp => exp.type === type);
+  return <section id="experience" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
             经历与成就
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            教育背景、竞赛项目与实践经历的全面展示
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            记录我的学习历程、竞赛经历和实践经验，展现个人成长轨迹
           </p>
         </div>
 
-        {/* 轮播控制区域 */}
-        <div className="flex justify-center mb-8">
-          <div className="bg-white/80 backdrop-blur-sm rounded-full shadow-lg p-2 flex items-center space-x-2">
-            {/* 播放/暂停按钮 */}
-            <button onClick={() => setIsAutoPlay(!isAutoPlay)} className="p-2 rounded-full hover:bg-indigo-100 transition-colors duration-200" title={isAutoPlay ? "暂停播放" : "自动播放"}>
-              {isAutoPlay ? <Pause size={18} className="text-indigo-600" /> : <Play size={18} className="text-indigo-600" />}
-            </button>
+        {/* 添加经历按钮 */}
+        <div className="flex justify-end mb-8">
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogTrigger asChild>
+              <Button className="flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white">
+                <Plus size={20} />
+                <span>添加经历</span>
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>添加新经历</DialogTitle>
+              </DialogHeader>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  {/* 经历类型选择 */}
+                  <FormField control={form.control} name="type" render={({
+                  field
+                }) => <FormItem>
+                      <FormLabel>经历类型</FormLabel>
+                      <Select onValueChange={value => handleTypeChange(value)} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="选择经历类型" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="教育背景">教育背景</SelectItem>
+                          <SelectItem value="竞赛项目">竞赛项目</SelectItem>
+                          <SelectItem value="实践经历">实践经历</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>} />
 
-            {/* 左切换按钮 */}
-            <button onClick={() => setActiveTab(prev => (prev - 1 + 3) % 3)} className="p-2 rounded-full hover:bg-indigo-100 transition-colors duration-200" title="上一个">
-              <ChevronLeft size={18} className="text-indigo-600" />
-            </button>
+                  {/* 基础字段 */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <FormField control={form.control} name="title" render={({
+                    field
+                  }) => <FormItem>
+                        <FormLabel>机构/项目名称</FormLabel>
+                        <FormControl>
+                          <Input placeholder="输入机构或项目名称" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>} />
+                    <FormField control={form.control} name="subtitle" render={({
+                    field
+                  }) => <FormItem>
+                        <FormLabel>职位/专业</FormLabel>
+                        <FormControl>
+                          <Input placeholder="输入职位或专业" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>} />
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <FormField control={form.control} name="period" render={({
+                    field
+                  }) => <FormItem>
+                        <FormLabel>时间周期</FormLabel>
+                        <FormControl>
+                          <Input placeholder="例如：2023.01 - 2023.06" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>} />
+                    <FormField control={form.control} name="location" render={({
+                    field
+                  }) => <FormItem>
+                        <FormLabel>地点</FormLabel>
+                        <FormControl>
+                          <Input placeholder="输入地点" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>} />
+                  </div>
+                  <FormField control={form.control} name="description" render={({
+                  field
+                }) => <FormItem>
+                      <FormLabel>详细描述</FormLabel>
+                      <FormControl>
+                        <Textarea placeholder="详细描述经历内容、职责和成果" rows={4} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>} />
+                  <FormField control={form.control} name="achievements" render={({
+                  field
+                }) => <FormItem>
+                      <FormLabel>成就与荣誉</FormLabel>
+                      <FormControl>
+                        <Input placeholder="优秀学生奖, 最佳创新奖（用逗号分隔）" {...field} />
+                      </FormControl>
+                      <FormDescription>
+                        用逗号分隔多个成就
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>} />
 
-            {/* Tab按钮 */}
-            <div className="flex space-x-1">
-              {tabs.map(tab => <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`px-4 py-2 rounded-full flex items-center space-x-2 transition-all duration-300 ${activeTab === tab.id ? 'bg-indigo-600 text-white shadow-md' : 'text-gray-600 hover:bg-indigo-50 hover:text-indigo-600'}`}>
-                  {tab.icon}
-                  <span className="text-sm font-medium">{tab.name}</span>
-                </button>)}
-            </div>
+                  {/* 根据类型显示特定字段 */}
+                  {selectedType === '教育背景' && <div className="space-y-4 p-4 bg-blue-50 rounded-lg">
+                      <h4 className="font-medium text-blue-900 mb-3">教育背景特定信息</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <FormField control={form.control} name="degree" render={({
+                      field
+                    }) => <FormItem>
+                            <FormLabel>学位</FormLabel>
+                            <FormControl>
+                              <Input placeholder="本科/硕士/博士" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>} />
+                        <FormField control={form.control} name="major" render={({
+                      field
+                    }) => <FormItem>
+                            <FormLabel>专业</FormLabel>
+                            <FormControl>
+                              <Input placeholder="输入专业名称" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>} />
+                      </div>
+                      <FormField control={form.control} name="gpa" render={({
+                    field
+                  }) => <FormItem>
+                          <FormLabel>GPA</FormLabel>
+                          <FormControl>
+                            <Input placeholder="例如：3.8/4.0" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>} />
+                    </div>}
 
-            {/* 右切换按钮 */}
-            <button onClick={() => setActiveTab(prev => (prev + 1) % 3)} className="p-2 rounded-full hover:bg-indigo-100 transition-colors duration-200" title="下一个">
-              <ChevronRight size={18} className="text-indigo-600" />
-            </button>
-          </div>
+                  {selectedType === '竞赛项目' && <div className="space-y-4 p-4 bg-yellow-50 rounded-lg">
+                      <h4 className="font-medium text-yellow-900 mb-3">竞赛项目特定信息</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <FormField control={form.control} name="role" render={({
+                      field
+                    }) => <FormItem>
+                            <FormLabel>担任角色</FormLabel>
+                            <FormControl>
+                              <Input placeholder="团队负责人/核心成员" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>} />
+                        <FormField control={form.control} name="teamSize" render={({
+                      field
+                    }) => <FormItem>
+                            <FormLabel>团队规模</FormLabel>
+                            <FormControl>
+                              <Input placeholder="例如：5人" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>} />
+                      </div>
+                      <FormField control={form.control} name="technologies" render={({
+                    field
+                  }) => <FormItem>
+                          <FormLabel>使用技术</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Python, React, TensorFlow" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>} />
+                    </div>}
+
+                  {selectedType === '实践经历' && <div className="space-y-4 p-4 bg-green-50 rounded-lg">
+                      <h4 className="font-medium text-green-900 mb-3">实践经历特定信息</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <FormField control={form.control} name="department" render={({
+                      field
+                    }) => <FormItem>
+                            <FormLabel>部门</FormLabel>
+                            <FormControl>
+                              <Input placeholder="输入部门名称" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>} />
+                        <FormField control={form.control} name="mentor" render={({
+                      field
+                    }) => <FormItem>
+                            <FormLabel>导师/主管</FormLabel>
+                            <FormControl>
+                              <Input placeholder="输入导师或主管姓名" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>} />
+                      </div>
+                      <FormField control={form.control} name="projects" render={({
+                    field
+                  }) => <FormItem>
+                          <FormLabel>参与项目</FormLabel>
+                          <FormControl>
+                            <Input placeholder="输入参与的主要项目" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>} />
+                    </div>}
+
+                  <div className="flex justify-end space-x-3">
+                    <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
+                      取消
+                    </Button>
+                    <Button type="submit">
+                      添加经历
+                    </Button>
+                  </div>
+                </form>
+              </Form>
+            </DialogContent>
+          </Dialog>
         </div>
 
-        {/* 内容展示区域 */}
-        <div className="flex justify-center">
-          <div className="w-full max-w-4xl">
-            {renderContent()}
-          </div>
+        {/* 经历分类展示 */}
+        <div className="space-y-16">
+          {Object.keys(experienceCategories).map(category => {
+          const categoryExperiences = getExperiencesByType(category);
+          const categoryInfo = experienceCategories[category];
+          return <div key={category}>
+                <div className="flex items-center mb-8">
+                  <div className={`w-12 h-12 ${categoryInfo.color} rounded-lg flex items-center justify-center mr-4 text-white`}>
+                    {categoryInfo.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900">
+                      {category}
+                    </h3>
+                    <p className="text-gray-600">
+                      {categoryExperiences.length} 项经历
+                    </p>
+                  </div>
+                </div>
+
+                {categoryExperiences.length === 0 ? <div className={`text-center py-12 ${categoryInfo.bgColor} rounded-xl border-2 border-dashed border-gray-300`}>
+                    <div className={`w-16 h-16 ${categoryInfo.color} rounded-lg flex items-center justify-center mx-auto mb-4 text-white opacity-50`}>
+                      {categoryInfo.icon}
+                    </div>
+                    <p className="text-gray-500">
+                      暂无{category}经历
+                    </p>
+                    <p className="text-sm text-gray-400 mt-2">
+                      点击上方"添加经历"按钮开始添加
+                    </p>
+                  </div> : <div className="space-y-6">
+                    {categoryExperiences.map((experience, index) => <div key={experience.id} className={`relative ${categoryInfo.bgColor} rounded-xl p-6 hover:shadow-lg transition-all duration-300`}>
+                        {/* 时间线连接线 */}
+                        {index < categoryExperiences.length - 1 && <div className="absolute left-8 top-16 bottom-0 w-0.5 bg-gray-300" />}
+
+                        <div className="flex items-start">
+                          <div className={`w-10 h-10 ${categoryInfo.color} rounded-lg flex items-center justify-center mr-4 text-white flex-shrink-0`}>
+                            {categoryInfo.icon}
+                          </div>
+                          <div className="flex-1">
+                            <div className="flex items-start justify-between mb-3">
+                              <div>
+                                <h4 className="text-xl font-bold text-gray-900 mb-1">
+                                  {experience.title}
+                                </h4>
+                                <p className="text-lg text-gray-700 font-medium">
+                                  {experience.subtitle}
+                                </p>
+                              </div>
+                              <div className={`px-3 py-1 ${categoryInfo.color} text-white text-sm rounded-full`}>
+                                {experience.type}
+                              </div>
+                            </div>
+
+                            <div className="flex items-center text-gray-600 mb-4 space-x-4">
+                              <div className="flex items-center">
+                                <Calendar size={16} className="mr-1" />
+                                {experience.period}
+                              </div>
+                              <div className="flex items-center">
+                                <MapPin size={16} className="mr-1" />
+                                {experience.location}
+                              </div>
+                            </div>
+
+                            <p className="text-gray-700 mb-4 leading-relaxed">
+                              {experience.description}
+                            </p>
+
+                            {/* 特定字段显示 */}
+                            {experience.type === '教育背景' && experience.details && <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                <div className="bg-white rounded-lg p-3">
+                                  <p className="text-sm text-gray-500 mb-1">学位</p>
+                                  <p className="font-medium text-gray-900">
+                                    {experience.details.degree}
+                                  </p>
+                                </div>
+                                <div className="bg-white rounded-lg p-3">
+                                  <p className="text-sm text-gray-500 mb-1">专业</p>
+                                  <p className="font-medium text-gray-900">
+                                    {experience.details.major}
+                                  </p>
+                                </div>
+                                <div className="bg-white rounded-lg p-3">
+                                  <p className="text-sm text-gray-500 mb-1">GPA</p>
+                                  <p className="font-medium text-gray-900">
+                                    {experience.details.gpa}
+                                  </p>
+                                </div>
+                              </div>}
+
+                            {experience.type === '竞赛项目' && experience.details && <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                <div className="bg-white rounded-lg p-3">
+                                  <p className="text-sm text-gray-500 mb-1">角色</p>
+                                  <p className="font-medium text-gray-900">
+                                    {experience.details.role}
+                                  </p>
+                                </div>
+                                <div className="bg-white rounded-lg p-3">
+                                  <p className="text-sm text-gray-500 mb-1">团队规模</p>
+                                  <p className="font-medium text-gray-900">
+                                    {experience.details.teamSize}
+                                  </p>
+                                </div>
+                                <div className="bg-white rounded-lg p-3">
+                                  <p className="text-sm text-gray-500 mb-1">技术栈</p>
+                                  <p className="font-medium text-gray-900">
+                                    {experience.details.technologies}
+                                  </p>
+                                </div>
+                              </div>}
+
+                            {experience.type === '实践经历' && experience.details && <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                <div className="bg-white rounded-lg p-3">
+                                  <p className="text-sm text-gray-500 mb-1">部门</p>
+                                  <p className="font-medium text-gray-900">
+                                    {experience.details.department}
+                                  </p>
+                                </div>
+                                <div className="bg-white rounded-lg p-3">
+                                  <p className="text-sm text-gray-500 mb-1">导师/主管</p>
+                                  <p className="font-medium text-gray-900">
+                                    {experience.details.mentor}
+                                  </p>
+                                </div>
+                                <div className="bg-white rounded-lg p-3">
+                                  <p className="text-sm text-gray-500 mb-1">参与项目</p>
+                                  <p className="font-medium text-gray-900">
+                                    {experience.details.projects}
+                                  </p>
+                                </div>
+                              </div>}
+
+                            {experience.achievements.length > 0 && <div className="flex flex-wrap gap-2">
+                                {experience.achievements.map((achievement, index) => <div key={index} className="flex items-center px-3 py-1 bg-white rounded-full text-sm">
+                                    <Award size={14} className="text-yellow-500 mr-1" />
+                                    <span className="text-gray-700">
+                                      {achievement}
+                                    </span>
+                                  </div>)}
+                              </div>}
+                          </div>
+                        </div>
+                      </div>)}
+                  </div>}
+              </div>;
+        })}
         </div>
 
-        {/* 进度指示器 */}
-        <div className="flex justify-center mt-6 space-x-2">
-          {tabs.map(tab => <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`transition-all duration-300 ${activeTab === tab.id ? 'w-8 h-2 bg-indigo-600 rounded-full' : 'w-2 h-2 bg-gray-300 rounded-full hover:bg-gray-400'}`} />)}
-        </div>
-
-        {/* 统计信息 */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 text-center border border-white/50">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <GraduationCap size={32} className="text-white" />
+        {/* 经历统计 */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 text-center">
+            <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mx-auto mb-3">
+              <GraduationCap size={24} className="text-white" />
             </div>
-            <div className="text-2xl font-bold text-gray-900 mb-1">11+</div>
-            <div className="text-sm text-gray-600">核心课程</div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-1">
+              {getExperiencesByType('教育背景').length}
+            </h3>
+            <p className="text-gray-600">教育经历</p>
           </div>
-
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 text-center border border-white/50">
-            <div className="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Trophy size={32} className="text-white" />
+          <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-6 text-center">
+            <div className="w-12 h-12 bg-yellow-500 rounded-lg flex items-center justify-center mx-auto mb-3">
+              <Trophy size={24} className="text-white" />
             </div>
-            <div className="text-2xl font-bold text-gray-900 mb-1">3</div>
-            <div className="text-sm text-gray-600">竞赛奖项</div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-1">
+              {getExperiencesByType('竞赛项目').length}
+            </h3>
+            <p className="text-gray-600">竞赛项目</p>
           </div>
-
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 text-center border border-white/50">
-            <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Briefcase size={32} className="text-white" />
+          <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 text-center">
+            <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mx-auto mb-3">
+              <Briefcase size={24} className="text-white" />
             </div>
-            <div className="text-2xl font-bold text-gray-900 mb-1">5</div>
-            <div className="text-sm text-gray-600">实践项目</div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-1">
+              {getExperiencesByType('实践经历').length}
+            </h3>
+            <p className="text-gray-600">实践经历</p>
+          </div>
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 text-center">
+            <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mx-auto mb-3">
+              <Medal size={24} className="text-white" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-1">
+              {experiences.reduce((acc, exp) => acc + exp.achievements.length, 0)}
+            </h3>
+            <p className="text-gray-600">获得成就</p>
           </div>
         </div>
       </div>
