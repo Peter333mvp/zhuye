@@ -1,7 +1,7 @@
 // @ts-ignore;
 import React from 'react';
 // @ts-ignore;
-import { Mail, Phone, MapPin, Github, Linkedin, Twitter, ArrowUp } from 'lucide-react';
+import { Mail, Phone, MapPin, Github, Linkedin, Twitter, ArrowUp, Code, Heart } from 'lucide-react';
 
 export function Footer() {
   const scrollToTop = () => {
@@ -11,17 +11,17 @@ export function Footer() {
     });
   };
   const contactInfo = [{
-    icon: <Mail size={20} />,
+    icon: <Mail size={18} />,
     label: '邮箱',
     value: 'your.email@example.com',
     href: 'mailto:your.email@example.com'
   }, {
-    icon: <Phone size={20} />,
+    icon: <Phone size={18} />,
     label: '电话',
     value: '+86 123 4567 8900',
     href: 'tel:+8612345678900'
   }, {
-    icon: <MapPin size={20} />,
+    icon: <MapPin size={18} />,
     label: '地址',
     value: '上海市宝山区上海大学',
     href: '#'
@@ -39,90 +39,101 @@ export function Footer() {
     label: 'Twitter',
     href: 'https://twitter.com/yourusername'
   }];
+  const quickLinks = [{
+    name: '首页',
+    href: '#home'
+  }, {
+    name: '专业技能',
+    href: '#skills'
+  }, {
+    name: '我的项目',
+    href: '#projects'
+  }, {
+    name: '经历与成就',
+    href: '#experience'
+  }];
   const currentYear = new Date().getFullYear();
-  return <footer className="bg-gray-900 text-white py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* 联系信息 */}
-          <div>
-            <h3 className="text-2xl font-bold mb-6 text-white">
-              联系方式
-            </h3>
-            <p className="text-gray-300 mb-6">
-              欢迎与我联系，期待与您的交流合作
+  return <footer className="bg-gray-900 text-white">
+      {/* 主要内容区域 */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* 品牌信息 */}
+          <div className="lg:col-span-1">
+            <div className="flex items-center mb-4">
+              <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center mr-3">
+                <Code size={20} className="text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-white">Your Name</h3>
+            </div>
+            <p className="text-gray-400 text-sm leading-relaxed mb-4">
+              专注于机械电子工程与人工智能技术的交叉领域，致力于创新设计与技术突破。
             </p>
-            <div className="space-y-4">
-              {contactInfo.map((info, index) => <div key={index} className="flex items-center p-3 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors duration-300">
-                  <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center mr-3 text-white">
-                    {info.icon}
+            <div className="flex space-x-3">
+              {socialLinks.map((social, index) => <a key={index} href={social.href} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-indigo-600 transition-all duration-300 group" title={social.label}>
+                  <div className="text-gray-400 group-hover:text-white transition-colors duration-300">
+                    {social.icon}
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-400 mb-1">{info.label}</p>
-                    <a href={info.href} className="text-base font-medium text-white hover:text-indigo-400 transition-colors duration-300">
-                      {info.value}
-                    </a>
-                  </div>
-                </div>)}
+                </a>)}
             </div>
           </div>
 
           {/* 快速链接 */}
           <div>
-            <h3 className="text-2xl font-bold mb-6 text-white">
-              快速链接
-            </h3>
-            <nav className="space-y-3">
-              <a href="#home" className="block text-gray-300 hover:text-white transition-colors duration-300">
-                首页
-              </a>
-              <a href="#skills" className="block text-gray-300 hover:text-white transition-colors duration-300">
-                专业技能
-              </a>
-              <a href="#projects" className="block text-gray-300 hover:text-white transition-colors duration-300">
-                我的项目
-              </a>
-              <a href="#experience" className="block text-gray-300 hover:text-white transition-colors duration-300">
-                经历与成就
-              </a>
-              <a href="#contact" className="block text-gray-300 hover:text-white transition-colors duration-300">
-                联系方式
-              </a>
+            <h4 className="text-lg font-semibold text-white mb-4">快速导航</h4>
+            <nav className="space-y-2">
+              {quickLinks.map((link, index) => <a key={index} href={link.href} className="block text-gray-400 hover:text-white transition-colors duration-300 text-sm">
+                  {link.name}
+                </a>)}
             </nav>
           </div>
 
-          {/* 社交媒体 */}
+          {/* 联系方式 */}
           <div>
-            <h3 className="text-2xl font-bold mb-6 text-white">
-              社交媒体
-            </h3>
-            <p className="text-gray-300 mb-6">
-              在社交媒体上关注我，了解更多动态
-            </p>
-            <div className="flex space-x-4 mb-8">
-              {socialLinks.map((social, index) => <a key={index} href={social.href} target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all duration-300 group">
-                  <div className="text-gray-300 group-hover:text-white">
-                    {social.icon}
+            <h4 className="text-lg font-semibold text-white mb-4">联系方式</h4>
+            <div className="space-y-3">
+              {contactInfo.map((info, index) => <a key={index} href={info.href} className="flex items-center text-gray-400 hover:text-white transition-colors duration-300 group">
+                  <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center mr-3 group-hover:bg-indigo-600 transition-colors duration-300">
+                    <div className="text-indigo-400 group-hover:text-white transition-colors duration-300">
+                      {info.icon}
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500">{info.label}</p>
+                    <p className="text-sm font-medium">{info.value}</p>
                   </div>
                 </a>)}
             </div>
-            
-            {/* 返回顶部按钮 */}
-            <button onClick={scrollToTop} className="flex items-center space-x-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-300">
-              <ArrowUp size={16} />
-              <span>返回顶部</span>
-            </button>
+          </div>
+
+          {/* 操作区域 */}
+          <div>
+            <h4 className="text-lg font-semibold text-white mb-4">更多操作</h4>
+            <div className="space-y-3">
+              <button onClick={scrollToTop} className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-300">
+                <ArrowUp size={16} />
+                <span>返回顶部</span>
+              </button>
+              <a href="mailto:your.email@example.com" className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors duration-300">
+                <Mail size={16} />
+                <span>发送邮件</span>
+              </a>
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* 版权信息 */}
-        <div className="border-t border-gray-800 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm">
-              © {currentYear} Your Name. All rights reserved.
-            </p>
-            <p className="text-gray-400 text-sm mt-2 md:mt-0">
-              Built with React & Tailwind CSS
-            </p>
+      {/* 底部版权信息 */}
+      <div className="border-t border-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div className="flex items-center space-x-2 text-gray-400 text-sm">
+              <span>© {currentYear} Your Name. All rights reserved.</span>
+            </div>
+            <div className="flex items-center space-x-2 text-gray-400 text-sm">
+              <span>Made with</span>
+              <Heart size={14} className="text-red-500 fill-current" />
+              <span>using React & Tailwind CSS</span>
+            </div>
           </div>
         </div>
       </div>
