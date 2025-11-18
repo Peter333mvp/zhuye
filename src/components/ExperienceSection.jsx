@@ -102,13 +102,13 @@ export function ExperienceSection() {
           {!isLast && <div className="w-0.5 h-16 bg-gradient-to-b from-indigo-200 to-transparent mt-2" />}
         </div>
 
-        {/* 内容 */}
-        <div className="flex-1 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-4 border border-gray-100 group-hover:border-indigo-200">
-          <div className="flex items-center justify-between mb-2">
+        {/* 内容 - 增大卡片尺寸 */}
+        <div className="flex-1 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 border border-gray-100 group-hover:border-indigo-200">
+          <div className="flex items-center justify-between mb-3">
             <h3 className="text-lg font-bold text-gray-900 group-hover:text-indigo-600 transition-colors duration-300">
               {item.title}
             </h3>
-            {item.year && <span className="text-sm font-semibold text-indigo-600 bg-indigo-50 px-2 py-1 rounded-full">
+            {item.year && <span className="text-sm font-semibold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">
                 {item.year}
               </span>}
             {item.period && <span className="text-sm text-gray-500">
@@ -116,20 +116,20 @@ export function ExperienceSection() {
               </span>}
           </div>
           
-          {item.award && <div className="text-sm font-semibold text-yellow-600 mb-2">
+          {item.award && <div className="text-sm font-semibold text-yellow-600 mb-3">
               {item.award}
             </div>}
           
-          {item.position && <div className="text-sm font-semibold text-indigo-600 mb-2">
+          {item.position && <div className="text-sm font-semibold text-indigo-600 mb-3">
               {item.position}
             </div>}
           
-          <p className="text-gray-600 text-sm mb-3">
+          <p className="text-gray-600 text-base mb-4 leading-relaxed">
             {item.content || item.description}
           </p>
           
           {item.responsibilities && <div className="flex flex-wrap gap-2">
-              {item.responsibilities.map((resp, idx) => <span key={idx} className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full">
+              {item.responsibilities.map((resp, idx) => <span key={idx} className="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
                   {resp}
                 </span>)}
             </div>}
@@ -140,7 +140,7 @@ export function ExperienceSection() {
     switch (activeTab) {
       case 0:
         // 教育背景
-        return <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/50">
+        return <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-white/50">
             <div className="flex items-center mb-6">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mr-3">
                 <GraduationCap size={24} className="text-white" />
@@ -149,7 +149,7 @@ export function ExperienceSection() {
             </div>
 
             <div className="space-y-4">
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-200">
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200">
                 <h4 className="text-lg font-bold text-gray-900 mb-2">
                   {education.school}
                 </h4>
@@ -161,15 +161,15 @@ export function ExperienceSection() {
                 </p>
                 
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {education.tags.map((tag, idx) => <span key={idx} className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full font-medium">
+                  {education.tags.map((tag, idx) => <span key={idx} className="text-sm bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-medium">
                       {tag}
                     </span>)}
                 </div>
 
                 <div>
                   <h5 className="text-sm font-semibold text-gray-700 mb-2">主修课程：</h5>
-                  <div className="flex flex-wrap gap-1">
-                    {education.courses.map((course, idx) => <span key={idx} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
+                  <div className="flex flex-wrap gap-2">
+                    {education.courses.map((course, idx) => <span key={idx} className="text-sm bg-gray-100 text-gray-600 px-3 py-1 rounded">
                         {course}
                       </span>)}
                   </div>
@@ -179,7 +179,7 @@ export function ExperienceSection() {
           </div>;
       case 1:
         // 竞赛项目
-        return <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/50">
+        return <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-white/50">
             <div className="flex items-center mb-6">
               <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-full flex items-center justify-center mr-3">
                 <Trophy size={24} className="text-white" />
@@ -187,13 +187,13 @@ export function ExperienceSection() {
               <h3 className="text-2xl font-bold text-gray-900">竞赛项目</h3>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-8">
               {competitions.map((competition, index) => <TimelineItem key={index} item={competition} isLast={index === competitions.length - 1} />)}
             </div>
           </div>;
       case 2:
         // 实践经历
-        return <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/50">
+        return <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-white/50">
             <div className="flex items-center mb-6">
               <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full flex items-center justify-center mr-3">
                 <Briefcase size={24} className="text-white" />
@@ -201,7 +201,7 @@ export function ExperienceSection() {
               <h3 className="text-2xl font-bold text-gray-900">实践经历</h3>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-8">
               {practices.map((practice, index) => <TimelineItem key={index} item={practice} isLast={index === practices.length - 1} />)}
             </div>
           </div>;
@@ -248,9 +248,9 @@ export function ExperienceSection() {
           </div>
         </div>
 
-        {/* 内容展示区域 */}
+        {/* 内容展示区域 - 增大容器尺寸 */}
         <div className="flex justify-center">
-          <div className="w-full max-w-4xl">
+          <div className="w-full max-w-5xl">
             {renderContent()}
           </div>
         </div>
@@ -260,9 +260,9 @@ export function ExperienceSection() {
           {tabs.map(tab => <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`transition-all duration-300 ${activeTab === tab.id ? 'w-8 h-2 bg-indigo-600 rounded-full' : 'w-2 h-2 bg-gray-300 rounded-full hover:bg-gray-400'}`} />)}
         </div>
 
-        {/* 统计信息 */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 text-center border border-white/50">
+        {/* 统计信息 - 增大卡片尺寸 */}
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-8 text-center border border-white/50">
             <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
               <GraduationCap size={32} className="text-white" />
             </div>
@@ -270,7 +270,7 @@ export function ExperienceSection() {
             <div className="text-sm text-gray-600">核心课程</div>
           </div>
 
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 text-center border border-white/50">
+          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-8 text-center border border-white/50">
             <div className="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
               <Trophy size={32} className="text-white" />
             </div>
@@ -278,7 +278,7 @@ export function ExperienceSection() {
             <div className="text-sm text-gray-600">竞赛奖项</div>
           </div>
 
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 text-center border border-white/50">
+          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-8 text-center border border-white/50">
             <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
               <Briefcase size={32} className="text-white" />
             </div>

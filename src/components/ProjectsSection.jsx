@@ -123,8 +123,8 @@ export function ProjectsSection() {
           </p>
         </div>
 
-        {/* 单卡片滑动展示 */}
-        <div className="relative max-w-4xl mx-auto">
+        {/* 单卡片滑动展示 - 增大容器尺寸 */}
+        <div className="relative max-w-6xl mx-auto">
           {/* 主卡片容器 */}
           <div className="relative overflow-hidden rounded-xl">
             <div className="flex transition-transform duration-300 ease-in-out" style={{
@@ -135,8 +135,8 @@ export function ProjectsSection() {
               const Icon = project.icon;
               return <div key={project.id} className="w-full flex-shrink-0 px-4">
                   <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    {/* 项目图片 */}
-                    <div className="relative h-64 overflow-hidden">
+                    {/* 项目图片 - 增大高度 */}
+                    <div className="relative h-80 overflow-hidden">
                       <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                       <div className="absolute bottom-4 left-4 right-4">
@@ -155,9 +155,9 @@ export function ProjectsSection() {
                       </div>
                     </div>
 
-                    {/* 项目内容 */}
-                    <div className="p-6">
-                      <p className="text-gray-600 mb-6 leading-relaxed">
+                    {/* 项目内容 - 增大内边距 */}
+                    <div className="p-8">
+                      <p className="text-gray-600 mb-6 leading-relaxed text-base">
                         {project.description}
                       </p>
 
