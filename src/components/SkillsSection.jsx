@@ -1,7 +1,5 @@
 // @ts-ignore;
 import React, { useState, useEffect, useRef } from 'react';
-// @ts-ignore;
-import { Lock, CheckCircle, Star } from 'lucide-react';
 
 export function SkillsSection() {
   const [skills] = useState([{
@@ -212,9 +210,9 @@ export function SkillsSection() {
           </p>
         </div>
 
-        {/* 统一气泡容器 */}
+        {/* 统一气泡容器 - 增大尺寸 */}
         <div className="flex justify-center">
-          <div ref={containerRef} className="relative bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl border-2 border-indigo-200 w-full max-w-4xl h-96 overflow-hidden">
+          <div ref={containerRef} className="relative bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl border-2 border-indigo-200 w-full max-w-6xl h-[600px] overflow-hidden">
             {skills.map(skill => {
             const position = bubblePositions[skill.id] || {
               x: 50,
@@ -224,8 +222,10 @@ export function SkillsSection() {
               scale: 1
             };
             const isHovered = hoveredSkill === skill.id;
-            const baseSize = 90;
-            const hoverSize = 110;
+            const baseSize = 120;
+            // 增大基础尺寸
+            const hoverSize = 150;
+            // 增大悬停尺寸
             const currentSize = isHovered ? hoverSize : baseSize;
             const finalSize = currentSize * breath.scale;
             return <div key={skill.id} className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 cursor-pointer ${getSkillColor(skill)} border-2 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl ${isHovered ? 'z-20' : 'z-10'}`} style={{
@@ -238,11 +238,11 @@ export function SkillsSection() {
               boxShadow: isHovered ? '0 8px 32px rgba(0, 0, 0, 0.15), 0 0 20px rgba(99, 102, 241, 0.3)' : '0 4px 16px rgba(0, 0, 0, 0.1), 0 0 10px rgba(99, 102, 241, 0.1)',
               transform: `translate(-50%, -50%) scale(${breath.scale})`
             }} onMouseEnter={() => setHoveredSkill(skill.id)} onMouseLeave={() => setHoveredSkill(null)}>
+                  {/* 只保留文字，去掉图标 */}
                   <div className="text-center">
-                    <div className="text-xs font-bold truncate px-1 drop-shadow-sm">
+                    <div className="text-sm font-bold truncate px-2 drop-shadow-sm">
                       {skill.name}
                     </div>
-                    {skill.unlocked ? skill.level >= 3 ? <Star size={12} className="text-yellow-600 mx-auto mt-1 drop-shadow-sm" /> : <CheckCircle size={12} className="text-green-600 mx-auto mt-1 drop-shadow-sm" /> : <Lock size={12} className="text-gray-600 mx-auto mt-1 drop-shadow-sm" />}
                   </div>
                   
                   {/* 悬停工具提示 */}
