@@ -1,7 +1,7 @@
 // @ts-ignore;
 import React, { useState, useRef, useEffect } from 'react';
 // @ts-ignore;
-import { ChevronLeft, ChevronRight, ExternalLink, Github, Trophy, Target, TrendingUp, Bot, Award } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ExternalLink, Github, Trophy, Target, TrendingUp, Bot } from 'lucide-react';
 
 export function ProjectsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -40,23 +40,13 @@ export function ProjectsSection() {
   }, {
     id: 4,
     title: '太空蜘蛛机器人系统设计',
-    subtitle: '研究项目',
-    description: '针对太空特殊环境航天器维护和星体探索等多任务应用场景，提出并实现了一种适应太空微重力等特殊环境要求的六足机器人系统设计。通过融合机械设计、运动学建模、智能控制与仿真验证等多学科技术，研究了机器人运动稳定性、环境适应性和系统可靠性等关键技术问题，完成了原型样机的研制与性能测试，达到了设计要求。',
+    subtitle: '中国大学生机械工程创新创意大赛第八届"精雕杯"毕业设计大赛',
+    description: '时间：2025年6月\n获得了全国三等奖、华东赛区一等奖\n\n针对太空特殊环境航天器维护和星体探索等多任务应用场景，提出并实现了一种适应太空微重力等特殊环境要求的六足机器人系统设计。通过融合机械设计、运动学建模、智能控制与仿真验证等多学科技术，研究了机器人运动稳定性、环境适应性和系统可靠性等关键技术问题，完成了原型样机的研制与性能测试，达到了设计要求。',
     responsibilities: ['机械系统设计（基于SolidWorks进行轻量化优化与仿真）', '运动学建模（使用D-H参数法建立正逆运动学模型及足端轨迹控制）', '控制策略开发（设计多步态协同控制与容错算法）', 'MATLAB仿真验证（二步态前进与转弯仿真）', '硬件系统集成（ESP32主控、传感器与舵机驱动）', '实验测试（样机运动性能与模拟太空环境适应性）'],
     image: 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=800&h=600&fit=crop',
-    tags: ['机器人系统', '太空技术', '运动学建模', '智能控制', 'MATLAB仿真'],
+    tags: ['机器人系统', '太空技术', '运动学建模', '智能控制', 'MATLAB仿真', '机械工程创新'],
     icon: Bot,
     color: 'bg-purple-100 text-purple-800'
-  }, {
-    id: 5,
-    title: '中国大学生机械工程创新创意大赛',
-    subtitle: '第八届"精雕杯"毕业设计大赛',
-    description: '时间：2025年6月\n获得了全国三等奖、华东赛区一等奖',
-    responsibilities: ['创新设计', '工程实现', '竞赛答辩'],
-    image: 'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&h=600&fit=crop',
-    tags: ['机械工程', '创新设计', '毕业设计', '竞赛项目'],
-    icon: Award,
-    color: 'bg-red-100 text-red-800'
   }];
   const nextProject = () => {
     if (isAnimating) return;
