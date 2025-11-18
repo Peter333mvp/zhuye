@@ -75,13 +75,13 @@ export function SkillsSection() {
   });
   const containerRef = useRef(null);
 
-  // 初始化技能位置为圆形排列
+  // 初始化技能位置为围绕中心的圆形排列
   useEffect(() => {
-    const radius = 200;
-    const centerX = 250;
-    const centerY = 250;
+    const radius = 180; // 减小半径，让技能点更靠近中心
+    const centerX = 250; // 容器中心X
+    const centerY = 250; // 容器中心Y
     const updatedSkills = skills.map((skill, index) => {
-      const angle = index * 2 * Math.PI / skills.length - Math.PI / 2;
+      const angle = index * 2 * Math.PI / skills.length - Math.PI / 2; // 从顶部开始排列
       const x = centerX + radius * Math.cos(angle) - 60; // 60是技能节点宽度的一半
       const y = centerY + radius * Math.sin(angle) - 40; // 40是技能节点高度的一半
 
@@ -100,70 +100,80 @@ export function SkillsSection() {
           bg: 'bg-blue-100',
           text: 'text-blue-800',
           border: 'border-blue-300',
-          gradient: 'from-blue-400 to-blue-600'
+          gradient: 'from-blue-400 to-blue-600',
+          line: 'stroke-blue-400'
         };
       case 'green':
         return {
           bg: 'bg-green-100',
           text: 'text-green-800',
           border: 'border-green-300',
-          gradient: 'from-green-400 to-green-600'
+          gradient: 'from-green-400 to-green-600',
+          line: 'stroke-green-400'
         };
       case 'purple':
         return {
           bg: 'bg-purple-100',
           text: 'text-purple-800',
           border: 'border-purple-300',
-          gradient: 'from-purple-400 to-purple-600'
+          gradient: 'from-purple-400 to-purple-600',
+          line: 'stroke-purple-400'
         };
       case 'indigo':
         return {
           bg: 'bg-indigo-100',
           text: 'text-indigo-800',
           border: 'border-indigo-300',
-          gradient: 'from-indigo-400 to-indigo-600'
+          gradient: 'from-indigo-400 to-indigo-600',
+          line: 'stroke-indigo-400'
         };
       case 'pink':
         return {
           bg: 'bg-pink-100',
           text: 'text-pink-800',
           border: 'border-pink-300',
-          gradient: 'from-pink-400 to-pink-600'
+          gradient: 'from-pink-400 to-pink-600',
+          line: 'stroke-pink-400'
         };
       case 'yellow':
         return {
           bg: 'bg-yellow-100',
           text: 'text-yellow-800',
           border: 'border-yellow-300',
-          gradient: 'from-yellow-400 to-yellow-600'
+          gradient: 'from-yellow-400 to-yellow-600',
+          line: 'stroke-yellow-400'
         };
       case 'red':
         return {
           bg: 'bg-red-100',
           text: 'text-red-800',
           border: 'border-red-300',
-          gradient: 'from-red-400 to-red-600'
+          gradient: 'from-red-400 to-red-600',
+          line: 'stroke-red-400'
         };
       case 'orange':
         return {
           bg: 'bg-orange-100',
           text: 'text-orange-800',
           border: 'border-orange-300',
-          gradient: 'from-orange-400 to-orange-600'
+          gradient: 'from-orange-400 to-orange-600',
+          line: 'stroke-orange-400'
         };
       case 'teal':
         return {
           bg: 'bg-teal-100',
           text: 'text-teal-800',
           border: 'border-teal-300',
-          gradient: 'from-teal-400 to-teal-600'
+          gradient: 'from-teal-400 to-teal-600',
+          line: 'stroke-teal-400'
         };
       default:
         return {
           bg: 'bg-gray-100',
           text: 'text-gray-800',
           border: 'border-gray-300',
-          gradient: 'from-gray-400 to-gray-600'
+          gradient: 'from-gray-400 to-gray-600',
+          line: 'stroke-gray-400'
         };
     }
   };
@@ -214,12 +224,12 @@ export function SkillsSection() {
   }, [draggingSkill, dragOffset]);
   const CenterNode = () => {
     return <div className="absolute z-20 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <div className="w-40 h-40 bg-gradient-to-br from-indigo-400 to-purple-600 rounded-full flex flex-col items-center justify-center shadow-2xl border-4 border-white">
-          <div className="w-36 h-36 bg-white rounded-full flex flex-col items-center justify-center">
-            <div className="text-lg font-bold text-indigo-800 text-center mb-1">
+        <div className="w-44 h-44 bg-gradient-to-br from-indigo-400 to-purple-600 rounded-full flex flex-col items-center justify-center shadow-2xl border-4 border-white">
+          <div className="w-40 h-40 bg-white rounded-full flex flex-col items-center justify-center">
+            <div className="text-xl font-bold text-indigo-800 text-center mb-2">
               技能体系
             </div>
-            <User size={32} className="text-indigo-600 mb-1" />
+            <User size={36} className="text-indigo-600 mb-2" />
             <div className="text-sm text-indigo-600 opacity-75">
               Peter Zhao
             </div>
@@ -227,11 +237,17 @@ export function SkillsSection() {
         </div>
         
         {/* 装饰性星星 */}
-        <div className="absolute -top-2 -right-2">
-          <Star size={16} className="text-yellow-400 fill-yellow-400" />
+        <div className="absolute -top-3 -right-3">
+          <Star size={20} className="text-yellow-400 fill-yellow-400" />
         </div>
-        <div className="absolute -bottom-2 -left-2">
-          <Star size={16} className="text-yellow-400 fill-yellow-400" />
+        <div className="absolute -bottom-3 -left-3">
+          <Star size={20} className="text-yellow-400 fill-yellow-400" />
+        </div>
+        <div className="absolute top-1/2 -left-8 transform -translate-y-1/2">
+          <Star size={16} className="text-yellow-300 fill-yellow-300 opacity-60" />
+        </div>
+        <div className="absolute top-1/2 -right-8 transform -translate-y-1/2">
+          <Star size={16} className="text-yellow-300 fill-yellow-300 opacity-60" />
         </div>
       </div>;
   };
@@ -240,32 +256,32 @@ export function SkillsSection() {
   }) => {
     const colors = getSkillColor(skill.color);
     const isDragging = draggingSkill === skill.id;
-    return <div className={`absolute z-10 cursor-move transition-shadow duration-200 ${isDragging ? 'z-30' : 'hover:z-25'}`} style={{
+    return <div className={`absolute z-10 cursor-move transition-all duration-200 ${isDragging ? 'z-30' : 'hover:z-25'}`} style={{
       left: `${skill.x}px`,
       top: `${skill.y}px`,
-      transform: isDragging ? 'scale(1.1)' : 'scale(1)',
-      transition: isDragging ? 'none' : 'transform 0.2s'
+      transform: isDragging ? 'scale(1.15)' : 'scale(1)',
+      transition: isDragging ? 'none' : 'transform 0.2s, box-shadow 0.2s'
     }} onMouseDown={e => handleMouseDown(e, skill)}>
-        <div className={`relative group w-32 h-24 bg-white ${colors.border} border-2 rounded-xl flex flex-col items-center justify-center shadow-lg hover:shadow-xl ${isDragging ? 'shadow-2xl' : ''}`}>
+        <div className={`relative group w-36 h-28 bg-white ${colors.border} border-2 rounded-xl flex flex-col items-center justify-center shadow-lg hover:shadow-xl ${isDragging ? 'shadow-2xl rotate-3' : ''}`}>
           {/* 拖动指示器 */}
-          <div className="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-            <Move size={12} className="text-gray-400" />
+          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            <Move size={14} className="text-gray-400" />
           </div>
           
-          <div className={`text-xs font-bold ${colors.text} text-center px-1 mb-1`}>
-            {skill.name.length > 8 ? skill.name.substring(0, 7) + '..' : skill.name}
+          <div className={`text-sm font-bold ${colors.text} text-center px-2 mb-2`}>
+            {skill.name.length > 10 ? skill.name.substring(0, 9) + '..' : skill.name}
           </div>
-          <div className="w-20 bg-gray-200 rounded-full h-1.5 mb-1">
-            <div className={`${getProgressColor(skill.level)} h-1.5 rounded-full transition-all duration-500`} style={{
+          <div className="w-24 bg-gray-200 rounded-full h-2 mb-2">
+            <div className={`${getProgressColor(skill.level)} h-2 rounded-full transition-all duration-500`} style={{
             width: `${skill.level}%`
           }} />
           </div>
-          <div className="text-xs font-bold text-gray-600">
+          <div className="text-sm font-bold text-gray-600">
             {skill.level}%
           </div>
         </div>
         
-        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-40 p-3 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-30">
+        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 w-44 p-3 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-30">
           <div className="font-semibold mb-2 text-sm">{skill.name}</div>
           <div className="mb-2 text-xs">{skill.description}</div>
           <div className="flex items-center justify-between mb-2">
@@ -292,7 +308,7 @@ export function SkillsSection() {
           </p>
           <div className="flex items-center justify-center space-x-2 text-sm text-gray-500">
             <Move size={16} />
-            <span>提示：可以拖动技能节点调整位置</span>
+            <span>提示：可以拖动技能节点调整位置，让它们围绕中心排列</span>
           </div>
         </div>
 
@@ -306,6 +322,8 @@ export function SkillsSection() {
               <div className="absolute top-20 right-20 w-32 h-32 bg-purple-200 rounded-full opacity-20 blur-xl" />
               <div className="absolute bottom-20 left-20 w-24 h-24 bg-green-200 rounded-full opacity-20 blur-xl" />
               <div className="absolute bottom-10 right-10 w-16 h-16 bg-indigo-200 rounded-full opacity-20 blur-xl" />
+              {/* 中心光晕效果 */}
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-indigo-200 to-purple-200 rounded-full opacity-30 blur-3xl" />
             </div>
 
             {/* 连接线 - 从中心到各个技能 */}
@@ -315,11 +333,12 @@ export function SkillsSection() {
               {skills.map(skill => {
               const centerX = 250;
               const centerY = 250;
-              const skillCenterX = skill.x + 60; // 技能节点中心
-              const skillCenterY = skill.y + 40;
+              const skillCenterX = skill.x + 68; // 技能节点中心 (36宽度的一半)
+              const skillCenterY = skill.y + 56; // 技能节点中心 (28高度的一半)
               const colors = getSkillColor(skill.color);
               return <g key={skill.id}>
-                    <line x1={centerX} y1={centerY} x2={skillCenterX} y2={skillCenterY} stroke="currentColor" strokeWidth="2" className={`${colors.line} opacity-30 transition-all duration-300`} strokeDasharray="5,5" />
+                    <line x1={centerX} y1={centerY} x2={skillCenterX} y2={skillCenterY} stroke="currentColor" strokeWidth="2" className={`${colors.line} opacity-40 transition-all duration-300`} strokeDasharray="5,5" />
+                    <circle cx={skillCenterX} cy={skillCenterY} r="4" fill="currentColor" className={`${colors.line} opacity-60`} />
                   </g>;
             })}
             </svg>
