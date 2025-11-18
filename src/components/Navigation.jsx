@@ -26,6 +26,9 @@ export function Navigation() {
     id: 'home',
     label: '首页'
   }, {
+    id: 'about',
+    label: '关于'
+  }, {
     id: 'skills',
     label: '技能'
   }, {

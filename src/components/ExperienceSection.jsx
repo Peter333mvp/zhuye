@@ -1,295 +1,194 @@
 // @ts-ignore;
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 // @ts-ignore;
-import { GraduationCap, Calendar, MapPin, Award, Trophy, Briefcase, Users, BookOpen, Target, Code, Calculator, Rocket, ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react';
+import { Calendar, MapPin, Briefcase, GraduationCap, Award, ChevronDown, ChevronUp } from 'lucide-react';
 
 export function ExperienceSection() {
-  const [activeTab, setActiveTab] = useState(0);
-  const [isAutoPlay, setIsAutoPlay] = useState(false);
-  const education = {
-    school: '上海大学',
-    college: '机电工程与自动化学院',
-    major: '机械电子工程',
-    tags: ['211工程', '双一流建设高校', '双一流优势学科'],
-    courses: ['高等数学', 'C语言', '机械设计', '机械原理', '工程力学', '材料力学', '自动控制原理', '数字电路技术', '电子技术基础', '机器人工学', '深度学习与人工智能']
-  };
-  const competitions = [{
-    title: '中国大学生机械工程创新创意大赛',
-    award: '全国三等奖、华东赛区一等奖',
-    year: '2025',
-    content: '针对太空特殊环境航天器维护和星体探索等多任务应用场景，提出并实现了一种适应太空微重力等特殊环境要求的六足机器人系统设计。通过融合机械设计、运动学建模、智能控制与仿真验证等多学科技术，研究了面向太空极端环境多任务应用场景仿生机器人运动稳定性、环境适应性和系统可靠性等关键技术问题。',
-    responsibilities: ['机械系统设计与优化', '运动学建模与仿真', '样机制作与性能测试', '太空环境适应性实验'],
-    icon: <Rocket className="text-purple-500" />
-  }, {
-    title: '中国机器人大赛暨ROBOTCUP世界杯中国赛',
-    award: '亚军（国赛二等奖）',
-    year: '2024',
-    content: '参与篮球机器人组比赛，机器人具备自动拾球、路径规划、多任务并行处理、定点投篮等功能',
-    responsibilities: ['机械结构设计', '零件加工', '现场改装'],
-    icon: <Trophy className="text-yellow-500" />
-  }, {
-    title: '美国大学生数学建模竞赛（MCM）',
-    award: 'M奖（国赛二等奖）',
-    year: '2024',
-    content: '针对五大湖水资源调控问题，建立模型平衡水位与利益相关者需求，设计算法并分析敏感性',
-    responsibilities: ['模型推导与建立', 'MATLAB 求解与检验', '论文撰写'],
-    icon: <Calculator className="text-green-500" />
-  }];
-  const practices = [{
-    title: '上海大学学生创新创业指导中心',
-    position: '中心主任',
-    period: '2021.09 - 2024.06',
-    description: '负责组织创新创业活动与项目指导',
-    icon: <Users className="text-purple-500" />
-  }, {
-    title: '全国第十六届精密工程学术研讨会暨青年学者创新论坛',
-    position: '志愿者负责人',
-    period: '2023.06',
-    description: '协调志愿者团队，保障会议顺利进行',
-    icon: <Briefcase className="text-indigo-500" />
-  }, {
-    title: '上海大学第十三期青年马克思主义者工程',
-    position: '学员',
-    period: '2023.03 - 2024.03',
-    description: '青年马克思主义者培养工程学员',
-    icon: <BookOpen className="text-red-500" />
-  }, {
-    title: '上海大学第十七期人才学院',
-    position: '学员',
-    period: '2023.04 - 2024.04',
-    description: '人才学院培养计划学员',
-    icon: <Target className="text-orange-500" />
-  }, {
-    title: '沃顿青年领导力项目',
-    position: '学员',
-    period: '2024.03 - 2024.06',
-    description: '沃顿商学院青年领导力培养项目',
-    icon: <Award className="text-teal-500" />
-  }];
-  const tabs = [{
-    id: 0,
-    name: '教育背景',
-    icon: <GraduationCap size={20} />
-  }, {
+  const [expandedItem, setExpandedItem] = useState(null);
+  const experiences = [{
     id: 1,
-    name: '竞赛项目',
-    icon: <Trophy size={20} />
+    type: 'work',
+    title: '高级前端工程师',
+    company: '科技创新有限公司',
+    location: '北京',
+    period: '2022年3月 - 至今',
+    description: '负责公司核心产品的前端架构设计和开发，带领团队完成多个重要项目的交付。优化系统性能，提升用户体验。',
+    achievements: ['主导重构公司核心产品，性能提升60%', '建立前端开发规范和最佳实践', '指导初级开发人员，提升团队整体技术水平', '参与技术选型和架构设计'],
+    technologies: ['React', 'TypeScript', 'Node.js', 'Webpack', 'Docker'],
+    current: true
   }, {
     id: 2,
-    name: '实践经历',
-    icon: <Briefcase size={20} />
+    type: 'work',
+    title: '前端开发工程师',
+    company: '互联网科技公司',
+    location: '上海',
+    period: '2020年6月 - 2022年2月',
+    description: '参与多个Web应用的开发和维护，与产品经理、设计师紧密合作，确保项目按时高质量交付。',
+    achievements: ['完成10+个大型项目的前端开发', '优化页面加载速度，提升用户体验', '参与移动端适配和响应式设计', '编写技术文档和单元测试'],
+    technologies: ['Vue.js', 'JavaScript', 'CSS3', 'Git', 'Jenkins'],
+    current: false
+  }, {
+    id: 3,
+    type: 'education',
+    title: '计算机科学与技术学士',
+    company: '某知名大学',
+    location: '北京',
+    period: '2016年9月 - 2020年6月',
+    description: '系统学习计算机科学基础理论，参与多个实践项目，培养扎实的编程基础和问题解决能力。',
+    achievements: ['GPA: 3.8/4.0，专业排名前10%', '获得校级奖学金3次', '参与ACM程序设计竞赛', '毕业设计获得优秀等级'],
+    technologies: ['C++', 'Java', '数据结构', '算法', '数据库'],
+    current: false
+  }, {
+    id: 4,
+    type: 'award',
+    title: '最佳技术创新奖',
+    company: '行业技术大会',
+    location: '深圳',
+    period: '2023年11月',
+    description: '因在AI智能助手项目中的创新性技术方案和卓越表现，获得行业技术创新大奖。',
+    achievements: ['技术创新方案获得行业认可', '项目成果被多家媒体报道', '受邀在技术大会上分享经验'],
+    technologies: ['AI', 'NLP', '机器学习'],
+    current: false
   }];
-
-  // 自动播放功能
-  useEffect(() => {
-    if (!isAutoPlay) return;
-    const interval = setInterval(() => {
-      setActiveTab(prev => (prev + 1) % 3);
-    }, 4000); // 每4秒切换一次
-
-    return () => clearInterval(interval);
-  }, [isAutoPlay]);
-  const TimelineItem = ({
-    item,
-    isLast = false
-  }) => {
-    return <div className="relative flex items-start group">
-        {/* 时间线节点 */}
-        <div className="flex flex-col items-center mr-4">
-          <div className="w-12 h-12 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg border-2 border-indigo-200 group-hover:border-indigo-400 transition-colors duration-300 z-10">
-            {item.icon}
-          </div>
-          {!isLast && <div className="w-0.5 h-16 bg-gradient-to-b from-indigo-200 to-transparent mt-2" />}
-        </div>
-
-        {/* 内容 */}
-        <div className="flex-1 bg-white/80 backdrop-blur-sm rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-4 border border-white/50 group-hover:border-indigo-200">
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="text-lg font-bold text-gray-900 group-hover:text-indigo-600 transition-colors duration-300">
-              {item.title}
-            </h3>
-            {item.year && <span className="text-sm font-semibold text-indigo-600 bg-indigo-50 px-2 py-1 rounded-full">
-                {item.year}
-              </span>}
-            {item.period && <span className="text-sm text-gray-500">
-                {item.period}
-              </span>}
-          </div>
-          
-          {item.award && <div className="text-sm font-semibold text-yellow-600 mb-2">
-              {item.award}
-            </div>}
-          
-          {item.position && <div className="text-sm font-semibold text-indigo-600 mb-2">
-              {item.position}
-            </div>}
-          
-          <p className="text-gray-600 text-sm mb-3">
-            {item.content || item.description}
-          </p>
-          
-          {item.responsibilities && <div className="flex flex-wrap gap-2">
-              {item.responsibilities.map((resp, idx) => <span key={idx} className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full">
-                  {resp}
-                </span>)}
-            </div>}
-        </div>
-      </div>;
+  const toggleExpanded = id => {
+    setExpandedItem(expandedItem === id ? null : id);
   };
-  const renderContent = () => {
-    switch (activeTab) {
-      case 0:
-        // 教育背景
-        return <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/50">
-            <div className="flex items-center mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mr-3">
-                <GraduationCap size={24} className="text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">教育背景</h3>
-            </div>
-
-            <div className="space-y-4">
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-200">
-                <h4 className="text-lg font-bold text-gray-900 mb-2">
-                  {education.school}
-                </h4>
-                <p className="text-indigo-600 font-semibold mb-1">
-                  {education.college}
-                </p>
-                <p className="text-gray-700 font-medium mb-3">
-                  {education.major}
-                </p>
-                
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {education.tags.map((tag, idx) => <span key={idx} className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full font-medium">
-                      {tag}
-                    </span>)}
-                </div>
-
-                <div>
-                  <h5 className="text-sm font-semibold text-gray-700 mb-2">主修课程：</h5>
-                  <div className="flex flex-wrap gap-1">
-                    {education.courses.map((course, idx) => <span key={idx} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
-                        {course}
-                      </span>)}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>;
-      case 1:
-        // 竞赛项目
-        return <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/50">
-            <div className="flex items-center mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-full flex items-center justify-center mr-3">
-                <Trophy size={24} className="text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">竞赛项目</h3>
-            </div>
-
-            <div className="space-y-6">
-              {competitions.map((competition, index) => <TimelineItem key={index} item={competition} isLast={index === competitions.length - 1} />)}
-            </div>
-          </div>;
-      case 2:
-        // 实践经历
-        return <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/50">
-            <div className="flex items-center mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full flex items-center justify-center mr-3">
-                <Briefcase size={24} className="text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">实践经历</h3>
-            </div>
-
-            <div className="space-y-6">
-              {practices.map((practice, index) => <TimelineItem key={index} item={practice} isLast={index === practices.length - 1} />)}
-            </div>
-          </div>;
+  const getIcon = type => {
+    switch (type) {
+      case 'work':
+        return <Briefcase size={20} className="text-blue-600" />;
+      case 'education':
+        return <GraduationCap size={20} className="text-green-600" />;
+      case 'award':
+        return <Award size={20} className="text-yellow-600" />;
       default:
-        return null;
+        return <Briefcase size={20} className="text-gray-600" />;
     }
   };
-  return <section id="experience" className="relative py-24 bg-gradient-to-br from-purple-50 via-white to-blue-50">
-      {/* 背景装饰 */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-10 right-10 w-64 h-64 bg-purple-200/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 left-10 w-80 h-80 bg-blue-200/20 rounded-full blur-3xl"></div>
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  const getTypeColor = type => {
+    switch (type) {
+      case 'work':
+        return 'border-blue-200 bg-blue-50';
+      case 'education':
+        return 'border-green-200 bg-green-50';
+      case 'award':
+        return 'border-yellow-200 bg-yellow-50';
+      default:
+        return 'border-gray-200 bg-gray-50';
+    }
+  };
+  return <section id="experience" className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-4">
-            经历与成就
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            工作经历
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            教育背景、竞赛项目与实践经历的全面展示
+            我的专业成长历程，包括工作经验、教育背景和获得的荣誉
           </p>
         </div>
 
-        {/* 轮播控制区域 */}
-        <div className="flex justify-center mb-8">
-          <div className="bg-white/80 backdrop-blur-sm rounded-full shadow-lg p-2 flex items-center space-x-2">
-            {/* 播放/暂停按钮 */}
-            <button onClick={() => setIsAutoPlay(!isAutoPlay)} className="p-2 rounded-full hover:bg-indigo-100 transition-colors duration-200" title={isAutoPlay ? "暂停播放" : "自动播放"}>
-              {isAutoPlay ? <Pause size={18} className="text-indigo-600" /> : <Play size={18} className="text-indigo-600" />}
-            </button>
+        {/* 时间线 */}
+        <div className="relative">
+          {/* 时间线主轴 */}
+          <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-blue-200 via-purple-200 to-pink-200"></div>
 
-            {/* 左切换按钮 */}
-            <button onClick={() => setActiveTab(prev => (prev - 1 + 3) % 3)} className="p-2 rounded-full hover:bg-indigo-100 transition-colors duration-200" title="上一个">
-              <ChevronLeft size={18} className="text-indigo-600" />
-            </button>
+          {/* 经历列表 */}
+          <div className="space-y-8">
+            {experiences.map((experience, index) => {
+            const isLeft = index % 2 === 0;
+            return <div key={experience.id} className={`relative flex items-center ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+                {/* 时间线节点 */}
+                <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-white border-4 border-blue-500 rounded-full z-10"></div>
 
-            {/* Tab按钮 */}
-            <div className="flex space-x-1">
-              {tabs.map(tab => <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`px-4 py-2 rounded-full flex items-center space-x-2 transition-all duration-300 ${activeTab === tab.id ? 'bg-indigo-600 text-white shadow-md' : 'text-gray-600 hover:bg-indigo-50 hover:text-indigo-600'}`}>
-                  {tab.icon}
-                  <span className="text-sm font-medium">{tab.name}</span>
-                </button>)}
-            </div>
+                {/* 内容卡片 */}
+                <div className={`ml-16 md:ml-0 md:w-5/12 ${isLeft ? 'md:mr-auto md:pr-8' : 'md:ml-auto md:pl-8'}`}>
+                  <div className={`p-6 rounded-xl border-2 ${getTypeColor(experience.type)} shadow-lg hover:shadow-xl transition-all duration-300 ${experience.current ? 'ring-2 ring-blue-500 ring-offset-2' : ''}`}>
+                    {/* 头部信息 */}
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-white rounded-lg shadow-sm">
+                          {getIcon(experience.type)}
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-bold text-gray-900">
+                            {experience.title}
+                          </h3>
+                          <p className="text-lg text-gray-700 font-medium">
+                            {experience.company}
+                          </p>
+                        </div>
+                      </div>
+                      {experience.current && <span className="px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full">
+                          当前
+                        </span>}
+                    </div>
 
-            {/* 右切换按钮 */}
-            <button onClick={() => setActiveTab(prev => (prev + 1) % 3)} className="p-2 rounded-full hover:bg-indigo-100 transition-colors duration-200" title="下一个">
-              <ChevronRight size={18} className="text-indigo-600" />
-            </button>
+                    {/* 时间和地点 */}
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <div className="flex items-center gap-1">
+                        <Calendar size={14} />
+                        <span>{experience.period}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <MapPin size={14} />
+                        <span>{experience.location}</span>
+                      </div>
+                    </div>
+
+                    {/* 描述 */}
+                    <p className="text-gray-700 mb-4">
+                      {experience.description}
+                    </p>
+
+                    {/* 技术标签 */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {experience.technologies.map(tech => <span key={tech} className="px-2 py-1 bg-white bg-opacity-70 text-gray-700 text-xs rounded-full border border-gray-300">
+                          {tech}
+                        </span>)}
+                    </div>
+
+                    {/* 展开/收起按钮 */}
+                    <button onClick={() => toggleExpanded(experience.id)} className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors">
+                      {expandedItem === experience.id ? <><ChevronUp size={16} /> 收起详情</> : <><ChevronDown size={16} /> 查看详情</>}
+                    </button>
+
+                    {/* 展开的详细内容 */}
+                    {expandedItem === experience.id && <div className="mt-4 pt-4 border-t border-gray-300">
+                        <h4 className="font-bold text-gray-900 mb-2">
+                          主要成就：
+                        </h4>
+                        <ul className="space-y-2">
+                          {experience.achievements.map((achievement, idx) => <li key={idx} className="flex items-start gap-2 text-sm text-gray-700">
+                              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5 flex-shrink-0"></span>
+                              {achievement}
+                            </li>)}
+                        </ul>
+                      </div>}
+                  </div>
+                </div>
+              </div>;
+          })}
           </div>
-        </div>
-
-        {/* 内容展示区域 */}
-        <div className="flex justify-center">
-          <div className="w-full max-w-4xl">
-            {renderContent()}
-          </div>
-        </div>
-
-        {/* 进度指示器 */}
-        <div className="flex justify-center mt-6 space-x-2">
-          {tabs.map(tab => <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`transition-all duration-300 ${activeTab === tab.id ? 'w-8 h-2 bg-indigo-600 rounded-full' : 'w-2 h-2 bg-gray-300 rounded-full hover:bg-gray-400'}`} />)}
         </div>
 
         {/* 统计信息 */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 text-center border border-white/50">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <GraduationCap size={32} className="text-white" />
-            </div>
-            <div className="text-2xl font-bold text-gray-900 mb-1">11+</div>
-            <div className="text-sm text-gray-600">核心课程</div>
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="text-center p-6 bg-blue-50 rounded-xl">
+            <div className="text-3xl font-bold text-blue-600 mb-2">5+</div>
+            <div className="text-gray-700">年工作经验</div>
           </div>
-
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 text-center border border-white/50">
-            <div className="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Trophy size={32} className="text-white" />
-            </div>
-            <div className="text-2xl font-bold text-gray-900 mb-1">3</div>
-            <div className="text-sm text-gray-600">竞赛奖项</div>
+          <div className="text-center p-6 bg-green-50 rounded-xl">
+            <div className="text-3xl font-bold text-green-600 mb-2">20+</div>
+            <div className="text-gray-700">完成项目</div>
           </div>
-
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 text-center border border-white/50">
-            <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Briefcase size={32} className="text-white" />
-            </div>
-            <div className="text-2xl font-bold text-gray-900 mb-1">5</div>
-            <div className="text-sm text-gray-600">实践项目</div>
+          <div className="text-center p-6 bg-purple-50 rounded-xl">
+            <div className="text-3xl font-bold text-purple-600 mb-2">10+</div>
+            <div className="text-gray-700">技术栈</div>
+          </div>
+          <div className="text-center p-6 bg-yellow-50 rounded-xl">
+            <div className="text-3xl font-bold text-yellow-600 mb-2">3</div>
+            <div className="text-gray-700">获得奖项</div>
           </div>
         </div>
       </div>

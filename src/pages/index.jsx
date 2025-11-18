@@ -14,7 +14,7 @@ export default function App(props) {
   } = props;
   return <div style={style} className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       <Navigation />
-      <main className="space-y-0">
+      <main>
         <HeroSection />
         <SkillsSection />
         <ProjectsSection />

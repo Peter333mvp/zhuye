@@ -1,156 +1,188 @@
 // @ts-ignore;
-import React from 'react';
+import React, { useState } from 'react';
 // @ts-ignore;
-import { ExternalLink, Github, Calendar, Users, Award, BookOpen, Target, Code, Calculator, Rocket } from 'lucide-react';
+import { Github, ExternalLink, Calendar, Users, Code } from 'lucide-react';
 
 export function ProjectsSection() {
+  const [activeFilter, setActiveFilter] = useState('all');
   const projects = [{
-    title: '太空蜘蛛机器人系统',
-    description: '针对太空特殊环境航天器维护和星体探索等多任务应用场景，设计并实现适应太空微重力等特殊环境要求的六足机器人系统。通过融合机械设计、运动学建模、智能控制与仿真验证等多学科技术，研究了面向太空极端环境多任务应用场景仿生机器人运动稳定性、环境适应性和系统可靠性等关键技术问题。',
-    image: 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=500&h=300&fit=crop',
-    tags: ['机器人设计', '运动学建模', '智能控制', '太空应用', 'D-H参数法', 'ESP32控制'],
-    features: ['D-H参数法运动学建模', '六足协同控制策略', 'ESP32双核主控', 'Arduino+ROS架构', '太空环境适应性实验', '样机性能测试'],
-    award: '全国三等奖、华东赛区一等奖',
-    competition: '中国大学生机械工程创新创意大赛',
-    year: '2025',
-    icon: <Rocket className="text-purple-500" />
+    id: 1,
+    title: '电商平台重构',
+    description: '使用React和Node.js重构大型电商平台，提升性能50%，优化用户体验。采用微服务架构，支持百万级并发访问。',
+    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop',
+    tags: ['React', 'Node.js', 'MongoDB'],
+    category: 'web',
+    github: 'https://github.com',
+    demo: 'https://example.com',
+    date: '2024年1月',
+    team: '5人团队',
+    featured: true
   }, {
-    title: '篮球机器人系统',
-    description: '参与篮球机器人组比赛，机器人具备自动拾球、路径规划、多任务并行处理、定点投篮等功能',
-    image: 'https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=500&h=300&fit=crop',
-    tags: ['机器人竞赛', '机械设计', '自动控制'],
-    features: ['自动拾球系统', '路径规划算法', '多任务并行处理', '精准投篮控制'],
-    award: '亚军（国赛二等奖）',
-    competition: '中国机器人大赛暨ROBOTCUP世界杯中国赛',
-    year: '2024',
-    icon: <Award className="text-yellow-500" />
+    id: 2,
+    title: 'AI智能助手',
+    description: '基于GPT的智能对话系统，集成自然语言处理技术，为企业提供24/7客户服务支持，提升客户满意度40%。',
+    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop',
+    tags: ['Python', 'TensorFlow', 'NLP'],
+    category: 'ai',
+    github: 'https://github.com',
+    demo: 'https://example.com',
+    date: '2023年11月',
+    team: '3人团队',
+    featured: true
   }, {
-    title: '一维伺服工作平台',
-    description: '基于功能设想与草图，选用电机、丝杠导轨等标准件，完成非标零件与整体平台设计',
-    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&h=300&fit=crop',
-    tags: ['机械设计', 'SolidWorks', '课程设计'],
-    features: ['零件选型计算', 'SolidWorks建模', '装配图绘制', '优秀课程设计'],
-    award: '优秀',
-    competition: '课程设计',
-    year: '2024',
-    icon: <Code className="text-blue-500" />
+    id: 3,
+    title: '移动社交应用',
+    description: '跨平台社交应用开发，支持实时聊天、动态发布、位置分享等功能。累计用户10万+，日活跃用户2万+。',
+    image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop',
+    tags: ['React Native', 'Firebase', 'Redux'],
+    category: 'mobile',
+    github: 'https://github.com',
+    demo: 'https://example.com',
+    date: '2023年9月',
+    team: '4人团队',
+    featured: false
   }, {
-    title: '五大湖水资源调控模型',
-    description: '针对五大湖水资源调控问题，建立模型平衡水位与利益相关者需求，设计算法并分析敏感性',
-    image: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=500&h=300&fit=crop',
-    tags: ['数学建模', '算法设计', 'MATLAB'],
-    features: ['水资源平衡模型', '利益相关者分析', '敏感性分析', '算法优化'],
-    award: 'M奖（国赛二等奖）',
-    competition: '美国大学生数学建模竞赛（MCM）',
-    year: '2024',
-    icon: <Calculator className="text-green-500" />
+    id: 4,
+    title: '数据可视化平台',
+    description: '企业级数据分析和可视化平台，支持多维度数据分析，实时报表生成，帮助企业做出数据驱动的决策。',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
+    tags: ['Vue.js', 'D3.js', 'ECharts'],
+    category: 'web',
+    github: 'https://github.com',
+    demo: 'https://example.com',
+    date: '2023年7月',
+    team: '2人团队',
+    featured: false
+  }, {
+    id: 5,
+    title: 'IoT智能家居系统',
+    description: '基于物联网的智能家居控制系统，支持设备联动、场景模式、远程控制等功能，提升生活便利性。',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop',
+    tags: ['Arduino', 'MQTT', 'React'],
+    category: 'iot',
+    github: 'https://github.com',
+    demo: 'https://example.com',
+    date: '2023年5月',
+    team: '3人团队',
+    featured: false
+  }, {
+    id: 6,
+    title: '区块链投票系统',
+    description: '基于区块链技术的安全投票系统，确保投票过程的透明性和不可篡改性，适用于各种选举场景。',
+    image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&h=400&fit=crop',
+    tags: ['Solidity', 'Web3.js', 'Ethereum'],
+    category: 'blockchain',
+    github: 'https://github.com',
+    demo: 'https://example.com',
+    date: '2023年3月',
+    team: '2人团队',
+    featured: false
   }];
-  const ProjectCard = ({
-    project,
-    index
-  }) => {
-    return <div className="group bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-white/50 hover:border-indigo-200">
-        {/* 项目图片 */}
-        <div className="relative h-48 overflow-hidden">
-          <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          
-          {/* 奖项标签 */}
-          <div className="absolute top-4 right-4">
-            <div className="bg-white/95 backdrop-blur-sm rounded-full px-3 py-1 shadow-lg">
-              <span className="text-xs font-bold text-yellow-600 flex items-center">
-                <Award size={12} className="mr-1" />
-                {project.award}
-              </span>
-            </div>
-          </div>
-
-          {/* 年份标签 */}
-          <div className="absolute top-4 left-4">
-            <div className="bg-indigo-600/90 backdrop-blur-sm rounded-full px-3 py-1 shadow-lg">
-              <span className="text-xs font-bold text-white">
-                {project.year}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* 项目内容 */}
-        <div className="p-6">
-          <div className="flex items-center mb-3">
-            <div className="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center mr-3">
-              {project.icon}
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 group-hover:text-indigo-600 transition-colors duration-300">
-              {project.title}
-            </h3>
-          </div>
-
-          <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-            {project.description}
-          </p>
-
-          {/* 竞赛名称 */}
-          <div className="text-xs font-semibold text-indigo-600 mb-3">
-            {project.competition}
-          </div>
-
-          {/* 技术标签 */}
-          <div className="flex flex-wrap gap-2 mb-4">
-            {project.tags.map((tag, idx) => <span key={idx} className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full">
-                {tag}
-              </span>)}
-          </div>
-
-          {/* 项目特点 */}
-          <div className="space-y-2">
-            {project.features.slice(0, 3).map((feature, idx) => <div key={idx} className="flex items-center text-xs text-gray-600">
-                <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-2" />
-                {feature}
-              </div>)}
-          </div>
-        </div>
-      </div>;
-  };
-  return <section id="projects" className="relative py-24 bg-gradient-to-br from-indigo-50 via-white to-purple-50">
-      {/* 背景装饰 */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-purple-200/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-20 w-80 h-80 bg-blue-200/20 rounded-full blur-3xl"></div>
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  const filters = [{
+    id: 'all',
+    name: '全部项目',
+    icon: <Code size={16} />
+  }, {
+    id: 'web',
+    name: 'Web应用',
+    icon: <Code size={16} />
+  }, {
+    id: 'mobile',
+    name: '移动应用',
+    icon: <Code size={16} />
+  }, {
+    id: 'ai',
+    name: 'AI项目',
+    icon: <Code size={16} />
+  }, {
+    id: 'iot',
+    name: '物联网',
+    icon: <Code size={16} />
+  }, {
+    id: 'blockchain',
+    name: '区块链',
+    icon: <Code size={16} />
+  }];
+  const filteredProjects = activeFilter === 'all' ? projects : projects.filter(project => project.category === activeFilter);
+  return <section id="projects" className="py-20 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4">
-            我的项目
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            精选项目
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            展示我在机器人设计、数学建模等领域的代表性项目成果
+            展示我最引以为豪的作品，每个项目都体现了技术创新和实用价值的完美结合
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-          {projects.map((project, index) => <ProjectCard key={index} project={project} index={index} />)}
+        {/* 项目筛选器 */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          {filters.map(filter => <button key={filter.id} onClick={() => setActiveFilter(filter.id)} className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${activeFilter === filter.id ? 'bg-blue-600 text-white shadow-lg' : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'}`}>
+              {filter.icon}
+              {filter.name}
+            </button>)}
         </div>
 
-        {/* 项目统计 */}
-        <div className="mt-16 text-center">
-          <div className="inline-flex items-center justify-center p-8 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/50 shadow-xl">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-indigo-600 mb-2">4+</div>
-              <div className="text-sm text-gray-600">获奖项目</div>
-            </div>
-            <div className="w-px h-12 bg-indigo-200 mx-8" />
-            <div className="text-center">
-              <div className="text-3xl font-bold text-purple-600 mb-2">2+</div>
-              <div className="text-sm text-gray-600">国家级奖项</div>
-            </div>
-            <div className="w-px h-12 bg-indigo-200 mx-8" />
-            <div className="text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">100%</div>
-              <div className="text-sm text-gray-600">项目完成率</div>
-            </div>
-          </div>
+        {/* 项目网格 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredProjects.map(project => <div key={project.id} className={`group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden ${project.featured ? 'ring-2 ring-blue-500 ring-offset-2' : ''}`}>
+              {/* 项目图片 */}
+              <div className="relative h-48 overflow-hidden">
+                <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                
+                {/* 特色标签 */}
+                {project.featured && <div className="absolute top-4 left-4 px-3 py-1 bg-yellow-500 text-white text-xs font-bold rounded-full">
+                    精选
+                  </div>}
+                
+                {/* 悬停操作按钮 */}
+                <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white transition-colors">
+                    <Github size={18} className="text-gray-900" />
+                  </a>
+                  <a href={project.demo} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white transition-colors">
+                    <ExternalLink size={18} className="text-gray-900" />
+                  </a>
+                </div>
+              </div>
+
+              {/* 项目信息 */}
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                  {project.title}
+                </h3>
+                <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                  {project.description}
+                </p>
+
+                {/* 项目元信息 */}
+                <div className="flex items-center gap-4 text-xs text-gray-500 mb-4">
+                  <div className="flex items-center gap-1">
+                    <Calendar size={12} />
+                    <span>{project.date}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Users size={12} />
+                    <span>{project.team}</span>
+                  </div>
+                </div>
+
+                {/* 技术标签 */}
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map(tag => <span key={tag} className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
+                      {tag}
+                    </span>)}
+                </div>
+              </div>
+            </div>)}
+        </div>
+
+        {/* 查看更多按钮 */}
+        <div className="text-center mt-12">
+          <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:scale-105 shadow-lg font-medium">
+            查看更多项目
+          </button>
         </div>
       </div>
     </section>;
