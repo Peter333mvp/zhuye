@@ -1,71 +1,59 @@
 // @ts-ignore;
 import React from 'react';
 // @ts-ignore;
-import { Github, Linkedin, Mail, Download, ArrowDown } from 'lucide-react';
+import { Github, Linkedin, Mail, Download, ChevronDown } from 'lucide-react';
 
 export function HeroSection() {
-  const scrollToSection = sectionId => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth'
-      });
-    }
-  };
-  return <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <div className="text-center">
-              <div className="mb-8">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" alt="Profile" className="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto border-4 border-white/20 shadow-2xl" />
-              </div>
-              
-              <h1 className="text-4xl md:text-6xl font-bold mb-4">
-                赵鹏涛
-              </h1>
-              
-              <p className="text-xl md:text-2xl text-blue-200 mb-6">
-                机械电子工程 | 上海大学 | 学士学位
-              </p>
-              
-              <div className="text-lg text-blue-100 mb-6 max-w-2xl mx-auto space-y-2">
-                <div className="flex items-center justify-center gap-4 flex-wrap">
-                  <span>📞 18391796623</span>
-                  <span>📧 zptynl@163.com</span>
-                  <span>🏠 上海宝山</span>
-                </div>
-              </div>
-              
-              <p className="text-lg text-blue-100 mb-8 max-w-3xl mx-auto px-4">
-                意志坚强，性格沉稳，认真负责，学习适应能力强，具备良好的团队协作与沟通能力。
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                <button onClick={() => scrollToSection('contact')} className="px-8 py-3 bg-white text-blue-900 rounded-full font-semibold hover:bg-blue-50 transition-colors duration-300 shadow-lg">
-                  联系我
-                </button>
-                
-                <button className="px-8 py-3 bg-blue-700 text-white rounded-full font-semibold hover:bg-blue-600 transition-colors duration-300 shadow-lg flex items-center justify-center gap-2">
-                  <Download size={20} />
-                  下载简历
-                </button>
-              </div>
-              
-              <div className="flex justify-center space-x-6 mb-12">
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-200 transition-colors duration-300">
-                  <Github size={28} />
-                </a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-200 transition-colors duration-300">
-                  <Linkedin size={28} />
-                </a>
-                <a href="mailto:zptynl@163.com" className="text-white hover:text-blue-200 transition-colors duration-300">
-                  <Mail size={28} />
-                </a>
-              </div>
-              
-              <button onClick={() => scrollToSection('about')} className="animate-bounce text-white hover:text-blue-200 transition-colors duration-300">
-                <ArrowDown size={32} />
-              </button>
-            </div>
+  return <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 relative overflow-hidden">
+      <div className="absolute inset-0 bg-black opacity-5"></div>
+      
+      <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+        <div className="mb-8">
+          <div className="relative inline-block">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-600 rounded-full blur-xl opacity-50 animate-pulse"></div>
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" alt="Profile" className="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto border-4 border-white/20 shadow-2xl" />
           </div>
-        </section>;
+        </div>
+        
+        <h1 className="text-4xl md:text-6xl font-bold mb-4">
+          Peter Zhao
+        </h1>
+        
+        <h2 className="text-xl md:text-2xl text-gray-600 mb-6">
+          机械电子工程专业 | 机器人技术爱好者
+        </h2>
+        
+        <p className="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
+          热衷于机器人技术、自动控制和机械设计，拥有丰富的竞赛经验和项目实践。
+          致力于将理论知识转化为实际工程应用，追求技术创新和卓越品质。
+        </p>
+        
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <a href="#contact" className="px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center">
+            <Mail size={20} className="mr-2" />
+            联系我
+          </a>
+          
+          <a href="#projects" className="px-8 py-3 bg-white text-blue-600 border-2 border-blue-600 rounded-lg font-medium hover:bg-blue-50 transition-colors duration-200 flex items-center justify-center">
+            查看项目
+          </a>
+        </div>
+        
+        <div className="flex justify-center space-x-6 mb-12">
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-600 transition-colors duration-200">
+            <Github size={24} />
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-600 transition-colors duration-200">
+            <Linkedin size={24} />
+          </a>
+          <a href="mailto:zptynl@163.com" className="text-gray-600 hover:text-blue-600 transition-colors duration-200">
+            <Mail size={24} />
+          </a>
+        </div>
+        
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <ChevronDown size={32} className="text-gray-400" />
+        </div>
+      </div>
+    </section>;
 }
