@@ -53,23 +53,29 @@ export function Footer() {
     href: '#experience'
   }];
   const currentYear = new Date().getFullYear();
-  return <footer className="bg-gray-900 text-white">
+  return <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden">
+      {/* 背景装饰 */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 left-20 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-5"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-5"></div>
+      </div>
+      
       {/* 主要内容区域 */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* 品牌信息 */}
           <div className="lg:col-span-1">
-            <div className="flex items-center mb-4">
-              <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center mr-3">
-                <Code size={20} className="text-white" />
+            <div className="flex items-center mb-6">
+              <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center mr-3 shadow-lg">
+                <Code size={24} className="text-white" />
               </div>
               <h3 className="text-xl font-bold text-white">Peter Zhao</h3>
             </div>
-            <p className="text-gray-400 text-sm leading-relaxed mb-4">
+            <p className="text-gray-400 text-sm leading-relaxed mb-6">
               专注于机械电子工程与人工智能技术的交叉领域，致力于创新设计与技术突破。
             </p>
             <div className="flex space-x-3">
-              {socialLinks.map((social, index) => <a key={index} href={social.href} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-indigo-600 transition-all duration-300 group" title={social.label}>
+              {socialLinks.map((social, index) => <a key={index} href={social.href} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-indigo-600 transition-all duration-300 group transform hover:scale-110" title={social.label}>
                   <div className="text-gray-400 group-hover:text-white transition-colors duration-300">
                     {social.icon}
                   </div>
@@ -79,8 +85,8 @@ export function Footer() {
 
           {/* 快速链接 */}
           <div>
-            <h4 className="text-lg font-semibold text-white mb-4">快速导航</h4>
-            <nav className="space-y-2">
+            <h4 className="text-lg font-semibold text-white mb-6">快速导航</h4>
+            <nav className="space-y-3">
               {quickLinks.map((link, index) => <a key={index} href={link.href} className="block text-gray-400 hover:text-white transition-colors duration-300 text-sm">
                   {link.name}
                 </a>)}
@@ -89,10 +95,10 @@ export function Footer() {
 
           {/* 联系方式 */}
           <div>
-            <h4 className="text-lg font-semibold text-white mb-4">联系方式</h4>
-            <div className="space-y-3">
+            <h4 className="text-lg font-semibold text-white mb-6">联系方式</h4>
+            <div className="space-y-4">
               {contactInfo.map((info, index) => <a key={index} href={info.href} className="flex items-center text-gray-400 hover:text-white transition-colors duration-300 group">
-                  <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center mr-3 group-hover:bg-indigo-600 transition-colors duration-300">
+                  <div className="w-10 h-10 bg-gray-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center mr-3 group-hover:bg-indigo-600 transition-colors duration-300">
                     <div className="text-indigo-400 group-hover:text-white transition-colors duration-300">
                       {info.icon}
                     </div>
@@ -107,13 +113,13 @@ export function Footer() {
 
           {/* 操作区域 */}
           <div>
-            <h4 className="text-lg font-semibold text-white mb-4">更多操作</h4>
+            <h4 className="text-lg font-semibold text-white mb-6">更多操作</h4>
             <div className="space-y-3">
-              <button onClick={scrollToTop} className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-300">
+              <button onClick={scrollToTop} className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
                 <ArrowUp size={16} />
                 <span>返回顶部</span>
               </button>
-              <a href="mailto:zptynl@163.com" className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors duration-300">
+              <a href="mailto:zptynl@163.com" className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-gray-800/50 backdrop-blur-sm text-white rounded-xl hover:bg-gray-700 transition-all duration-300">
                 <Mail size={16} />
                 <span>发送邮件</span>
               </a>
@@ -123,7 +129,7 @@ export function Footer() {
       </div>
 
       {/* 底部版权信息 */}
-      <div className="border-t border-gray-800">
+      <div className="relative z-10 border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex items-center space-x-2 text-gray-400 text-sm">

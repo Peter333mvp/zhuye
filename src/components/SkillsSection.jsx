@@ -131,43 +131,50 @@ export function SkillsSection() {
     const levelColors = ['bg-green-300 bg-opacity-60 border-green-400 text-green-900', 'bg-blue-300 bg-opacity-60 border-blue-400 text-blue-900', 'bg-purple-300 bg-opacity-60 border-purple-400 text-purple-900', 'bg-orange-300 bg-opacity-60 border-orange-400 text-orange-900', 'bg-red-300 bg-opacity-60 border-red-400 text-red-900'];
     return levelColors[skill.level - 1] || levelColors[0];
   };
-  return <section id="skills" className="py-20 bg-white">
+  return <section id="skills" className="py-24 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-20">
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
             技能点
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             互动式技能气泡图，悬停查看技能详情
           </p>
         </div>
 
         {/* 统一气泡容器 */}
         <div className="flex justify-center">
-          <div ref={containerRef} className="relative bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl border-2 border-indigo-200 w-full max-w-4xl h-96 overflow-hidden">
+          <div ref={containerRef} className="relative bg-white/60 backdrop-blur-sm rounded-2xl border border-white/50 shadow-2xl w-full max-w-5xl h-[500px] overflow-hidden">
+            {/* 背景装饰 */}
+            <div className="absolute inset-0">
+              <div className="absolute top-10 left-10 w-32 h-32 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-30"></div>
+              <div className="absolute bottom-10 right-10 w-40 h-40 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-30"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-indigo-200 rounded-full mix-blend-multiply filter blur-xl opacity-20"></div>
+            </div>
+            
             {skills.map(skill => {
             const position = bubblePositions[skill.id] || {
               x: 50,
               y: 50
             };
             const isHovered = hoveredSkill === skill.id;
-            return <div key={skill.id} className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 cursor-pointer ${getSkillColor(skill)} border-2 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl ${isHovered ? 'scale-110 z-10' : 'scale-100'}`} style={{
+            return <div key={skill.id} className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 cursor-pointer ${getSkillColor(skill)} border-2 rounded-full flex items-center justify-center shadow-lg hover:shadow-2xl backdrop-blur-sm ${isHovered ? 'scale-110 z-10' : 'scale-100'}`} style={{
               left: `${position.x}%`,
               top: `${position.y}%`,
-              width: isHovered ? '110px' : '90px',
-              height: isHovered ? '110px' : '90px'
+              width: isHovered ? '120px' : '100px',
+              height: isHovered ? '120px' : '100px'
             }} onMouseEnter={() => setHoveredSkill(skill.id)} onMouseLeave={() => setHoveredSkill(null)}>
                   <div className="text-center">
-                    <div className="text-xs font-bold truncate px-1">
+                    <div className="text-xs font-bold truncate px-1 mb-1">
                       {skill.name}
                     </div>
-                    {skill.unlocked ? skill.level >= 3 ? <Star size={12} className="text-yellow-600 mx-auto mt-1" /> : <CheckCircle size={12} className="text-green-600 mx-auto mt-1" /> : <Lock size={12} className="text-gray-600 mx-auto mt-1" />}
+                    {skill.unlocked ? skill.level >= 3 ? <Star size={14} className="text-yellow-600 mx-auto" /> : <CheckCircle size={14} className="text-green-600 mx-auto" /> : <Lock size={14} className="text-gray-600 mx-auto" />}
                   </div>
                   
                   {/* 悬停工具提示 */}
-                  {isHovered && <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 p-2 bg-gray-900 text-white text-xs rounded-lg whitespace-nowrap z-20">
-                      <div className="font-bold">{skill.name}</div>
-                      <div>{skill.description}</div>
+                  {isHovered && <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 p-3 bg-gray-900 text-white text-xs rounded-lg whitespace-nowrap z-20 shadow-xl">
+                      <div className="font-bold mb-1">{skill.name}</div>
+                      <div className="text-gray-300 mb-2">{skill.description}</div>
                       <div className="text-yellow-300">
                         {skill.unlocked ? `等级 ${skill.level}/5` : '未解锁'}
                       </div>

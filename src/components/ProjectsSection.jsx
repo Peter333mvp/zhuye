@@ -49,9 +49,9 @@ export function ProjectsSection() {
     project,
     index
   }) => {
-    return <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-indigo-200">
+    return <div className="group bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-white/50 hover:border-indigo-200 transform hover:-translate-y-2">
         {/* 项目图片 */}
-        <div className="relative h-48 overflow-hidden">
+        <div className="relative h-56 overflow-hidden">
           <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           
@@ -78,7 +78,7 @@ export function ProjectsSection() {
         {/* 项目内容 */}
         <div className="p-6">
           <div className="flex items-center mb-3">
-            <div className="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center mr-3">
+            <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center mr-3">
               {project.icon}
             </div>
             <h3 className="text-xl font-bold text-gray-900 group-hover:text-indigo-600 transition-colors duration-300">
@@ -86,7 +86,7 @@ export function ProjectsSection() {
             </h3>
           </div>
 
-          <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+          <p className="text-gray-600 text-sm mb-4 line-clamp-3 leading-relaxed">
             {project.description}
           </p>
 
@@ -112,13 +112,13 @@ export function ProjectsSection() {
         </div>
       </div>;
   };
-  return <section id="projects" className="py-20 bg-white">
+  return <section id="projects" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-20">
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
             我的项目
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             展示我在机器人设计、数学建模等领域的代表性项目成果
           </p>
         </div>
@@ -128,20 +128,20 @@ export function ProjectsSection() {
         </div>
 
         {/* 项目统计 */}
-        <div className="mt-16 text-center">
-          <div className="inline-flex items-center justify-center p-6 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100">
+        <div className="mt-20 text-center">
+          <div className="inline-flex items-center justify-center p-8 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100 shadow-lg">
             <div className="text-center">
-              <div className="text-3xl font-bold text-indigo-600 mb-2">4+</div>
+              <div className="text-4xl font-bold text-indigo-600 mb-2">4+</div>
               <div className="text-sm text-gray-600">获奖项目</div>
             </div>
-            <div className="w-px h-12 bg-indigo-200 mx-8" />
+            <div className="w-px h-16 bg-indigo-200 mx-12" />
             <div className="text-center">
-              <div className="text-3xl font-bold text-purple-600 mb-2">2+</div>
+              <div className="text-4xl font-bold text-purple-600 mb-2">2+</div>
               <div className="text-sm text-gray-600">国家级奖项</div>
             </div>
-            <div className="w-px h-12 bg-indigo-200 mx-8" />
+            <div className="w-px h-16 bg-indigo-200 mx-12" />
             <div className="text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">100%</div>
+              <div className="text-4xl font-bold text-green-600 mb-2">100%</div>
               <div className="text-sm text-gray-600">项目完成率</div>
             </div>
           </div>
