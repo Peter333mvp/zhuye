@@ -1,7 +1,7 @@
 // @ts-ignore;
 import React from 'react';
 // @ts-ignore;
-import { BookOpen, Monitor, Wrench, Languages, Palette, Brain } from 'lucide-react';
+import { BookOpen, Monitor, Wrench, Languages, Palette, Brain, Code, Cpu } from 'lucide-react';
 
 export function SkillsSection() {
   const skills = {
@@ -11,28 +11,7 @@ export function SkillsSection() {
       description: 'CET-4，具备良好的英语阅读和写作能力',
       icon: Languages
     }],
-    office: [{
-      name: 'Office套件',
-      level: 90,
-      description: '熟练使用Word、Excel、PowerPoint等办公软件',
-      icon: Monitor
-    }, {
-      name: 'Photoshop',
-      level: 70,
-      description: '掌握图像处理和设计基础',
-      icon: Palette
-    }, {
-      name: 'Premiere Pro',
-      level: 65,
-      description: '能够进行视频剪辑和后期制作',
-      icon: Monitor
-    }, {
-      name: 'AI大模型应用',
-      level: 80,
-      description: '熟悉各类AI工具的应用和集成',
-      icon: Brain
-    }],
-    professional: [{
+    technical: [{
       name: 'SolidWorks',
       level: 85,
       description: '精通三维建模和装配设计',
@@ -56,7 +35,27 @@ export function SkillsSection() {
       name: 'Visual Studio',
       level: 80,
       description: '熟悉C++和C#开发环境',
+      icon: Code
+    }, {
+      name: 'Office套件',
+      level: 90,
+      description: '熟练使用Word、Excel、PowerPoint等办公软件',
       icon: Monitor
+    }, {
+      name: 'Photoshop',
+      level: 70,
+      description: '掌握图像处理和设计基础',
+      icon: Palette
+    }, {
+      name: 'Premiere Pro',
+      level: 65,
+      description: '能够进行视频剪辑和后期制作',
+      icon: Monitor
+    }, {
+      name: 'AI大模型应用',
+      level: 80,
+      description: '熟悉各类AI工具的应用和集成',
+      icon: Brain
     }]
   };
   const categories = [{
@@ -65,14 +64,9 @@ export function SkillsSection() {
     icon: Languages,
     color: 'blue'
   }, {
-    id: 'office',
-    title: '办公与软件技能',
-    icon: Monitor,
-    color: 'green'
-  }, {
-    id: 'professional',
-    title: '专业技能',
-    icon: Wrench,
+    id: 'technical',
+    title: '技术技能',
+    icon: Cpu,
     color: 'purple'
   }];
   const getProgressColor = level => {
@@ -81,6 +75,26 @@ export function SkillsSection() {
     if (level >= 65) return 'bg-yellow-600';
     return 'bg-gray-600';
   };
+  const getSkillCategory = skillName => {
+    const professionalSkills = ['SolidWorks', 'AutoCAD', 'CATIA', 'MATLAB', 'Visual Studio'];
+    const officeSkills = ['Office套件', 'Photoshop', 'Premiere Pro', 'AI大模型应用'];
+    if (professionalSkills.includes(skillName)) {
+      return {
+        label: '专业工程',
+        color: 'purple'
+      };
+    } else if (officeSkills.includes(skillName)) {
+      return {
+        label: '办公软件',
+        color: 'green'
+      };
+    } else {
+      return {
+        label: '其他',
+        color: 'gray'
+      };
+    }
+  };
   return <section id="skills" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
@@ -88,7 +102,7 @@ export function SkillsSection() {
             技能专长
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            语言能力、办公软件技能和专业工程技能的全面展示
+            语言能力、专业技能和办公软件技能的全面展示
           </p>
         </div>
 
@@ -106,41 +120,87 @@ export function SkillsSection() {
                   </h3>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {categorySkills.map(skill => {
+                {category.id === 'language' ? <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {categorySkills.map(skill => {
                 const SkillIcon = skill.icon;
                 return <div key={skill.name} className="space-y-3">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center">
-                            <SkillIcon size={18} className="mr-2 text-gray-600" />
-                            <span className="font-medium text-gray-800">
-                              {skill.name}
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center">
+                              <SkillIcon size={18} className="mr-2 text-gray-600" />
+                              <span className="font-medium text-gray-800">
+                                {skill.name}
+                              </span>
+                            </div>
+                            <span className="text-sm text-gray-500">
+                              {skill.level}%
                             </span>
                           </div>
-                          <span className="text-sm text-gray-500">
-                            {skill.level}%
-                          </span>
-                        </div>
-                        
-                        <div className="w-full bg-gray-200 rounded-full h-3">
-                          <div className={`${getProgressColor(skill.level)} h-3 rounded-full transition-all duration-1000 ease-out`} style={{
+                          
+                          <div className="w-full bg-gray-200 rounded-full h-3">
+                            <div className={`${getProgressColor(skill.level)} h-3 rounded-full transition-all duration-1000 ease-out`} style={{
                       width: `${skill.level}%`
                     }} />
-                        </div>
-                        
-                        <p className="text-sm text-gray-600">
-                          {skill.description}
-                        </p>
-                      </div>;
+                          </div>
+                          
+                          <p className="text-sm text-gray-600">
+                            {skill.description}
+                          </p>
+                        </div>;
               })}
-                </div>
+                  </div> : <div>
+                    <div className="mb-6">
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
+                          专业工程技能
+                        </span>
+                        <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+                          办公软件技能
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {categorySkills.map(skill => {
+                  const SkillIcon = skill.icon;
+                  const skillCategory = getSkillCategory(skill.name);
+                  return <div key={skill.name} className="space-y-3 border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow duration-200">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center">
+                                <SkillIcon size={18} className="mr-2 text-gray-600" />
+                                <span className="font-medium text-gray-800">
+                                  {skill.name}
+                                </span>
+                              </div>
+                              <span className={`px-2 py-1 text-xs font-medium rounded-full bg-${skillCategory.color}-100 text-${skillCategory.color}-800`}>
+                                {skillCategory.label}
+                              </span>
+                            </div>
+                            
+                            <div className="w-full bg-gray-200 rounded-full h-3">
+                              <div className={`${getProgressColor(skill.level)} h-3 rounded-full transition-all duration-1000 ease-out`} style={{
+                        width: `${skill.level}%`
+                      }} />
+                            </div>
+                            
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm text-gray-600">
+                                {skill.description}
+                              </span>
+                              <span className="text-sm font-medium text-gray-500">
+                                {skill.level}%
+                              </span>
+                            </div>
+                          </div>;
+                })}
+                    </div>
+                  </div>}
               </div>;
         })}
         </div>
 
         <div className="mt-12 text-center">
           <div className="inline-flex items-center px-6 py-3 bg-blue-50 rounded-lg">
-            <BookOpen size={20} className="mr-2 text-blue-600" />
+            <Cpu size={20} className="mr-2 text-blue-600" />
             <span className="text-blue-800 font-medium">
               持续学习新技术，不断提升专业能力
             </span>
