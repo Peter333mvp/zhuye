@@ -216,12 +216,12 @@ export function SkillsSection() {
     return <div className="absolute z-20 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div className="w-40 h-40 bg-gradient-to-br from-indigo-400 to-purple-600 rounded-full flex flex-col items-center justify-center shadow-2xl border-4 border-white">
           <div className="w-36 h-36 bg-white rounded-full flex flex-col items-center justify-center">
-            <User size={40} className="text-indigo-800 mb-2" />
-            <div className="text-sm font-bold text-indigo-800 text-center">
-              Peter Zhao
-            </div>
-            <div className="text-xs text-indigo-600 opacity-75">
+            <div className="text-lg font-bold text-indigo-800 text-center mb-1">
               技能体系
+            </div>
+            <User size={32} className="text-indigo-600 mb-1" />
+            <div className="text-sm text-indigo-600 opacity-75">
+              Peter Zhao
             </div>
           </div>
         </div>
