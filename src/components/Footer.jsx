@@ -13,13 +13,13 @@ export function Footer() {
   const contactInfo = [{
     icon: <Mail size={18} />,
     label: '邮箱',
-    value: 'your.email@example.com',
-    href: 'mailto:your.email@example.com'
+    value: 'zptynl@163.com',
+    href: 'mailto:zptynl@163.com'
   }, {
     icon: <Phone size={18} />,
     label: '电话',
-    value: '+86 123 4567 8900',
-    href: 'tel:+8612345678900'
+    value: '（+86）18391796623',
+    href: 'tel:+8618391796623'
   }, {
     icon: <MapPin size={18} />,
     label: '地址',
@@ -63,7 +63,7 @@ export function Footer() {
               <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center mr-3">
                 <Code size={20} className="text-white" />
               </div>
-              <h3 className="text-xl font-bold text-white">Your Name</h3>
+              <h3 className="text-xl font-bold text-white">Peter Zhao</h3>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-4">
               专注于机械电子工程与人工智能技术的交叉领域，致力于创新设计与技术突破。
@@ -113,7 +113,7 @@ export function Footer() {
                 <ArrowUp size={16} />
                 <span>返回顶部</span>
               </button>
-              <a href="mailto:your.email@example.com" className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors duration-300">
+              <a href="mailto:zptynl@163.com" className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors duration-300">
                 <Mail size={16} />
                 <span>发送邮件</span>
               </a>
@@ -127,7 +127,7 @@ export function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex items-center space-x-2 text-gray-400 text-sm">
-              <span>© {currentYear} Your Name. All rights reserved.</span>
+              <span>© {currentYear} Peter Zhao. All rights reserved.</span>
             </div>
             <div className="flex items-center space-x-2 text-gray-400 text-sm">
               <span>Made with</span>
