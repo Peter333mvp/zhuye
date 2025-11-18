@@ -51,13 +51,18 @@ export function SkillsSection() {
   const [hoveredSkill, setHoveredSkill] = useState(null);
   const [bubblePositions, setBubblePositions] = useState({});
   const [breathScale, setBreathScale] = useState({});
+  const [bubbleColors, setBubbleColors] = useState({});
   const containerRef = useRef(null);
   const animationRef = useRef(null);
 
-  // 初始化气泡位置和呼吸缩放
+  // 随机颜色数组
+  const colorOptions = ['bg-red-300 bg-opacity-40 border-red-400 text-red-900', 'bg-blue-300 bg-opacity-40 border-blue-400 text-blue-900', 'bg-green-300 bg-opacity-40 border-green-400 text-green-900', 'bg-yellow-300 bg-opacity-40 border-yellow-400 text-yellow-900', 'bg-purple-300 bg-opacity-40 border-purple-400 text-purple-900', 'bg-pink-300 bg-opacity-40 border-pink-400 text-pink-900', 'bg-indigo-300 bg-opacity-40 border-indigo-400 text-indigo-900', 'bg-orange-300 bg-opacity-40 border-orange-400 text-orange-900'];
+
+  // 初始化气泡位置、呼吸缩放和颜色
   useEffect(() => {
     const initialPositions = {};
     const initialBreath = {};
+    const initialColors = {};
     skills.forEach(skill => {
       initialPositions[skill.id] = {
         x: Math.random() * 80 + 10,
@@ -65,22 +70,21 @@ export function SkillsSection() {
         y: Math.random() * 80 + 10,
         // 10% - 90%
         vx: (Math.random() - 0.5) * 0.4,
-        // 增加基础速度
-        vy: (Math.random() - 0.5) * 0.4,
-        // 增加基础速度
-        baseX: 0,
-        baseY: 0
+        vy: (Math.random() - 0.5) * 0.4
       };
       initialBreath[skill.id] = {
         scale: 1,
         phase: Math.random() * Math.PI * 2
       };
+      // 为每个气泡分配随机颜色
+      initialColors[skill.id] = colorOptions[Math.floor(Math.random() * colorOptions.length)];
     });
     setBubblePositions(initialPositions);
     setBreathScale(initialBreath);
+    setBubbleColors(initialColors);
   }, []);
 
-  // 气泡动画（随机流动 + 呼吸效果）
+  // 气泡动画（随机流动 + 斥力效果 + 呼吸效果）
   useEffect(() => {
     const animate = () => {
       const time = Date.now() * 0.001;
@@ -88,8 +92,34 @@ export function SkillsSection() {
         const newPositions = {
           ...prev
         };
+
+        // 计算气泡间的斥力
         Object.keys(newPositions).forEach(skillId => {
           const pos = newPositions[skillId];
+          let forceX = 0;
+          let forceY = 0;
+
+          // 计算与其他气泡的斥力
+          Object.keys(newPositions).forEach(otherId => {
+            if (skillId !== otherId) {
+              const other = newPositions[otherId];
+              const dx = pos.x - other.x;
+              const dy = pos.y - other.y;
+              const distance = Math.sqrt(dx * dx + dy * dy);
+
+              // 如果距离太近，产生斥力
+              if (distance < 15 && distance > 0) {
+                // 斥力强度与距离成反比
+                const force = (15 - distance) / 15 * 0.5;
+                forceX += dx / distance * force;
+                forceY += dy / distance * force;
+              }
+            }
+          });
+
+          // 应用斥力
+          pos.vx += forceX;
+          pos.vy += forceY;
 
           // 基础随机流动运动
           pos.x += pos.vx;
@@ -98,29 +128,26 @@ export function SkillsSection() {
           // 边界检测和反弹
           if (pos.x <= 5 || pos.x >= 95) {
             pos.vx = -pos.vx * 0.9;
-            // 反弹时稍微减速
             pos.x = Math.max(5, Math.min(95, pos.x));
           }
           if (pos.y <= 5 || pos.y >= 95) {
             pos.vy = -pos.vy * 0.9;
-            // 反弹时稍微减速
             pos.y = Math.max(5, Math.min(95, pos.y));
           }
 
-          // 增加随机扰动，创造更自然的流动效果
+          // 增加随机扰动
           if (Math.random() < 0.02) {
-            // 增加扰动频率
             pos.vx += (Math.random() - 0.5) * 0.2;
             pos.vy += (Math.random() - 0.5) * 0.2;
           }
 
-          // 添加正弦波动，创造更流畅的运动轨迹
-          pos.vx += Math.sin(time + skillId) * 0.01;
-          pos.vy += Math.cos(time + skillId) * 0.01;
+          // 添加正弦波动
+          pos.vx += Math.sin(time + parseInt(skillId)) * 0.01;
+          pos.vy += Math.cos(time + parseInt(skillId)) * 0.01;
 
           // 限制速度范围
-          pos.vx = Math.max(-0.6, Math.min(0.6, pos.vx));
-          pos.vy = Math.max(-0.6, Math.min(0.6, pos.vy));
+          pos.vx = Math.max(-0.8, Math.min(0.8, pos.vx));
+          pos.vy = Math.max(-0.8, Math.min(0.8, pos.vy));
         });
         return newPositions;
       });
@@ -133,7 +160,6 @@ export function SkillsSection() {
         Object.keys(newBreath).forEach(skillId => {
           const breath = newBreath[skillId];
           breath.scale = 1 + Math.sin(time * 0.3 + breath.phase) * 0.08;
-          // 减慢呼吸频率，增加幅度
         });
         return newBreath;
       });
@@ -150,8 +176,8 @@ export function SkillsSection() {
     if (!skill.unlocked) {
       return 'bg-gray-300 bg-opacity-30 border-gray-400 text-gray-600 backdrop-blur-sm';
     }
-    // 简化颜色方案，只区分解锁和未解锁状态
-    return 'bg-blue-300 bg-opacity-40 border-blue-400 text-blue-900 backdrop-blur-sm';
+    // 使用随机颜色
+    return bubbleColors[skill.id] || 'bg-blue-300 bg-opacity-40 border-blue-400 text-blue-900 backdrop-blur-sm';
   };
   return <section id="skills" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -177,9 +203,7 @@ export function SkillsSection() {
             };
             const isHovered = hoveredSkill === skill.id;
             const baseSize = 100;
-            // 调整基础尺寸
             const hoverSize = 130;
-            // 调整悬停尺寸
             const currentSize = isHovered ? hoverSize : baseSize;
             const finalSize = currentSize * breath.scale;
             return <div key={skill.id} className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 cursor-pointer ${getSkillColor(skill)} border-2 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl ${isHovered ? 'z-20' : 'z-10'}`} style={{
@@ -199,7 +223,7 @@ export function SkillsSection() {
                     </div>
                   </div>
                   
-                  {/* 简化悬停工具提示，去掉等级信息 */}
+                  {/* 简化悬停工具提示 */}
                   {isHovered && <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 p-3 bg-gray-900 bg-opacity-90 text-white text-xs rounded-lg whitespace-nowrap z-30 backdrop-blur-sm" style={{
                 boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)'
               }}>
