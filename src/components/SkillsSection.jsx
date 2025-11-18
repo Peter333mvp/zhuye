@@ -59,10 +59,6 @@ export function SkillsSection() {
   }]);
   const [hoveredSkill, setHoveredSkill] = useState(null);
   const [bubblePositions, setBubblePositions] = useState({});
-  const [mousePosition, setMousePosition] = useState({
-    x: 0,
-    y: 0
-  });
   const [breathScale, setBreathScale] = useState({});
   const containerRef = useRef(null);
   const animationRef = useRef(null);
@@ -77,10 +73,9 @@ export function SkillsSection() {
         // 10% - 90%
         y: Math.random() * 80 + 10,
         // 10% - 90%
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        baseX: 0,
-        baseY: 0
+        vx: (Math.random() - 0.5) * 0.4,
+        // 增加初始速度
+        vy: (Math.random() - 0.5) * 0.4
       };
       initialBreath[skill.id] = {
         scale: 1,
@@ -91,29 +86,7 @@ export function SkillsSection() {
     setBreathScale(initialBreath);
   }, []);
 
-  // 鼠标位置追踪
-  useEffect(() => {
-    const handleMouseMove = e => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        setMousePosition({
-          x: (e.clientX - rect.left) / rect.width * 100,
-          y: (e.clientY - rect.top) / rect.height * 100
-        });
-      }
-    };
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener('mousemove', handleMouseMove);
-    }
-    return () => {
-      if (container) {
-        container.removeEventListener('mousemove', handleMouseMove);
-      }
-    };
-  }, []);
-
-  // 气泡动画（漂浮 + 鼠标引力 + 呼吸效果）
+  // 气泡动画（随机漂浮 + 呼吸效果）
   useEffect(() => {
     const animate = () => {
       const time = Date.now() * 0.001;
@@ -124,7 +97,7 @@ export function SkillsSection() {
         Object.keys(newPositions).forEach(skillId => {
           const pos = newPositions[skillId];
 
-          // 基础漂浮运动
+          // 基础随机漂浮运动
           pos.x += pos.vx;
           pos.y += pos.vy;
 
@@ -138,34 +111,13 @@ export function SkillsSection() {
             pos.y = Math.max(5, Math.min(95, pos.y));
           }
 
-          // 鼠标引力效果
-          const dx = mousePosition.x - pos.x;
-          const dy = mousePosition.y - pos.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < 20 && distance > 0) {
-            // 在20%范围内产生引力/斥力
-            const force = (20 - distance) / 20 * 0.5;
-            // 根据技能状态决定是吸引还是推开
-            const skill = skills.find(s => s.id == skillId);
-            const isRepel = !skill?.unlocked;
-            if (isRepel) {
-              // 未解锁的技能被推开
-              pos.vx -= dx / distance * force;
-              pos.vy -= dy / distance * force;
-            } else {
-              // 已解锁的技能被吸引
-              pos.vx += dx / distance * force * 0.3;
-              pos.vy += dy / distance * force * 0.3;
-            }
+          // 添加随机扰动，让运动更自然
+          if (Math.random() < 0.02) {
+            pos.vx += (Math.random() - 0.5) * 0.15;
+            pos.vy += (Math.random() - 0.5) * 0.15;
           }
 
-          // 添加随机扰动
-          if (Math.random() < 0.01) {
-            pos.vx += (Math.random() - 0.5) * 0.1;
-            pos.vy += (Math.random() - 0.5) * 0.1;
-          }
-
-          // 限制速度
+          // 限制速度范围
           pos.vx = Math.max(-0.8, Math.min(0.8, pos.vx));
           pos.vy = Math.max(-0.8, Math.min(0.8, pos.vy));
         });
@@ -179,7 +131,8 @@ export function SkillsSection() {
         };
         Object.keys(newBreath).forEach(skillId => {
           const breath = newBreath[skillId];
-          breath.scale = 1 + Math.sin(time * 0.5 + breath.phase) * 0.05;
+          breath.scale = 1 + Math.sin(time * 0.3 + breath.phase) * 0.08;
+          // 增强呼吸效果
         });
         return newBreath;
       });
@@ -191,7 +144,7 @@ export function SkillsSection() {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [mousePosition, skills]);
+  }, [skills]);
   const getSkillColor = skill => {
     if (!skill.unlocked) {
       return 'bg-gray-300 bg-opacity-30 border-gray-400 text-gray-600 backdrop-blur-sm';
@@ -206,7 +159,7 @@ export function SkillsSection() {
             技能点
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            互动式技能气泡图，悬停查看技能详情，体验鼠标引力效果
+            互动式技能气泡图，悬停查看技能详情
           </p>
         </div>
 
@@ -222,10 +175,10 @@ export function SkillsSection() {
               scale: 1
             };
             const isHovered = hoveredSkill === skill.id;
-            const baseSize = 120;
-            // 增大基础尺寸
-            const hoverSize = 150;
-            // 增大悬停尺寸
+            const baseSize = 160;
+            // 进一步增大基础尺寸
+            const hoverSize = 200;
+            // 进一步增大悬停尺寸
             const currentSize = isHovered ? hoverSize : baseSize;
             const finalSize = currentSize * breath.scale;
             return <div key={skill.id} className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 cursor-pointer ${getSkillColor(skill)} border-2 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl ${isHovered ? 'z-20' : 'z-10'}`} style={{
@@ -235,22 +188,22 @@ export function SkillsSection() {
               height: `${finalSize}px`,
               backdropFilter: 'blur(8px)',
               WebkitBackdropFilter: 'blur(8px)',
-              boxShadow: isHovered ? '0 8px 32px rgba(0, 0, 0, 0.15), 0 0 20px rgba(99, 102, 241, 0.3)' : '0 4px 16px rgba(0, 0, 0, 0.1), 0 0 10px rgba(99, 102, 241, 0.1)',
+              boxShadow: isHovered ? '0 12px 40px rgba(0, 0, 0, 0.2), 0 0 30px rgba(99, 102, 241, 0.4)' : '0 8px 24px rgba(0, 0, 0, 0.15), 0 0 15px rgba(99, 102, 241, 0.2)',
               transform: `translate(-50%, -50%) scale(${breath.scale})`
             }} onMouseEnter={() => setHoveredSkill(skill.id)} onMouseLeave={() => setHoveredSkill(null)}>
                   {/* 只保留文字，去掉图标 */}
                   <div className="text-center">
-                    <div className="text-sm font-bold truncate px-2 drop-shadow-sm">
+                    <div className="text-base font-bold truncate px-3 drop-shadow-sm">
                       {skill.name}
                     </div>
                   </div>
                   
                   {/* 悬停工具提示 */}
-                  {isHovered && <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 p-3 bg-gray-900 bg-opacity-90 text-white text-xs rounded-lg whitespace-nowrap z-30 backdrop-blur-sm" style={{
-                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)'
+                  {isHovered && <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 p-4 bg-gray-900 bg-opacity-90 text-white text-sm rounded-lg whitespace-nowrap z-30 backdrop-blur-sm" style={{
+                boxShadow: '0 6px 24px rgba(0, 0, 0, 0.4)'
               }}>
-                      <div className="font-bold mb-1">{skill.name}</div>
-                      <div className="mb-1">{skill.description}</div>
+                      <div className="font-bold mb-2">{skill.name}</div>
+                      <div className="mb-2">{skill.description}</div>
                       <div className="text-yellow-300">
                         {skill.unlocked ? `等级 ${skill.level}/5` : '未解锁'}
                       </div>
