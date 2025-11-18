@@ -73,8 +73,8 @@ export function SkillsSection() {
         // 15% - 85%
         y: Math.random() * 70 + 15,
         // 15% - 85%
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
+        vx: (Math.random() - 0.5) * 0.2,
+        vy: (Math.random() - 0.5) * 0.2,
         radius: 60 // 气泡半径
       };
     });
@@ -86,7 +86,7 @@ export function SkillsSection() {
     const dx = bubble1.x - bubble2.x;
     const dy = bubble1.y - bubble2.y;
     const distance = Math.sqrt(dx * dx + dy * dy);
-    const minDistance = (bubble1.radius + bubble2.radius) / 10; // 转换为百分比单位
+    const minDistance = bubble1.radius + bubble2.radius;
     return distance < minDistance;
   };
 
@@ -111,24 +111,23 @@ export function SkillsSection() {
     // 如果气泡正在分离，不处理
     if (dvn > 0) return;
 
-    // 弹性碰撞，交换速度分量
-    const impulse = 2 * dvn / 2; // 假设质量相等
+    // 计算碰撞冲量（缓慢弹开效果）
+    const impulse = 0.5 * dvn;
 
+    // 更新速度
     bubble1.vx -= impulse * nx;
     bubble1.vy -= impulse * ny;
     bubble2.vx += impulse * nx;
     bubble2.vy += impulse * ny;
 
     // 分离重叠的气泡
-    const overlap = (bubble1.radius + bubble2.radius) / 10 - distance;
-    if (overlap > 0) {
-      const separationX = nx * overlap / 2;
-      const separationY = ny * overlap / 2;
-      bubble1.x += separationX;
-      bubble1.y += separationY;
-      bubble2.x -= separationX;
-      bubble2.y -= separationY;
-    }
+    const overlap = bubble1.radius + bubble2.radius - distance;
+    const separationX = nx * overlap * 0.5;
+    const separationY = ny * overlap * 0.5;
+    bubble1.x += separationX;
+    bubble1.y += separationY;
+    bubble2.x -= separationX;
+    bubble2.y -= separationY;
   };
 
   // 气泡漂浮动画和碰撞检测
@@ -142,31 +141,32 @@ export function SkillsSection() {
 
         // 更新位置
         bubbles.forEach(bubble => {
+          // 更新位置
           bubble.x += bubble.vx;
           bubble.y += bubble.vy;
 
           // 边界检测和反弹
-          if (bubble.x <= 8 || bubble.x >= 92) {
-            bubble.vx = -bubble.vx * 0.9; // 添加能量损失
-            bubble.x = Math.max(8, Math.min(92, bubble.x));
+          if (bubble.x <= 10 || bubble.x >= 90) {
+            bubble.vx = -bubble.vx * 0.8; // 添加阻尼效果
+            bubble.x = Math.max(10, Math.min(90, bubble.x));
           }
-          if (bubble.y <= 8 || bubble.y >= 92) {
-            bubble.vy = -bubble.vy * 0.9; // 添加能量损失
-            bubble.y = Math.max(8, Math.min(92, bubble.y));
+          if (bubble.y <= 10 || bubble.y >= 90) {
+            bubble.vy = -bubble.vy * 0.8; // 添加阻尼效果
+            bubble.y = Math.max(10, Math.min(90, bubble.y));
           }
 
           // 添加随机扰动
-          if (Math.random() < 0.02) {
-            bubble.vx += (Math.random() - 0.5) * 0.1;
-            bubble.vy += (Math.random() - 0.5) * 0.1;
+          if (Math.random() < 0.005) {
+            bubble.vx += (Math.random() - 0.5) * 0.05;
+            bubble.vy += (Math.random() - 0.5) * 0.05;
             // 限制速度
-            bubble.vx = Math.max(-0.6, Math.min(0.6, bubble.vx));
-            bubble.vy = Math.max(-0.6, Math.min(0.6, bubble.vy));
+            bubble.vx = Math.max(-0.3, Math.min(0.3, bubble.vx));
+            bubble.vy = Math.max(-0.3, Math.min(0.3, bubble.vy));
           }
 
-          // 添加轻微的阻力
-          bubble.vx *= 0.999;
-          bubble.vy *= 0.999;
+          // 添加速度阻尼
+          bubble.vx *= 0.99;
+          bubble.vy *= 0.99;
         });
 
         // 碰撞检测和响应
@@ -214,7 +214,7 @@ export function SkillsSection() {
 
         {/* 统一气泡容器 */}
         <div className="flex justify-center">
-          <div ref={containerRef} className="relative bg-white/60 backdrop-blur-sm rounded-2xl border border-white/50 shadow-xl w-full max-w-5xl h-[500px] overflow-hidden">
+          <div ref={containerRef} className="relative bg-white/60 backdrop-blur-sm rounded-2xl border border-white/50 shadow-xl w-full max-w-5xl h-[600px] overflow-hidden">
             {skills.map(skill => {
             const position = bubblePositions[skill.id] || {
               x: 50,
@@ -229,7 +229,6 @@ export function SkillsSection() {
               width: `${bubbleSize}px`,
               height: `${bubbleSize}px`
             }} onMouseEnter={() => setHoveredSkill(skill.id)} onMouseLeave={() => setHoveredSkill(null)}>
-                  {/* 只显示技能名称 */}
                   <div className="text-center px-2">
                     <div className="text-sm font-bold leading-tight">
                       {skill.name}
@@ -237,9 +236,9 @@ export function SkillsSection() {
                   </div>
                   
                   {/* 悬停工具提示 */}
-                  {isHovered && <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 p-3 bg-gray-900 text-white text-xs rounded-lg whitespace-nowrap z-20">
-                      <div className="font-bold mb-1">{skill.name}</div>
-                      <div className="mb-1">{skill.description}</div>
+                  {isHovered && <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 p-2 bg-gray-900 text-white text-xs rounded-lg whitespace-nowrap z-20">
+                      <div className="font-bold">{skill.name}</div>
+                      <div>{skill.description}</div>
                       <div className="text-yellow-300">
                         {skill.unlocked ? `等级 ${skill.level}/5` : '未解锁'}
                       </div>
