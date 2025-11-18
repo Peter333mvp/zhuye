@@ -1,7 +1,5 @@
 // @ts-ignore;
 import React, { useState, useEffect, useRef } from 'react';
-// @ts-ignore;
-import { Lock, CheckCircle, Star } from 'lucide-react';
 
 export function SkillsSection() {
   const [skills] = useState([{
@@ -154,14 +152,13 @@ export function SkillsSection() {
             return <div key={skill.id} className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 cursor-pointer ${getSkillColor(skill)} border-2 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl ${isHovered ? 'scale-110 z-10' : 'scale-100'}`} style={{
               left: `${position.x}%`,
               top: `${position.y}%`,
-              width: isHovered ? '110px' : '90px',
-              height: isHovered ? '110px' : '90px'
+              width: isHovered ? '140px' : '120px',
+              height: isHovered ? '140px' : '120px'
             }} onMouseEnter={() => setHoveredSkill(skill.id)} onMouseLeave={() => setHoveredSkill(null)}>
                   <div className="text-center">
-                    <div className="text-xs font-bold truncate px-1">
+                    <div className="text-sm font-bold truncate px-2">
                       {skill.name}
                     </div>
-                    {skill.unlocked ? skill.level >= 3 ? <Star size={12} className="text-yellow-600 mx-auto mt-1" /> : <CheckCircle size={12} className="text-green-600 mx-auto mt-1" /> : <Lock size={12} className="text-gray-600 mx-auto mt-1" />}
                   </div>
                   
                   {/* 悬停工具提示 */}
