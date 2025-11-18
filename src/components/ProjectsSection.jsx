@@ -6,10 +6,10 @@ import { ExternalLink, Github, Calendar, Users, Award, BookOpen, Target, Code, C
 export function ProjectsSection() {
   const projects = [{
     title: '太空蜘蛛机器人系统',
-    description: '针对太空特殊环境航天器维护和星体探索等多任务应用场景，设计并实现适应太空微重力等特殊环境要求的六足机器人系统',
+    description: '针对太空特殊环境航天器维护和星体探索等多任务应用场景，设计并实现适应太空微重力等特殊环境要求的六足机器人系统。通过融合机械设计、运动学建模、智能控制与仿真验证等多学科技术，研究了面向太空极端环境多任务应用场景仿生机器人运动稳定性、环境适应性和系统可靠性等关键技术问题。',
     image: 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=500&h=300&fit=crop',
-    tags: ['机器人设计', '运动学建模', '智能控制', '太空应用'],
-    features: ['D-H参数法运动学建模', '六足协同控制策略', 'ESP32双核主控', 'Arduino+ROS架构'],
+    tags: ['机器人设计', '运动学建模', '智能控制', '太空应用', 'D-H参数法', 'ESP32控制'],
+    features: ['D-H参数法运动学建模', '六足协同控制策略', 'ESP32双核主控', 'Arduino+ROS架构', '太空环境适应性实验', '样机性能测试'],
     award: '全国三等奖、华东赛区一等奖',
     competition: '中国大学生机械工程创新创意大赛',
     year: '2025',
@@ -86,7 +86,7 @@ export function ProjectsSection() {
             </h3>
           </div>
 
-          <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+          <p className="text-gray-600 text-sm mb-4 line-clamp-3">
             {project.description}
           </p>
 
@@ -104,7 +104,7 @@ export function ProjectsSection() {
 
           {/* 项目特点 */}
           <div className="space-y-2">
-            {project.features.slice(0, 2).map((feature, idx) => <div key={idx} className="flex items-center text-xs text-gray-600">
+            {project.features.slice(0, 3).map((feature, idx) => <div key={idx} className="flex items-center text-xs text-gray-600">
                 <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-2" />
                 {feature}
               </div>)}
