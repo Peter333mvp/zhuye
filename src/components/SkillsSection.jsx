@@ -1,145 +1,149 @@
 // @ts-ignore;
 import React, { useState } from 'react';
 // @ts-ignore;
-import { Code, Database, Cpu, Plus, Edit2, Trash2, Save, X } from 'lucide-react';
+import { Code, Database, Cpu, Plus, Edit2, Trash2, Save, X, Globe, Briefcase, Bot, ChevronRight, Circle } from 'lucide-react';
 
 export function SkillsSection() {
-  const [skills, setSkills] = useState([{
-    id: 1,
-    name: 'Python',
-    level: 90,
-    category: 'programming',
-    icon: <Code size={24} />,
-    color: 'bg-blue-500'
-  }, {
-    id: 2,
-    name: 'C++',
-    level: 85,
-    category: 'programming',
-    icon: <Code size={24} />,
-    color: 'bg-purple-500'
-  }, {
-    id: 3,
-    name: 'MATLAB',
-    level: 80,
-    category: 'programming',
-    icon: <Database size={24} />,
-    color: 'bg-green-500'
-  }, {
-    id: 4,
-    name: 'SolidWorks',
-    level: 75,
-    category: 'design',
-    icon: <Cpu size={24} />,
-    color: 'bg-orange-500'
-  }, {
-    id: 5,
-    name: 'AutoCAD',
-    level: 70,
-    category: 'design',
-    icon: <Cpu size={24} />,
-    color: 'bg-red-500'
-  }, {
-    id: 6,
-    name: '机器学习',
-    level: 85,
-    category: 'ai',
-    icon: <Database size={24} />,
-    color: 'bg-indigo-500'
-  }]);
+  const [skills, setSkills] = useState({
+    language: [{
+      id: 1,
+      name: '英语CET-4',
+      level: 85,
+      description: '大学英语四级证书'
+    }],
+    office: [{
+      id: 2,
+      name: 'Office系列',
+      level: 90,
+      description: 'Word, Excel, PowerPoint等办公软件'
+    }, {
+      id: 3,
+      name: 'PS/PR',
+      level: 75,
+      description: 'Photoshop和Premiere Pro图像视频处理'
+    }, {
+      id: 4,
+      name: 'AI大模型应用',
+      level: 80,
+      description: 'ChatGPT, Claude等AI工具应用'
+    }],
+    technical: [{
+      id: 5,
+      name: 'SolidWorks',
+      level: 85,
+      description: '三维机械设计软件'
+    }, {
+      id: 6,
+      name: 'AutoCAD',
+      level: 80,
+      description: '二维制图软件'
+    }, {
+      id: 7,
+      name: 'CATIA',
+      level: 70,
+      description: '高端CAD/CAE/CAM软件'
+    }, {
+      id: 8,
+      name: 'MATLAB',
+      level: 75,
+      description: '数值计算与仿真软件'
+    }, {
+      id: 9,
+      name: 'Visual Studio',
+      level: 70,
+      description: '集成开发环境'
+    }]
+  });
   const [isAddingSkill, setIsAddingSkill] = useState(false);
   const [editingSkill, setEditingSkill] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [newSkill, setNewSkill] = useState({
     name: '',
     level: 50,
-    category: 'programming',
-    color: 'bg-blue-500'
+    category: 'language',
+    description: ''
   });
   const categories = [{
-    value: 'programming',
-    label: '编程语言',
-    icon: <Code size={20} />
+    key: 'language',
+    name: '语言技能',
+    icon: <Globe size={24} />,
+    color: 'from-blue-400 to-blue-600',
+    bgColor: 'bg-blue-50',
+    borderColor: 'border-blue-200'
   }, {
-    value: 'design',
-    label: '设计软件',
-    icon: <Cpu size={20} />
+    key: 'office',
+    name: '办公技能',
+    icon: <Briefcase size={24} />,
+    color: 'from-green-400 to-green-600',
+    bgColor: 'bg-green-50',
+    borderColor: 'border-green-200'
   }, {
-    value: 'ai',
-    label: '人工智能',
-    icon: <Database size={20} />
-  }];
-  const colors = [{
-    value: 'bg-blue-500',
-    label: '蓝色'
-  }, {
-    value: 'bg-purple-500',
-    label: '紫色'
-  }, {
-    value: 'bg-green-500',
-    label: '绿色'
-  }, {
-    value: 'bg-orange-500',
-    label: '橙色'
-  }, {
-    value: 'bg-red-500',
-    label: '红色'
-  }, {
-    value: 'bg-indigo-500',
-    label: '靛蓝'
+    key: 'technical',
+    name: '技术技能',
+    icon: <Bot size={24} />,
+    color: 'from-purple-400 to-purple-600',
+    bgColor: 'bg-purple-50',
+    borderColor: 'border-purple-200'
   }];
   const handleAddSkill = () => {
     if (newSkill.name.trim()) {
-      const categoryInfo = categories.find(cat => cat.value === newSkill.category);
       const skill = {
         id: Date.now(),
         name: newSkill.name,
         level: newSkill.level,
-        category: newSkill.category,
-        icon: categoryInfo.icon,
-        color: newSkill.color
+        description: newSkill.description
       };
-      setSkills([...skills, skill]);
+      setSkills({
+        ...skills,
+        [newSkill.category]: [...skills[newSkill.category], skill]
+      });
       setNewSkill({
         name: '',
         level: 50,
-        category: 'programming',
-        color: 'bg-blue-500'
+        category: 'language',
+        description: ''
       });
       setIsAddingSkill(false);
     }
   };
-  const handleEditSkill = skill => {
-    setEditingSkill(skill);
+  const handleEditSkill = (category, skill) => {
+    setEditingSkill({
+      category,
+      skill
+    });
     setNewSkill({
       name: skill.name,
       level: skill.level,
-      category: skill.category,
-      color: skill.color
+      category: category,
+      description: skill.description
     });
   };
   const handleUpdateSkill = () => {
     if (editingSkill && newSkill.name.trim()) {
-      const categoryInfo = categories.find(cat => cat.value === newSkill.category);
-      const updatedSkills = skills.map(skill => skill.id === editingSkill.id ? {
-        ...skill,
-        name: newSkill.name,
-        level: newSkill.level,
-        category: newSkill.category,
-        icon: categoryInfo.icon,
-        color: newSkill.color
-      } : skill);
+      const updatedSkills = {
+        ...skills,
+        [editingSkill.category]: skills[editingSkill.category].map(skill => skill.id === editingSkill.skill.id ? {
+          ...skill,
+          name: newSkill.name,
+          level: newSkill.level,
+          description: newSkill.description
+        } : skill)
+      };
       setSkills(updatedSkills);
       setEditingSkill(null);
       setNewSkill({
         name: '',
         level: 50,
-        category: 'programming',
-        color: 'bg-blue-500'
+        category: 'language',
+        description: ''
       });
     }
   };
-  const handleDeleteSkill = id => {
-    setSkills(skills.filter(skill => skill.id !== id));
+  const handleDeleteSkill = (category, skillId) => {
+    setSkills({
+      ...skills,
+      [category]: skills[category].filter(skill => skill.id !== skillId)
+    });
   };
   const cancelEdit = () => {
     setEditingSkill(null);
@@ -147,8 +151,8 @@ export function SkillsSection() {
     setNewSkill({
       name: '',
       level: 50,
-      category: 'programming',
-      color: 'bg-blue-500'
+      category: 'language',
+      description: ''
     });
   };
   return <section id="skills" className="py-20 bg-white">
@@ -158,7 +162,7 @@ export function SkillsSection() {
             专业技能
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            掌握多项专业技能，涵盖编程、设计和人工智能领域
+            全方位技能树展示，涵盖语言、办公和技术三大领域
           </p>
         </div>
 
@@ -202,23 +206,19 @@ export function SkillsSection() {
               ...newSkill,
               category: e.target.value
             })} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                  {categories.map(cat => <option key={cat.value} value={cat.value}>
-                      {cat.label}
+                  {categories.map(cat => <option key={cat.key} value={cat.key}>
+                      {cat.name}
                     </option>)}
                 </select>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  颜色主题
+                  技能描述
                 </label>
-                <select value={newSkill.color} onChange={e => setNewSkill({
+                <input type="text" value={newSkill.description} onChange={e => setNewSkill({
               ...newSkill,
-              color: e.target.value
-            })} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                  {colors.map(color => <option key={color.value} value={color.value}>
-                      {color.label}
-                    </option>)}
-                </select>
+              description: e.target.value
+            })} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="输入技能描述" />
               </div>
             </div>
             <div className="flex space-x-3 mt-4">
@@ -233,54 +233,88 @@ export function SkillsSection() {
             </div>
           </div>}
 
-        {/* 技能分类展示 */}
-        <div className="space-y-12">
-          {categories.map(category => {
-          const categorySkills = skills.filter(skill => skill.category === category.value);
-          if (categorySkills.length === 0) return null;
-          return <div key={category.value}>
-                <div className="flex items-center mb-6">
-                  <div className="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center mr-3 text-indigo-600">
-                    {category.icon}
-                  </div>
-                  <h3 className="text-2xl font-semibold text-gray-900">
-                    {category.label}
-                  </h3>
+        {/* 技能树发散展示 */}
+        <div className="relative">
+          {/* 中心节点 */}
+          <div className="flex justify-center mb-12">
+            <div className="relative">
+              <div className="w-32 h-32 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center shadow-2xl">
+                <div className="text-center text-white">
+                  <Code size={40} className="mx-auto mb-2" />
+                  <p className="text-sm font-bold">技能树</p>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {categorySkills.map(skill => <div key={skill.id} className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-all duration-300 relative group">
+              </div>
+              {/* 连接线 */}
+              <div className="absolute top-16 left-32 w-64 h-0.5 bg-gradient-to-r from-indigo-300 to-transparent"></div>
+              <div className="absolute top-16 right-32 w-64 h-0.5 bg-gradient-to-l from-indigo-300 to-transparent"></div>
+              <div className="absolute top-32 left-1/2 transform -translate-x-1/2 w-0.5 h-32 bg-gradient-to-b from-indigo-300 to-transparent"></div>
+            </div>
+          </div>
+
+          {/* 分支节点 */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {categories.map((category, categoryIndex) => {
+            const categorySkills = skills[category.key];
+            return <div key={category.key} className="relative">
+                {/* 分类主节点 */}
+                <div className={`relative mb-6 ${categoryIndex === 0 ? 'lg:mr-auto lg:ml-0' : categoryIndex === 1 ? 'lg:mx-auto' : 'lg:ml-auto lg:mr-0'}`}>
+                  <div className={`w-24 h-24 bg-gradient-to-br ${category.color} rounded-full flex items-center justify-center shadow-xl mx-auto ${category.bgColor} border-4 ${category.borderColor}`}>
+                    <div className="text-center text-white">
+                      {category.icon}
+                    </div>
+                  </div>
+                  <h3 className="text-center mt-3 text-lg font-semibold text-gray-800">
+                    {category.name}
+                  </h3>
+                  <p className="text-center text-sm text-gray-500">
+                    {categorySkills.length} 项技能
+                  </p>
+                </div>
+
+                {/* 技能分支 */}
+                <div className="space-y-3">
+                  {categorySkills.map((skill, skillIndex) => {
+                  const angle = skillIndex * 30 - 30; // 计算分支角度
+                  return <div key={skill.id} className={`relative ${category.bgColor} ${category.borderColor} border rounded-lg p-4 hover:shadow-lg transition-all duration-300 group`}>
+                      {/* 连接线装饰 */}
+                      <div className={`absolute -top-3 left-1/2 transform -translate-x-1/2 w-0.5 h-3 bg-gradient-to-b ${category.color.replace('from-', 'from-').replace('to-', 'to-')}`}></div>
+                      
                       {/* 操作按钮 */}
-                      <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex space-x-2">
-                        <button onClick={() => handleEditSkill(skill)} className="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300">
-                          <Edit2 size={16} />
+                      <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex space-x-1">
+                        <button onClick={() => handleEditSkill(category.key, skill)} className="p-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors duration-300">
+                          <Edit2 size={12} />
                         </button>
-                        <button onClick={() => handleDeleteSkill(skill.id)} className="p-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-300">
-                          <Trash2 size={16} />
+                        <button onClick={() => handleDeleteSkill(category.key, skill.id)} className="p-1 bg-red-600 text-white rounded hover:bg-red-700 transition-colors duration-300">
+                          <Trash2 size={12} />
                         </button>
                       </div>
                       
-                      <div className="flex items-center mb-4">
-                        <div className={`w-12 h-12 ${skill.color} rounded-lg flex items-center justify-center mr-4 text-white`}>
-                          {skill.icon}
-                        </div>
-                        <div>
-                          <h4 className="text-xl font-semibold text-gray-900">
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-gray-800 text-sm">
                             {skill.name}
                           </h4>
-                          <p className="text-sm text-gray-500">
-                            熟练程度: {skill.level}%
+                          <p className="text-xs text-gray-600 mt-1">
+                            {skill.description}
                           </p>
                         </div>
+                        <div className="ml-3 text-right">
+                          <div className="text-lg font-bold text-gray-700">
+                            {skill.level}%
+                          </div>
+                          <div className="w-12 h-1 bg-gray-200 rounded-full mt-1">
+                            <div className={`h-1 rounded-full bg-gradient-to-r ${category.color}`} style={{
+                            width: `${skill.level}%`
+                          }}></div>
+                          </div>
+                        </div>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-3">
-                        <div className={`${skill.color} h-3 rounded-full transition-all duration-500`} style={{
-                    width: `${skill.level}%`
-                  }}></div>
-                      </div>
-                    </div>)}
+                    </div>;
+                })}
                 </div>
               </div>;
-        })}
+          })}
+          </div>
         </div>
       </div>
     </section>;
