@@ -1,9 +1,38 @@
 // @ts-ignore;
 import React from 'react';
 // @ts-ignore;
-import { Mail, Phone, MapPin, Github, Linkedin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Send, MessageCircle } from 'lucide-react';
 
 export function ContactSection() {
+  const contactInfo = [{
+    icon: <Mail size={20} />,
+    label: '邮箱',
+    value: 'your.email@example.com',
+    href: 'mailto:your.email@example.com'
+  }, {
+    icon: <Phone size={20} />,
+    label: '电话',
+    value: '+86 123 4567 8900',
+    href: 'tel:+8612345678900'
+  }, {
+    icon: <MapPin size={20} />,
+    label: '地址',
+    value: '上海市宝山区上海大学',
+    href: '#'
+  }];
+  const socialLinks = [{
+    icon: <Github size={20} />,
+    label: 'GitHub',
+    href: 'https://github.com/yourusername'
+  }, {
+    icon: <Linkedin size={20} />,
+    label: 'LinkedIn',
+    href: 'https://linkedin.com/in/yourusername'
+  }, {
+    icon: <Twitter size={20} />,
+    label: 'Twitter',
+    href: 'https://twitter.com/yourusername'
+  }];
   return <section id="contact" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
@@ -11,83 +40,45 @@ export function ContactSection() {
             联系方式
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            欢迎通过邮箱或电话联系我，期待与您合作！
+            欢迎与我联系，期待与您的交流合作
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div>
-            <h3 className="text-2xl font-semibold text-gray-900 mb-6">
-              取得联系
-            </h3>
-            
-            <div className="space-y-4">
-              <div className="flex items-center text-gray-600">
-                <Phone size={20} className="mr-3 text-blue-600" />
-                <span>18391796623</span>
-              </div>
-              
-              <div className="flex items-center text-gray-600">
-                <Mail size={20} className="mr-3 text-blue-600" />
-                <span>zptynl@163.com</span>
-              </div>
-              
-              <div className="flex items-center text-gray-600">
-                <MapPin size={20} className="mr-3 text-blue-600" />
-                <span>上海宝山</span>
+          {/* 联系信息 */}
+          <div className="space-y-8">
+            <div>
+              <h3 className="text-2xl font-semibold text-gray-900 mb-6">
+                联系信息
+              </h3>
+              <div className="space-y-4">
+                {contactInfo.map((info, index) => <div key={index} className="flex items-center p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-300">
+                    <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mr-4 text-indigo-600">
+                      {info.icon}
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500 mb-1">{info.label}</p>
+                      <a href={info.href} className="text-lg font-medium text-gray-900 hover:text-indigo-600 transition-colors duration-300">
+                        {info.value}
+                      </a>
+                    </div>
+                  </div>)}
               </div>
             </div>
 
-            <div className="mt-8">
-              <h4 className="text-lg font-semibold text-gray-900 mb-4">
+            {/* 社交媒体 */}
+            <div>
+              <h3 className="text-2xl font-semibold text-gray-900 mb-6">
                 社交媒体
-              </h4>
+              </h3>
               <div className="flex space-x-4">
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-100 rounded-full hover:bg-blue-100 transition-colors duration-200">
-                  <Github size={24} className="text-gray-700 hover:text-blue-600" />
-                </a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-100 rounded-full hover:bg-blue-100 transition-colors duration-200">
-                  <Linkedin size={24} className="text-gray-700 hover:text-blue-600" />
-                </a>
-                <a href="mailto:zptynl@163.com" className="p-3 bg-gray-100 rounded-full hover:bg-blue-100 transition-colors duration-200">
-                  <Mail size={24} className="text-gray-700 hover:text-blue-600" />
-                </a>
+                {socialLinks.map((social, index) => <a key={index} href={social.href} target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-indigo-100 hover:text-indigo-600 transition-all duration-300 group">
+                    <div className="text-gray-600 group-hover:text-indigo-600">
+                      {social.icon}
+                    </div>
+                  </a>)}
               </div>
             </div>
-          </div>
-
-          <div>
-            <h3 className="text-2xl font-semibold text-gray-900 mb-6">
-              发送消息
-            </h3>
-            
-            <form className="space-y-4">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                  姓名
-                </label>
-                <input type="text" id="name" name="name" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200" placeholder="您的姓名" />
-              </div>
-              
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  邮箱
-                </label>
-                <input type="email" id="email" name="email" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200" placeholder="您的邮箱" />
-              </div>
-              
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                  消息
-                </label>
-                <textarea id="message" name="message" rows={4} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 resize-none" placeholder="您想说的话..." />
-              </div>
-              
-              <button type="submit" className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center">
-                <Send size={20} className="mr-2" />
-                发送消息
-              </button>
-            </form>
           </div>
         </div>
       </div>
