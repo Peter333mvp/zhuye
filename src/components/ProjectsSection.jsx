@@ -1,7 +1,8 @@
 // @ts-ignore;
 import React, { useState, useRef, useEffect } from 'react';
 // @ts-ignore;
-import { ChevronLeft, ChevronRight, ExternalLink, Github, Trophy, Award, Target } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ExternalLink, Github, Trophy, Award, Target, Wrench } from 'lucide-react';
+
 export function ProjectsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -15,8 +16,8 @@ export function ProjectsSection() {
     year: '2025',
     awards: ['全国三等奖', '华东赛区一等奖'],
     tasks: ['机械系统设计与优化', '运动学建模与仿真', '样机制作与性能测试', '太空环境适应性实验'],
-    icon: Trophy },
-  {
+    icon: Trophy
+  }, {
     id: 2,
     title: '中国机器人大赛暨ROBOTCUP世界杯中国赛',
     description: '参与篮球机器人组比赛，机器人具备自动拾球、路径规划、多任务并行处理、定点投篮等功能。通过机械结构设计、零件加工、现场改装等环节，最终获得亚军（国赛二等奖）的优异成绩。',
@@ -25,8 +26,8 @@ export function ProjectsSection() {
     year: '2024',
     awards: ['亚军（国赛二等奖）'],
     tasks: ['机械结构设计', '零件加工', '现场改装'],
-    icon: Award },
-  {
+    icon: Award
+  }, {
     id: 3,
     title: '美国大学生数学建模竞赛（MCM）',
     description: '针对五大湖水资源调控问题，建立模型平衡水位与利益相关者需求，设计算法并分析敏感性。通过模型推导与建立、MATLAB求解与检验、论文撰写等环节，最终获得M奖（国赛二等奖）。',
@@ -35,13 +36,23 @@ export function ProjectsSection() {
     year: '2024',
     awards: ['M奖（国赛二等奖）'],
     tasks: ['模型推导与建立', 'MATLAB求解与检验', '论文撰写'],
-    icon: Target }];
-
+    icon: Target
+  }, {
+    id: 4,
+    title: '一维伺服工作平台设计',
+    description: '基于功能设想与草图，选用电机、丝杠导轨等标准件，完成非标零件与整体平台设计。通过精确的零件选型计算、SolidWorks三维建模和装配图绘制，实现了一个高精度的一维伺服工作平台。',
+    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop',
+    tags: ['机械设计', 'SolidWorks', '零件选型', '装配设计'],
+    year: '2024',
+    awards: ['课程设计 - 优秀'],
+    tasks: ['零件选型计算', 'SolidWorks建模', '装配图绘制'],
+    icon: Wrench
+  }];
   const nextProject = () => {
     if (isAnimating) return;
     setIsAnimating(true);
     setTimeout(() => {
-      setCurrentIndex((prev) => (prev + 1) % projects.length);
+      setCurrentIndex(prev => (prev + 1) % projects.length);
       setIsAnimating(false);
     }, 300);
   };
@@ -49,11 +60,11 @@ export function ProjectsSection() {
     if (isAnimating) return;
     setIsAnimating(true);
     setTimeout(() => {
-      setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
+      setCurrentIndex(prev => (prev - 1 + projects.length) % projects.length);
       setIsAnimating(false);
     }, 300);
   };
-  const goToProject = (index) => {
+  const goToProject = index => {
     if (isAnimating) return;
     setIsAnimating(true);
     setTimeout(() => {
@@ -64,7 +75,8 @@ export function ProjectsSection() {
 
   // 键盘导航
   // 键盘导航
-  useEffect(() => {const handleKeyDown = (e) => {
+  useEffect(() => {
+    const handleKeyDown = e => {
       if (e.key === 'ArrowLeft') prevProject();
       if (e.key === 'ArrowRight') nextProject();
     };
@@ -74,7 +86,8 @@ export function ProjectsSection() {
 
   // 自动播放
   // 自动播放
-  useEffect(() => {const interval = setInterval(() => {
+  useEffect(() => {
+    const interval = setInterval(() => {
       nextProject();
     }, 5000);
     return () => clearInterval(interval);
@@ -95,9 +108,10 @@ export function ProjectsSection() {
           {/* 主卡片容器 */}
           <div className="relative overflow-hidden rounded-xl">
             <div className="flex transition-transform duration-300 ease-in-out" style={{
-            transform: `translateX(-${currentIndex * 100}%)` }}>
+            transform: `translateX(-${currentIndex * 100}%)`
+          }}>
 
-              {projects.map((project) => {
+              {projects.map(project => {
               const Icon = project.icon;
               return <div key={project.id} className="w-full flex-shrink-0 px-4">
                   <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
