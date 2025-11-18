@@ -8,49 +8,40 @@ export function SkillsSection() {
     language: [{
       id: 1,
       name: '英语CET-4',
-      level: 85,
       description: '大学英语四级证书'
     }],
     office: [{
       id: 2,
       name: 'Office系列',
-      level: 90,
       description: 'Word, Excel, PowerPoint等办公软件'
     }, {
       id: 3,
       name: 'PS/PR',
-      level: 75,
       description: 'Photoshop和Premiere Pro图像视频处理'
     }, {
       id: 4,
       name: 'AI大模型应用',
-      level: 80,
       description: 'ChatGPT, Claude等AI工具应用'
     }],
     technical: [{
       id: 5,
       name: 'SolidWorks',
-      level: 85,
       description: '三维机械设计软件'
     }, {
       id: 6,
       name: 'AutoCAD',
-      level: 80,
       description: '二维制图软件'
     }, {
       id: 7,
       name: 'CATIA',
-      level: 70,
       description: '高端CAD/CAE/CAM软件'
     }, {
       id: 8,
       name: 'MATLAB',
-      level: 75,
       description: '数值计算与仿真软件'
     }, {
       id: 9,
       name: 'Visual Studio',
-      level: 70,
       description: '集成开发环境'
     }]
   };
@@ -132,7 +123,7 @@ export function SkillsSection() {
                       {/* 连接线装饰 */}
                       <div className={`absolute -top-3 left-1/2 transform -translate-x-1/2 w-0.5 h-3 bg-gradient-to-b ${category.color.replace('from-', 'from-').replace('to-', 'to-')}`}></div>
                       
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center">
                         <div className="flex-1">
                           <h4 className="font-semibold text-gray-800 text-sm">
                             {skill.name}
@@ -140,16 +131,6 @@ export function SkillsSection() {
                           <p className="text-xs text-gray-600 mt-1">
                             {skill.description}
                           </p>
-                        </div>
-                        <div className="ml-3 text-right">
-                          <div className="text-lg font-bold text-gray-700">
-                            {skill.level}%
-                          </div>
-                          <div className="w-12 h-1 bg-gray-200 rounded-full mt-1">
-                            <div className={`h-1 rounded-full bg-gradient-to-r ${category.color}`} style={{
-                            width: `${skill.level}%`
-                          }}></div>
-                          </div>
                         </div>
                       </div>
                     </div>;
