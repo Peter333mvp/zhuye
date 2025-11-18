@@ -1,188 +1,149 @@
 // @ts-ignore;
-import React, { useState } from 'react';
+import React from 'react';
 // @ts-ignore;
-import { ExternalLink, Github, Calendar, Tag, Trophy, Cpu, Calculator, Wrench } from 'lucide-react';
+import { ExternalLink, Github, Calendar, Users, Award, BookOpen, Target, Code, Calculator, Rocket } from 'lucide-react';
 
 export function ProjectsSection() {
-  const [selectedCategory, setSelectedCategory] = useState('all');
   const projects = [{
-    id: 1,
-    title: '中国机器人大赛 - 篮球机器人',
-    description: '负责篮球机器人自动拾球系统设计与实现，开发路径规划算法优化运动轨迹，实现多任务并行处理控制系统，设计定点投篮机构提高命中率。',
-    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=250&fit=crop',
-    tags: ['机器人控制', '路径规划', '多任务处理', '机械设计'],
-    category: 'competition',
-    githubUrl: 'https://github.com',
-    liveUrl: 'https://example.com',
-    date: '2023年8月',
-    award: '全国亚军',
-    icon: Trophy,
-    details: {
-      technical: ['自动拾球系统设计与实现', '路径规划算法开发', '多任务并行处理控制系统', '定点投篮机构设计'],
-      achievements: ['获得全国亚军荣誉', '实现高精度自动拾球', '优化运动轨迹提升效率', '投篮命中率显著提高']
-    }
+    title: '太空蜘蛛机器人系统',
+    description: '针对太空特殊环境航天器维护和星体探索等多任务应用场景，设计并实现适应太空微重力等特殊环境要求的六足机器人系统',
+    image: 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=500&h=300&fit=crop',
+    tags: ['机器人设计', '运动学建模', '智能控制', '太空应用'],
+    features: ['D-H参数法运动学建模', '六足协同控制策略', 'ESP32双核主控', 'Arduino+ROS架构'],
+    award: '全国三等奖、华东赛区一等奖',
+    competition: '中国大学生机械工程创新创意大赛',
+    year: '2025',
+    icon: <Rocket className="text-purple-500" />
   }, {
-    id: 2,
-    title: '一维伺服工作平台设计',
-    description: '完成零件选型计算与参数设计，使用SolidWorks进行三维建模，进行运动学仿真与性能分析，完成工程图纸绘制与技术文档编写。',
-    image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=250&fit=crop',
-    tags: ['SolidWorks', '机械设计', '运动学分析', '工程制图'],
-    category: 'project',
-    githubUrl: 'https://github.com',
-    liveUrl: 'https://example.com',
-    date: '2022年12月',
-    award: '课程设计优秀项目',
-    icon: Wrench,
-    details: {
-      technical: ['零件选型计算与参数设计', 'SolidWorks三维建模', '运动学仿真与性能分析', '工程图纸绘制'],
-      achievements: ['完成完整的设计方案', '通过性能验证测试', '获得优秀项目评价', '技术文档完整规范']
-    }
+    title: '篮球机器人系统',
+    description: '参与篮球机器人组比赛，机器人具备自动拾球、路径规划、多任务并行处理、定点投篮等功能',
+    image: 'https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=500&h=300&fit=crop',
+    tags: ['机器人竞赛', '机械设计', '自动控制'],
+    features: ['自动拾球系统', '路径规划算法', '多任务并行处理', '精准投篮控制'],
+    award: '亚军（国赛二等奖）',
+    competition: '中国机器人大赛暨ROBOTCUP世界杯中国赛',
+    year: '2024',
+    icon: <Award className="text-yellow-500" />
   }, {
-    id: 3,
-    title: '美国大学生数学建模竞赛',
-    description: '建立水资源调控数学模型，进行算法分析与优化，运用MATLAB进行数据仿真，撰写英文技术论文，解决实际水资源分配问题。',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop',
-    tags: ['数学建模', 'MATLAB', '数据分析', '算法优化'],
-    category: 'competition',
-    githubUrl: 'https://github.com',
-    liveUrl: 'https://example.com',
-    date: '2023年2月',
-    award: 'M奖（一等奖）',
-    icon: Calculator,
-    details: {
-      technical: ['水资源调控数学模型建立', '算法分析与优化', 'MATLAB数据仿真', '英文技术论文撰写'],
-      achievements: ['获得M奖（一等奖）', '模型创新性强', '算法效率高', '论文质量优秀']
-    }
+    title: '一维伺服工作平台',
+    description: '基于功能设想与草图，选用电机、丝杠导轨等标准件，完成非标零件与整体平台设计',
+    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&h=300&fit=crop',
+    tags: ['机械设计', 'SolidWorks', '课程设计'],
+    features: ['零件选型计算', 'SolidWorks建模', '装配图绘制', '优秀课程设计'],
+    award: '优秀',
+    competition: '课程设计',
+    year: '2024',
+    icon: <Code className="text-blue-500" />
+  }, {
+    title: '五大湖水资源调控模型',
+    description: '针对五大湖水资源调控问题，建立模型平衡水位与利益相关者需求，设计算法并分析敏感性',
+    image: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=500&h=300&fit=crop',
+    tags: ['数学建模', '算法设计', 'MATLAB'],
+    features: ['水资源平衡模型', '利益相关者分析', '敏感性分析', '算法优化'],
+    award: 'M奖（国赛二等奖）',
+    competition: '美国大学生数学建模竞赛（MCM）',
+    year: '2024',
+    icon: <Calculator className="text-green-500" />
   }];
-  const categories = [{
-    id: 'all',
-    label: '全部项目'
-  }, {
-    id: 'competition',
-    label: '竞赛项目'
-  }, {
-    id: 'project',
-    label: '课程项目'
-  }];
-  const filteredProjects = selectedCategory === 'all' ? projects : projects.filter(project => project.category === selectedCategory);
-  const getCategoryColor = category => {
-    switch (category) {
-      case 'competition':
-        return 'bg-green-100 text-green-800 border-green-200';
-      case 'project':
-        return 'bg-blue-100 text-blue-800 border-blue-200';
-      default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
-    }
+  const ProjectCard = ({
+    project,
+    index
+  }) => {
+    return <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-indigo-200">
+        {/* 项目图片 */}
+        <div className="relative h-48 overflow-hidden">
+          <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          
+          {/* 奖项标签 */}
+          <div className="absolute top-4 right-4">
+            <div className="bg-white/95 backdrop-blur-sm rounded-full px-3 py-1 shadow-lg">
+              <span className="text-xs font-bold text-yellow-600 flex items-center">
+                <Award size={12} className="mr-1" />
+                {project.award}
+              </span>
+            </div>
+          </div>
+
+          {/* 年份标签 */}
+          <div className="absolute top-4 left-4">
+            <div className="bg-indigo-600/90 backdrop-blur-sm rounded-full px-3 py-1 shadow-lg">
+              <span className="text-xs font-bold text-white">
+                {project.year}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* 项目内容 */}
+        <div className="p-6">
+          <div className="flex items-center mb-3">
+            <div className="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center mr-3">
+              {project.icon}
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 group-hover:text-indigo-600 transition-colors duration-300">
+              {project.title}
+            </h3>
+          </div>
+
+          <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+            {project.description}
+          </p>
+
+          {/* 竞赛名称 */}
+          <div className="text-xs font-semibold text-indigo-600 mb-3">
+            {project.competition}
+          </div>
+
+          {/* 技术标签 */}
+          <div className="flex flex-wrap gap-2 mb-4">
+            {project.tags.map((tag, idx) => <span key={idx} className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full">
+                {tag}
+              </span>)}
+          </div>
+
+          {/* 项目特点 */}
+          <div className="space-y-2">
+            {project.features.slice(0, 2).map((feature, idx) => <div key={idx} className="flex items-center text-xs text-gray-600">
+                <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-2" />
+                {feature}
+              </div>)}
+          </div>
+        </div>
+      </div>;
   };
   return <section id="projects" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            竞赛与项目经历
+            我的项目
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            展示我在机器人设计、工程建模和数学建模方面的代表性项目成果
+            展示我在机器人设计、数学建模等领域的代表性项目成果
           </p>
         </div>
 
-        <div className="flex justify-center mb-12">
-          <div className="inline-flex rounded-lg border border-gray-200 bg-white p-1">
-            {categories.map(category => <button key={category.id} onClick={() => setSelectedCategory(category.id)} className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${selectedCategory === category.id ? 'bg-blue-600 text-white' : 'text-gray-700 hover:text-blue-600'}`}>
-                {category.label}
-              </button>)}
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+          {projects.map((project, index) => <ProjectCard key={index} project={project} index={index} />)}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-1 gap-8">
-          {filteredProjects.map(project => {
-          const ProjectIcon = project.icon;
-          return <div key={project.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100">
-              <div className="md:flex">
-                <div className="md:w-2/5 relative h-48 md:h-auto overflow-hidden">
-                  <img src={project.image} alt={project.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
-                  {project.award && <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                      {project.award}
-                    </div>}
-                </div>
-                
-                <div className="md:w-3/5 p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center">
-                      <ProjectIcon size={24} className="mr-3 text-blue-600" />
-                      <div>
-                        <h3 className="text-xl font-semibold text-gray-900 mb-1">
-                          {project.title}
-                        </h3>
-                        <div className="flex items-center text-sm text-gray-500">
-                          <Calendar size={16} className="mr-1" />
-                          {project.date}
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <span className={`inline-block px-3 py-1 text-xs font-medium rounded-full border ${getCategoryColor(project.category)}`}>
-                      {project.category === 'competition' ? '竞赛项目' : '课程项目'}
-                    </span>
-                  </div>
-                  
-                  <p className="text-gray-600 mb-4">
-                    {project.description}
-                  </p>
-                  
-                  <div className="mb-4">
-                    <h4 className="text-sm font-semibold text-gray-900 mb-2">技术要点：</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.map(tag => <span key={tag} className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-blue-100 text-blue-800">
-                          <Tag size={12} className="mr-1" />
-                          {tag}
-                        </span>)}
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                      <h4 className="text-sm font-semibold text-gray-900 mb-2">核心技术：</h4>
-                      <ul className="text-sm text-gray-600 space-y-1">
-                        {project.details.technical.slice(0, 2).map((item, index) => <li key={index} className="flex items-start">
-                            <span className="text-blue-600 mr-2">•</span>
-                            {item}
-                          </li>)}
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-semibold text-gray-900 mb-2">主要成果：</h4>
-                      <ul className="text-sm text-gray-600 space-y-1">
-                        {project.details.achievements.slice(0, 2).map((item, index) => <li key={index} className="flex items-start">
-                            <span className="text-green-600 mr-2">✓</span>
-                            {item}
-                          </li>)}
-                      </ul>
-                    </div>
-                  </div>
-                  
-                  <div className="flex space-x-4 pt-4 border-t border-gray-100">
-                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-200">
-                      <Github size={20} className="mr-1" />
-                      源码
-                    </a>
-                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-200">
-                      <ExternalLink size={20} className="mr-1" />
-                      演示
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>;
-        })}
-        </div>
-
-        <div className="mt-12 text-center">
-          <div className="inline-flex items-center px-6 py-3 bg-blue-50 rounded-lg">
-            <Cpu size={20} className="mr-2 text-blue-600" />
-            <span className="text-blue-800 font-medium">
-              通过项目实践，将理论知识转化为实际工程能力
-            </span>
+        {/* 项目统计 */}
+        <div className="mt-16 text-center">
+          <div className="inline-flex items-center justify-center p-6 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-indigo-600 mb-2">4+</div>
+              <div className="text-sm text-gray-600">获奖项目</div>
+            </div>
+            <div className="w-px h-12 bg-indigo-200 mx-8" />
+            <div className="text-center">
+              <div className="text-3xl font-bold text-purple-600 mb-2">2+</div>
+              <div className="text-sm text-gray-600">国家级奖项</div>
+            </div>
+            <div className="w-px h-12 bg-indigo-200 mx-8" />
+            <div className="text-center">
+              <div className="text-3xl font-bold text-green-600 mb-2">100%</div>
+              <div className="text-sm text-gray-600">项目完成率</div>
+            </div>
           </div>
         </div>
       </div>
