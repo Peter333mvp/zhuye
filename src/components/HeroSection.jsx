@@ -20,16 +20,23 @@ export function HeroSection() {
               </div>
               
               <h1 className="text-4xl md:text-6xl font-bold mb-4">
-                张三
+                赵鹏涛
               </h1>
               
               <p className="text-xl md:text-2xl text-blue-200 mb-6">
-                全栈开发工程师
+                机械电子工程 | 上海大学 | 学士学位
               </p>
               
-              <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
-                热衷于创建优雅的解决方案，专注于现代Web技术栈，拥有5年以上的开发经验。
-                擅长React、Node.js、云原生架构设计。
+              <div className="text-lg text-blue-100 mb-6 max-w-2xl mx-auto space-y-2">
+                <div className="flex items-center justify-center gap-4 flex-wrap">
+                  <span>📞 18391796623</span>
+                  <span>📧 zptynl@163.com</span>
+                  <span>🏠 上海宝山</span>
+                </div>
+              </div>
+              
+              <p className="text-lg text-blue-100 mb-8 max-w-3xl mx-auto px-4">
+                意志坚强，性格沉稳，认真负责，学习适应能力强，具备良好的团队协作与沟通能力。
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -50,7 +57,7 @@ export function HeroSection() {
                 <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-200 transition-colors duration-300">
                   <Linkedin size={28} />
                 </a>
-                <a href="mailto:example@email.com" className="text-white hover:text-blue-200 transition-colors duration-300">
+                <a href="mailto:zptynl@163.com" className="text-white hover:text-blue-200 transition-colors duration-300">
                   <Mail size={28} />
                 </a>
               </div>

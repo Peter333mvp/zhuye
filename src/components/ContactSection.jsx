@@ -11,7 +11,7 @@ export function ContactSection() {
             联系方式
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            期待与您的合作，欢迎随时联系我
+            欢迎通过邮箱或电话联系我，期待与您合作！
           </p>
         </div>
 
@@ -23,18 +23,18 @@ export function ContactSection() {
             
             <div className="space-y-4">
               <div className="flex items-center text-gray-600">
-                <Mail size={20} className="mr-3 text-blue-600" />
-                <span>zhangsan@example.com</span>
+                <Phone size={20} className="mr-3 text-blue-600" />
+                <span>18391796623</span>
               </div>
               
               <div className="flex items-center text-gray-600">
-                <Phone size={20} className="mr-3 text-blue-600" />
-                <span>+86 138 0000 0000</span>
+                <Mail size={20} className="mr-3 text-blue-600" />
+                <span>zptynl@163.com</span>
               </div>
               
               <div className="flex items-center text-gray-600">
                 <MapPin size={20} className="mr-3 text-blue-600" />
-                <span>北京市朝阳区</span>
+                <span>上海宝山</span>
               </div>
             </div>
 
@@ -48,6 +48,9 @@ export function ContactSection() {
                 </a>
                 <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-100 rounded-full hover:bg-blue-100 transition-colors duration-200">
                   <Linkedin size={24} className="text-gray-700 hover:text-blue-600" />
+                </a>
+                <a href="mailto:zptynl@163.com" className="p-3 bg-gray-100 rounded-full hover:bg-blue-100 transition-colors duration-200">
+                  <Mail size={24} className="text-gray-700 hover:text-blue-600" />
                 </a>
               </div>
             </div>
