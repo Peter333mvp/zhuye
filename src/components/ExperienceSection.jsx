@@ -9,30 +9,8 @@ export function ExperienceSection() {
     college: '机电工程与自动化学院',
     major: '机械电子工程',
     tags: ['211工程', '双一流建设高校', '双一流优势学科'],
-    courses: ['高等数学', 'C语言', '机械设计', '机械原理', '工程力学', '材料力学', '自动控制原理', '数字电路技术', '电子技术基础', '机器人工学', '深度学习与人工智能实践']
+    courses: ['高等数学', 'C语言', '机械设计', '机械原理', '工程力学', '材料力学', '自动控制原理', '数字电路技术', '电子技术基础', '机器人工学', '深度学习与人工智能']
   };
-  const competitions = [{
-    title: '中国机器人大赛暨ROBOTCUP世界杯中国赛',
-    award: '亚军（国赛二等奖）',
-    year: '2024',
-    content: '参与篮球机器人组比赛，机器人具备自动拾球、路径规划、多任务并行处理、定点投篮等功能',
-    responsibilities: ['机械结构设计', '零件加工', '现场改装'],
-    icon: <Trophy className="text-yellow-500" />
-  }, {
-    title: '一维伺服工作平台设计',
-    award: '课程设计 - 优秀',
-    year: '2024',
-    content: '基于功能设想与草图，选用电机、丝杠导轨等标准件，完成非标零件与整体平台设计',
-    responsibilities: ['零件选型计算', 'SolidWorks 建模', '装配图绘制'],
-    icon: <Code className="text-blue-500" />
-  }, {
-    title: '美国大学生数学建模竞赛（MCM）',
-    award: 'M奖（国赛二等奖）',
-    year: '2024',
-    content: '针对五大湖水资源调控问题，建立模型平衡水位与利益相关者需求，设计算法并分析敏感性',
-    responsibilities: ['模型推导与建立', 'MATLAB 求解与检验', '论文撰写'],
-    icon: <Calculator className="text-green-500" />
-  }];
   const practices = [{
     title: '上海大学学生创新创业指导中心',
     position: '中心主任',
@@ -115,14 +93,14 @@ export function ExperienceSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4">
-            经历与成就
+            教育与实践经历
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            教育背景、竞赛项目与实践经历的全面展示
+            教育背景与实践经历的全面展示
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* 教育背景 */}
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/50">
             <div className="flex items-center mb-6">
@@ -162,20 +140,6 @@ export function ExperienceSection() {
             </div>
           </div>
 
-          {/* 竞赛与项目经历 */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/50">
-            <div className="flex items-center mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-full flex items-center justify-center mr-3">
-                <Trophy size={24} className="text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">竞赛项目</h3>
-            </div>
-
-            <div className="space-y-6">
-              {competitions.map((competition, index) => <TimelineItem key={index} item={competition} isLast={index === competitions.length - 1} />)}
-            </div>
-          </div>
-
           {/* 实践经历 */}
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/50">
             <div className="flex items-center mb-6">
@@ -192,21 +156,13 @@ export function ExperienceSection() {
         </div>
 
         {/* 统计信息 */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 text-center border border-white/50">
             <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
               <GraduationCap size={32} className="text-white" />
             </div>
             <div className="text-2xl font-bold text-gray-900 mb-1">11+</div>
             <div className="text-sm text-gray-600">核心课程</div>
-          </div>
-
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 text-center border border-white/50">
-            <div className="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Trophy size={32} className="text-white" />
-            </div>
-            <div className="text-2xl font-bold text-gray-900 mb-1">3</div>
-            <div className="text-sm text-gray-600">竞赛奖项</div>
           </div>
 
           <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 text-center border border-white/50">
