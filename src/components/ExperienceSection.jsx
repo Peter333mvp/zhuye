@@ -1,9 +1,11 @@
 // @ts-ignore;
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 // @ts-ignore;
-import { GraduationCap, Calendar, MapPin, Award, Trophy, Briefcase, Users, BookOpen, Target, Code, Calculator, Rocket } from 'lucide-react';
+import { GraduationCap, Calendar, MapPin, Award, Trophy, Briefcase, Users, BookOpen, Target, Code, Calculator, Rocket, ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react';
 
 export function ExperienceSection() {
+  const [activeTab, setActiveTab] = useState(0);
+  const [isAutoPlay, setIsAutoPlay] = useState(false);
   const education = {
     school: '上海大学',
     college: '机电工程与自动化学院',
@@ -64,6 +66,29 @@ export function ExperienceSection() {
     description: '沃顿商学院青年领导力培养项目',
     icon: <Award className="text-teal-500" />
   }];
+  const tabs = [{
+    id: 0,
+    name: '教育背景',
+    icon: <GraduationCap size={20} />
+  }, {
+    id: 1,
+    name: '竞赛项目',
+    icon: <Trophy size={20} />
+  }, {
+    id: 2,
+    name: '实践经历',
+    icon: <Briefcase size={20} />
+  }];
+
+  // 自动播放功能
+  useEffect(() => {
+    if (!isAutoPlay) return;
+    const interval = setInterval(() => {
+      setActiveTab(prev => (prev + 1) % 3);
+    }, 4000); // 每4秒切换一次
+
+    return () => clearInterval(interval);
+  }, [isAutoPlay]);
   const TimelineItem = ({
     item,
     isLast = false
@@ -111,20 +136,11 @@ export function ExperienceSection() {
         </div>
       </div>;
   };
-  return <section id="experience" className="py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4">
-            经历与成就
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            教育背景、竞赛项目与实践经历的全面展示
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* 教育背景 */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/50">
+  const renderContent = () => {
+    switch (activeTab) {
+      case 0:
+        // 教育背景
+        return <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/50">
             <div className="flex items-center mb-6">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mr-3">
                 <GraduationCap size={24} className="text-white" />
@@ -160,10 +176,10 @@ export function ExperienceSection() {
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* 竞赛与项目经历 */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/50">
+          </div>;
+      case 1:
+        // 竞赛项目
+        return <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/50">
             <div className="flex items-center mb-6">
               <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-full flex items-center justify-center mr-3">
                 <Trophy size={24} className="text-white" />
@@ -174,10 +190,10 @@ export function ExperienceSection() {
             <div className="space-y-6">
               {competitions.map((competition, index) => <TimelineItem key={index} item={competition} isLast={index === competitions.length - 1} />)}
             </div>
-          </div>
-
-          {/* 实践经历 */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/50">
+          </div>;
+      case 2:
+        // 实践经历
+        return <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/50">
             <div className="flex items-center mb-6">
               <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full flex items-center justify-center mr-3">
                 <Briefcase size={24} className="text-white" />
@@ -188,7 +204,60 @@ export function ExperienceSection() {
             <div className="space-y-6">
               {practices.map((practice, index) => <TimelineItem key={index} item={practice} isLast={index === practices.length - 1} />)}
             </div>
+          </div>;
+      default:
+        return null;
+    }
+  };
+  return <section id="experience" className="py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4">
+            经历与成就
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            教育背景、竞赛项目与实践经历的全面展示
+          </p>
+        </div>
+
+        {/* 轮播控制区域 */}
+        <div className="flex justify-center mb-8">
+          <div className="bg-white/80 backdrop-blur-sm rounded-full shadow-lg p-2 flex items-center space-x-2">
+            {/* 播放/暂停按钮 */}
+            <button onClick={() => setIsAutoPlay(!isAutoPlay)} className="p-2 rounded-full hover:bg-indigo-100 transition-colors duration-200" title={isAutoPlay ? "暂停播放" : "自动播放"}>
+              {isAutoPlay ? <Pause size={18} className="text-indigo-600" /> : <Play size={18} className="text-indigo-600" />}
+            </button>
+
+            {/* 左切换按钮 */}
+            <button onClick={() => setActiveTab(prev => (prev - 1 + 3) % 3)} className="p-2 rounded-full hover:bg-indigo-100 transition-colors duration-200" title="上一个">
+              <ChevronLeft size={18} className="text-indigo-600" />
+            </button>
+
+            {/* Tab按钮 */}
+            <div className="flex space-x-1">
+              {tabs.map(tab => <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`px-4 py-2 rounded-full flex items-center space-x-2 transition-all duration-300 ${activeTab === tab.id ? 'bg-indigo-600 text-white shadow-md' : 'text-gray-600 hover:bg-indigo-50 hover:text-indigo-600'}`}>
+                  {tab.icon}
+                  <span className="text-sm font-medium">{tab.name}</span>
+                </button>)}
+            </div>
+
+            {/* 右切换按钮 */}
+            <button onClick={() => setActiveTab(prev => (prev + 1) % 3)} className="p-2 rounded-full hover:bg-indigo-100 transition-colors duration-200" title="下一个">
+              <ChevronRight size={18} className="text-indigo-600" />
+            </button>
           </div>
+        </div>
+
+        {/* 内容展示区域 */}
+        <div className="flex justify-center">
+          <div className="w-full max-w-4xl">
+            {renderContent()}
+          </div>
+        </div>
+
+        {/* 进度指示器 */}
+        <div className="flex justify-center mt-6 space-x-2">
+          {tabs.map(tab => <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`transition-all duration-300 ${activeTab === tab.id ? 'w-8 h-2 bg-indigo-600 rounded-full' : 'w-2 h-2 bg-gray-300 rounded-full hover:bg-gray-400'}`} />)}
         </div>
 
         {/* 统计信息 */}
