@@ -131,10 +131,16 @@ export function SkillsSection() {
     const levelColors = ['bg-green-300 bg-opacity-60 border-green-400 text-green-900', 'bg-blue-300 bg-opacity-60 border-blue-400 text-blue-900', 'bg-purple-300 bg-opacity-60 border-purple-400 text-purple-900', 'bg-orange-300 bg-opacity-60 border-orange-400 text-orange-900', 'bg-red-300 bg-opacity-60 border-red-400 text-red-900'];
     return levelColors[skill.level - 1] || levelColors[0];
   };
-  return <section id="skills" className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  return <section id="skills" className="relative py-24 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      {/* 背景装饰 */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-10 right-10 w-64 h-64 bg-blue-200/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-10 left-10 w-80 h-80 bg-purple-200/20 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
             技能点
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -144,7 +150,7 @@ export function SkillsSection() {
 
         {/* 统一气泡容器 */}
         <div className="flex justify-center">
-          <div ref={containerRef} className="relative bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl border-2 border-indigo-200 w-full max-w-4xl h-96 overflow-hidden">
+          <div ref={containerRef} className="relative bg-white/60 backdrop-blur-sm rounded-2xl border border-white/50 shadow-xl w-full max-w-5xl h-[500px] overflow-hidden">
             {skills.map(skill => {
             const position = bubblePositions[skill.id] || {
               x: 50,
@@ -154,8 +160,8 @@ export function SkillsSection() {
             return <div key={skill.id} className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 cursor-pointer ${getSkillColor(skill)} border-2 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl ${isHovered ? 'scale-110 z-10' : 'scale-100'}`} style={{
               left: `${position.x}%`,
               top: `${position.y}%`,
-              width: isHovered ? '110px' : '90px',
-              height: isHovered ? '110px' : '90px'
+              width: isHovered ? '120px' : '100px',
+              height: isHovered ? '120px' : '100px'
             }} onMouseEnter={() => setHoveredSkill(skill.id)} onMouseLeave={() => setHoveredSkill(null)}>
                   <div className="text-center">
                     <div className="text-xs font-bold truncate px-1">
