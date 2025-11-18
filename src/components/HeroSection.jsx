@@ -11,7 +11,7 @@ export function HeroSection() {
         <div className="mb-8">
           <div className="relative inline-block">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-600 rounded-full blur-xl opacity-50 animate-pulse"></div>
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" alt="Profile" className="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto border-4 border-white/20 shadow-2xl" />
+            <img src="https://test-8gpj9zlw85dcc92a-1387284530.tcloudbaseapp.com/resources/2025-11/lowcode-2396664" alt="Profile" className="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto border-4 border-white/20 shadow-2xl" />
           </div>
         </div>
         
