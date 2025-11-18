@@ -1,7 +1,7 @@
 // @ts-ignore;
 import React, { useState, useRef, useEffect } from 'react';
 // @ts-ignore;
-import { ChevronLeft, ChevronRight, ExternalLink, Github, Trophy, Award, Target, Wrench, Brain } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ExternalLink, Github, Trophy, Award, Target, Wrench, Brain, Bot } from 'lucide-react';
 
 export function ProjectsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -57,6 +57,16 @@ export function ProjectsSection() {
     awards: ['概念设计'],
     tasks: ['整体方案设计与规划', '八大核心技术模块功能集成与可行性分析', '应用场景拓展与安全性评估'],
     icon: Brain
+  }, {
+    id: 6,
+    title: 'WechatBot - 大模型微信接入平台',
+    description: '基于Python及ItChat等开源框架，将主流大语言模型（如GPT、文心一言等）的官方API接入微信平台，打造一个可24小时运行的智能对话机器人。项目实现了私聊与群聊场景下的智能应答、多轮对话上下文管理，并设计了指令系统以扩展其工具属性。',
+    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop',
+    tags: ['Python', 'ItChat', '大模型API', '微信机器人'],
+    year: '2024',
+    awards: ['个人项目'],
+    tasks: ['项目整体架构设计', '大模型API接入与调试', '微信端消息监听与自动回复逻辑开发', '对话上下文管理机制实现', '服务器部署与运维'],
+    icon: Bot
   }];
   const nextProject = () => {
     if (isAnimating) return;
