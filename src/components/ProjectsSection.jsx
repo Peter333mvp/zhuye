@@ -1,7 +1,7 @@
 // @ts-ignore;
 import React, { useState, useRef, useEffect } from 'react';
 // @ts-ignore;
-import { ChevronLeft, ChevronRight, ExternalLink, Github, Trophy, Award, Target, Wrench } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ExternalLink, Github, Trophy, Award, Target, Wrench, Brain } from 'lucide-react';
 
 export function ProjectsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -47,6 +47,16 @@ export function ProjectsSection() {
     awards: ['课程设计 - 优秀'],
     tasks: ['零件选型计算', 'SolidWorks建模', '装配图绘制'],
     icon: Wrench
+  }, {
+    id: 5,
+    title: '第二个大脑-人类助手飞行智能机器人',
+    description: '主导一款名为"诺诺"的球状智能飞行机器人概念设计，定位为多功能"人类助手"。项目基于跨学科技术集成，完成了从整体功能定义（扩展人类生物联结、实现"第二大脑"与"第三手"）、技术模块划分（飞行控制、AI、人机交互等）到大众型与专业型产品路线规划的全流程设计。',
+    image: 'https://images.unsplash.com/photo-1534723452862-4c874018d66d?w=800&h=600&fit=crop',
+    tags: ['概念设计', '飞行机器人', 'AI集成', '人机交互'],
+    year: '2024',
+    awards: ['概念设计'],
+    tasks: ['整体方案设计与规划', '八大核心技术模块功能集成与可行性分析', '应用场景拓展与安全性评估'],
+    icon: Brain
   }];
   const nextProject = () => {
     if (isAnimating) return;
