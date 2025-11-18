@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Lock, CheckCircle, Star } from 'lucide-react';
 
 export function SkillsSection() {
-  const [skills, setSkills] = useState([{
+  const [skills] = useState([{
     id: 1,
     name: '英语CET-4',
     description: '大学英语四级证书',
@@ -60,7 +60,6 @@ export function SkillsSection() {
     level: 0
   }]);
   const [hoveredSkill, setHoveredSkill] = useState(null);
-  const [selectedSkill, setSelectedSkill] = useState(null);
   const [bubblePositions, setBubblePositions] = useState({});
   const containerRef = useRef(null);
   const animationRef = useRef(null);
@@ -125,25 +124,11 @@ export function SkillsSection() {
       }
     };
   }, []);
-  const handleSkillClick = skill => {
-    if (skill.unlocked) {
-      setSelectedSkill(skill);
-    } else {
-      // 显示解锁提示
-      alert(`技能 "${skill.name}" 尚未解锁，完成相关任务后即可解锁！`);
-    }
-  };
-  const handleUpgradeSkill = skillId => {
-    setSkills(prev => prev.map(skill => skill.id === skillId ? {
-      ...skill,
-      level: Math.min(skill.level + 1, 5)
-    } : skill));
-  };
   const getSkillColor = skill => {
     if (!skill.unlocked) {
-      return 'bg-gray-300 border-gray-400 text-gray-600';
+      return 'bg-gray-300 bg-opacity-50 border-gray-400 text-gray-600';
     }
-    const levelColors = ['bg-green-200 border-green-300 text-green-800', 'bg-blue-200 border-blue-300 text-blue-800', 'bg-purple-200 border-purple-300 text-purple-800', 'bg-orange-200 border-orange-300 text-orange-800', 'bg-red-200 border-red-300 text-red-800'];
+    const levelColors = ['bg-green-300 bg-opacity-60 border-green-400 text-green-900', 'bg-blue-300 bg-opacity-60 border-blue-400 text-blue-900', 'bg-purple-300 bg-opacity-60 border-purple-400 text-purple-900', 'bg-orange-300 bg-opacity-60 border-orange-400 text-orange-900', 'bg-red-300 bg-opacity-60 border-red-400 text-red-900'];
     return levelColors[skill.level - 1] || levelColors[0];
   };
   return <section id="skills" className="py-20 bg-white">
@@ -153,7 +138,7 @@ export function SkillsSection() {
             技能点
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            互动式技能气泡图，点击气泡解锁和升级技能
+            互动式技能气泡图，悬停查看技能详情
           </p>
         </div>
 
@@ -169,9 +154,9 @@ export function SkillsSection() {
             return <div key={skill.id} className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 cursor-pointer ${getSkillColor(skill)} border-2 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl ${isHovered ? 'scale-110 z-10' : 'scale-100'}`} style={{
               left: `${position.x}%`,
               top: `${position.y}%`,
-              width: isHovered ? '120px' : '100px',
-              height: isHovered ? '60px' : '50px'
-            }} onMouseEnter={() => setHoveredSkill(skill.id)} onMouseLeave={() => setHoveredSkill(null)} onClick={() => handleSkillClick(skill)}>
+              width: isHovered ? '110px' : '90px',
+              height: isHovered ? '110px' : '90px'
+            }} onMouseEnter={() => setHoveredSkill(skill.id)} onMouseLeave={() => setHoveredSkill(null)}>
                   <div className="text-center">
                     <div className="text-xs font-bold truncate px-1">
                       {skill.name}
@@ -194,37 +179,6 @@ export function SkillsSection() {
           })}
           </div>
         </div>
-
-        {/* 技能详情弹窗 */}
-        {selectedSkill && <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={() => setSelectedSkill(null)}>
-            <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4" onClick={e => e.stopPropagation()}>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-bold text-gray-900">{selectedSkill.name}</h3>
-                <button onClick={() => setSelectedSkill(null)} className="text-gray-500 hover:text-gray-700">
-                  ×
-                </button>
-              </div>
-              
-              <p className="text-gray-600 mb-4">{selectedSkill.description}</p>
-              
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-sm font-medium text-gray-700">技能等级</span>
-                <div className="flex items-center space-x-1">
-                  {[...Array(5)].map((_, i) => <div key={i} className={`w-6 h-6 rounded-full ${i < selectedSkill.level ? 'bg-yellow-400' : 'bg-gray-300'}`} />)}
-                  <span className="ml-2 text-sm text-gray-600">{selectedSkill.level}/5</span>
-                </div>
-              </div>
-              
-              <div className="flex space-x-3">
-                {selectedSkill.level < 5 && <button onClick={() => handleUpgradeSkill(selectedSkill.id)} className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300">
-                    升级技能
-                  </button>}
-                <button onClick={() => setSelectedSkill(null)} className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors duration-300">
-                  关闭
-                </button>
-              </div>
-            </div>
-          </div>}
       </div>
     </section>;
 }
