@@ -69,16 +69,53 @@ export function SkillsSection() {
     const initialPositions = {};
     skills.forEach(skill => {
       initialPositions[skill.id] = {
-        x: Math.random() * 80 + 10,
-        // 10% - 90%
-        y: Math.random() * 80 + 10,
-        // 10% - 90%
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3
+        x: Math.random() * 70 + 15,
+        // 15% - 85%
+        y: Math.random() * 70 + 15,
+        // 15% - 85%
+        vx: (Math.random() - 0.5) * 0.2,
+        vy: (Math.random() - 0.5) * 0.2,
+        radius: 60 // 气泡半径
       };
     });
     setBubblePositions(initialPositions);
   }, []);
+
+  // 检测气泡碰撞
+  const checkCollision = (pos1, pos2, radius1, radius2) => {
+    const dx = pos1.x - pos2.x;
+    const dy = pos1.y - pos2.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    return distance < (radius1 + radius2) / 10; // 转换为百分比距离
+  };
+
+  // 处理碰撞弹开
+  const handleCollision = (pos1, pos2, radius1, radius2) => {
+    const dx = pos1.x - pos2.x;
+    const dy = pos1.y - pos2.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    if (distance < 0.001) return; // 避免除零
+
+    // 计算弹开方向
+    const nx = dx / distance;
+    const ny = dy / distance;
+
+    // 弹开力度（缓慢弹开）
+    const force = 0.05;
+
+    // 更新速度
+    pos1.vx += nx * force;
+    pos1.vy += ny * force;
+    pos2.vx -= nx * force;
+    pos2.vy -= ny * force;
+
+    // 限制最大速度
+    const maxSpeed = 0.3;
+    pos1.vx = Math.max(-maxSpeed, Math.min(maxSpeed, pos1.vx));
+    pos1.vy = Math.max(-maxSpeed, Math.min(maxSpeed, pos1.vy));
+    pos2.vx = Math.max(-maxSpeed, Math.min(maxSpeed, pos2.vx));
+    pos2.vy = Math.max(-maxSpeed, Math.min(maxSpeed, pos2.vy));
+  };
 
   // 气泡漂浮动画
   useEffect(() => {
@@ -87,6 +124,23 @@ export function SkillsSection() {
         const newPositions = {
           ...prev
         };
+        const positionsArray = Object.keys(newPositions).map(id => ({
+          id,
+          ...newPositions[id]
+        }));
+
+        // 检测并处理碰撞
+        for (let i = 0; i < positionsArray.length; i++) {
+          for (let j = i + 1; j < positionsArray.length; j++) {
+            const pos1 = positionsArray[i];
+            const pos2 = positionsArray[j];
+            if (checkCollision(pos1, pos2, pos1.radius, pos2.radius)) {
+              handleCollision(pos1, pos2, pos1.radius, pos2.radius);
+            }
+          }
+        }
+
+        // 更新位置
         Object.keys(newPositions).forEach(skillId => {
           const pos = newPositions[skillId];
 
@@ -95,23 +149,25 @@ export function SkillsSection() {
           pos.y += pos.vy;
 
           // 边界检测和反弹
-          if (pos.x <= 5 || pos.x >= 95) {
-            pos.vx = -pos.vx;
-            pos.x = Math.max(5, Math.min(95, pos.x));
+          const margin = pos.radius / 10; // 边界边距
+          if (pos.x <= margin || pos.x >= 100 - margin) {
+            pos.vx = -pos.vx * 0.8; // 碰撞边界时减速
+            pos.x = Math.max(margin, Math.min(100 - margin, pos.x));
           }
-          if (pos.y <= 5 || pos.y >= 95) {
-            pos.vy = -pos.vy;
-            pos.y = Math.max(5, Math.min(95, pos.y));
+          if (pos.y <= margin || pos.y >= 100 - margin) {
+            pos.vy = -pos.vy * 0.8; // 碰撞边界时减速
+            pos.y = Math.max(margin, Math.min(100 - margin, pos.y));
           }
 
           // 添加随机扰动
-          if (Math.random() < 0.01) {
-            pos.vx += (Math.random() - 0.5) * 0.1;
-            pos.vy += (Math.random() - 0.5) * 0.1;
-            // 限制速度
-            pos.vx = Math.max(-0.5, Math.min(0.5, pos.vx));
-            pos.vy = Math.max(-0.5, Math.min(0.5, pos.vy));
+          if (Math.random() < 0.005) {
+            pos.vx += (Math.random() - 0.5) * 0.05;
+            pos.vy += (Math.random() - 0.5) * 0.05;
           }
+
+          // 速度衰减
+          pos.vx *= 0.99;
+          pos.vy *= 0.99;
         });
         return newPositions;
       });
@@ -157,17 +213,17 @@ export function SkillsSection() {
               y: 50
             };
             const isHovered = hoveredSkill === skill.id;
+            const bubbleSize = isHovered ? 140 : 120; // 增加气泡大小
             return <div key={skill.id} className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 cursor-pointer ${getSkillColor(skill)} border-2 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl ${isHovered ? 'scale-110 z-10' : 'scale-100'}`} style={{
               left: `${position.x}%`,
               top: `${position.y}%`,
-              width: isHovered ? '120px' : '100px',
-              height: isHovered ? '120px' : '100px'
+              width: `${bubbleSize}px`,
+              height: `${bubbleSize}px`
             }} onMouseEnter={() => setHoveredSkill(skill.id)} onMouseLeave={() => setHoveredSkill(null)}>
                   <div className="text-center">
-                    <div className="text-xs font-bold truncate px-1">
+                    <div className="text-sm font-bold truncate px-2">
                       {skill.name}
                     </div>
-                    {skill.unlocked ? skill.level >= 3 ? <Star size={12} className="text-yellow-600 mx-auto mt-1" /> : <CheckCircle size={12} className="text-green-600 mx-auto mt-1" /> : <Lock size={12} className="text-gray-600 mx-auto mt-1" />}
                   </div>
                   
                   {/* 悬停工具提示 */}
