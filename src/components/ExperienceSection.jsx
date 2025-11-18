@@ -5,29 +5,30 @@ import { GraduationCap, Calendar, MapPin, Award } from 'lucide-react';
 
 export function ExperienceSection() {
   const experiences = [{
-    title: '本科学习',
-    organization: '上海大学（SHU）',
+    title: '本科',
+    degree: '机械电子工程专业',
+    school: '上海大学（SHU）',
+    location: '上海',
     period: '2022.09 - 2026.06',
-    location: '上海',
     type: 'education',
-    description: '主修机械电子工程，系统学习机械设计、电子技术、控制理论等专业知识，培养工程实践能力和创新思维。',
-    achievements: ['GPA: 3.7/4.0', '获得校级奖学金', '参与多个创新项目']
+    description: '主修机械电子工程，专注于机械设计、电子技术和自动化控制的学习与研究。',
+    achievements: ['GPA: 3.7/4.0', '优秀学生奖学金', '机械设计竞赛二等奖']
   }, {
-    title: '机械设计实习',
-    organization: '精密机械有限公司',
+    title: '机械设计实习生',
+    company: '上海智能制造有限公司',
+    location: '上海',
     period: '2024.07 - 2024.09',
-    location: '上海',
     type: 'work',
-    description: '参与产品结构设计，使用SolidWorks进行三维建模和工程图绘制，协助完成产品原型制作。',
-    achievements: ['独立完成3个零件设计', '优化装配工艺', '参与产品测试']
+    description: '参与自动化设备的设计与优化，负责机械结构建模和工程图纸绘制。',
+    achievements: ['完成3个自动化项目设计', '优化设备结构，降低成本15%', '获得优秀实习生称号']
   }, {
-    title: '机器人项目开发',
-    organization: '创新实验室',
+    title: '校园项目组长',
+    company: '机器人创新实验室',
+    location: '上海大学（SHU）',
     period: '2023.10 - 2024.05',
-    location: '上海',
     type: 'project',
-    description: '负责机器人控制系统设计，编写控制算法，实现路径规划和运动控制功能。',
-    achievements: ['完成控制系统架构设计', '实现PID控制算法', '获得校级创新奖']
+    description: '带领团队完成智能机器人项目，负责机械结构设计和系统集成。',
+    achievements: ['获得校级创新大赛一等奖', '申请专利1项', '发表论文1篇']
   }];
   const getExperienceIcon = type => {
     switch (type) {
@@ -48,28 +49,28 @@ export function ExperienceSection() {
           bg: 'bg-blue-100',
           text: 'text-blue-800',
           border: 'border-blue-300',
-          gradient: 'from-blue-400 to-blue-600'
+          iconBg: 'bg-blue-500'
         };
       case 'work':
         return {
           bg: 'bg-green-100',
           text: 'text-green-800',
           border: 'border-green-300',
-          gradient: 'from-green-400 to-green-600'
+          iconBg: 'bg-green-500'
         };
       case 'project':
         return {
           bg: 'bg-purple-100',
           text: 'text-purple-800',
           border: 'border-purple-300',
-          gradient: 'from-purple-400 to-purple-600'
+          iconBg: 'bg-purple-500'
         };
       default:
         return {
           bg: 'bg-gray-100',
           text: 'text-gray-800',
           border: 'border-gray-300',
-          gradient: 'from-gray-400 to-gray-600'
+          iconBg: 'bg-gray-500'
         };
     }
   };
@@ -80,7 +81,7 @@ export function ExperienceSection() {
             教育经历
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            学术背景与实践经验，构建扎实的专业基础
+            我的学术背景和实习经历，展现了在机械电子工程领域的专业成长
           </p>
         </div>
 
@@ -95,45 +96,53 @@ export function ExperienceSection() {
           return <div key={index} className={`relative flex items-center mb-12 ${isLeft ? 'justify-start' : 'justify-end'}`}>
                 {/* 时间线节点 */}
                 <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-white border-4 border-blue-400 rounded-full z-10 shadow-lg">
-                  <div className="absolute inset-1 bg-gradient-to-r from-blue-400 to-purple-600 rounded-full" />
+                  <div className="absolute inset-1 bg-blue-400 rounded-full" />
                 </div>
 
                 {/* 内容卡片 */}
-                <div className={`w-full md:w-5/12 ${isLeft ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
+                <div className={`w-5/12 ${isLeft ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
                   <div className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 p-6 border border-gray-100">
-                    <div className={`absolute top-0 ${isLeft ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'} transform -translate-y-1/2 w-12 h-12 bg-gradient-to-br ${colors.gradient} rounded-full flex items-center justify-center shadow-lg`}>
+                    <div className={`absolute top-0 ${isLeft ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'} transform -translate-y-1/2 w-12 h-12 ${colors.iconBg} rounded-full flex items-center justify-center shadow-lg`}>
                       <Icon size={20} className="text-white" />
                     </div>
 
-                    <div className="mb-4">
-                      <h3 className={`text-xl font-bold ${colors.text} mb-2`}>
-                        {exp.title}
-                      </h3>
-                      <div className={`inline-flex items-center px-3 py-1 rounded-full ${colors.bg} ${colors.text} text-sm font-medium mb-2`}>
-                        <Icon size={14} className="mr-1" />
-                        {exp.organization}
+                    <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${colors.bg} ${colors.text} mb-3 ${isLeft ? 'ml-auto' : 'mr-auto'}`}>
+                      {exp.type === 'education' ? '教育' : exp.type === 'work' ? '工作' : '项目'}
+                    </div>
+
+                    <h3 className="text-xl font-bold text-gray-800 mb-2">
+                      {exp.title}
+                    </h3>
+                    
+                    {exp.type === 'education' ? <div className={`text-lg font-semibold ${colors.text} mb-1`}>
+                        {exp.degree}
+                      </div> : <div className={`text-lg font-semibold ${colors.text} mb-1`}>
+                        {exp.company}
+                      </div>}
+                    
+                    <div className={`text-sm ${colors.text} font-medium mb-2`}>
+                      {exp.school || exp.location}
+                    </div>
+
+                    <div className="flex items-center text-sm text-gray-500 mb-3 gap-4">
+                      <div className="flex items-center gap-1">
+                        <Calendar size={14} />
+                        <span>{exp.period}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <MapPin size={14} />
+                        <span>{exp.location}</span>
                       </div>
                     </div>
 
-                    <div className="space-y-2 mb-4">
-                      <div className="flex items-center text-gray-600 text-sm">
-                        <Calendar size={14} className="mr-2" />
-                        {exp.period}
-                      </div>
-                      <div className="flex items-center text-gray-600 text-sm">
-                        <MapPin size={14} className="mr-2" />
-                        {exp.location}
-                      </div>
-                    </div>
-
-                    <p className="text-gray-700 mb-4 leading-relaxed">
+                    <p className="text-gray-600 mb-4 leading-relaxed">
                       {exp.description}
                     </p>
 
                     <div className="space-y-2">
-                      {exp.achievements.map((achievement, idx) => <div key={idx} className="flex items-center text-sm text-gray-600">
-                          <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-600 rounded-full mr-2" />
-                          {achievement}
+                      {exp.achievements.map((achievement, idx) => <div key={idx} className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full flex-shrink-0" />
+                          <span className="text-sm text-gray-700">{achievement}</span>
                         </div>)}
                     </div>
                   </div>
@@ -143,41 +152,29 @@ export function ExperienceSection() {
         </div>
 
         {/* 统计信息 */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="text-center">
             <div className="w-20 h-20 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-              <GraduationCap size={32} className="text-white" />
+              <GraduationCap size={36} className="text-white" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-2">学术背景</h3>
-            <p className="text-gray-600">
-              上海大学（SHU）机械电子工程专业
-              <br />
-              系统的专业知识体系
-            </p>
+            <div className="text-3xl font-bold text-gray-800 mb-2">3.7/4.0</div>
+            <div className="text-gray-600">GPA成绩</div>
           </div>
-
+          
           <div className="text-center">
             <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-              <Award size={32} className="text-white" />
+              <Award size={36} className="text-white" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-2">实践经验</h3>
-            <p className="text-gray-600">
-              多个实习和项目经历
-              <br />
-              丰富的工程实践经验
-            </p>
+            <div className="text-3xl font-bold text-gray-800 mb-2">5+</div>
+            <div className="text-gray-600">获奖荣誉</div>
           </div>
-
+          
           <div className="text-center">
             <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-              <MapPin size={32} className="text-white" />
+              <MapPin size={36} className="text-white" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-2">地理位置</h3>
-            <p className="text-gray-600">
-              位于上海
-              <br />
-              优越的学习和发展环境
-            </p>
+            <div className="text-3xl font-bold text-gray-800 mb-2">上海</div>
+            <div className="text-gray-600">学习地点</div>
           </div>
         </div>
       </div>
