@@ -73,17 +73,38 @@ export function SkillsSection() {
     x: 0,
     y: 0
   });
+  const [containerSize, setContainerSize] = useState({
+    width: 0,
+    height: 0
+  });
   const containerRef = useRef(null);
 
-  // 初始化技能位置为围绕中心的圆形排列
+  // 获取容器尺寸
   useEffect(() => {
-    const radius = 180; // 减小半径，让技能点更靠近中心
-    const centerX = 250; // 容器中心X
-    const centerY = 250; // 容器中心Y
+    const updateContainerSize = () => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        setContainerSize({
+          width: rect.width,
+          height: rect.height
+        });
+      }
+    };
+    updateContainerSize();
+    window.addEventListener('resize', updateContainerSize);
+    return () => window.removeEventListener('resize', updateContainerSize);
+  }, []);
+
+  // 初始化技能位置为围绕画布中心的圆形排列
+  useEffect(() => {
+    if (containerSize.width === 0 || containerSize.height === 0) return;
+    const radius = Math.min(containerSize.width, containerSize.height) * 0.35; // 根据容器大小动态调整半径
+    const centerX = containerSize.width / 2; // 画布中心X
+    const centerY = containerSize.height / 2; // 画布中心Y
     const updatedSkills = skills.map((skill, index) => {
       const angle = index * 2 * Math.PI / skills.length - Math.PI / 2; // 从顶部开始排列
-      const x = centerX + radius * Math.cos(angle) - 60; // 60是技能节点宽度的一半
-      const y = centerY + radius * Math.sin(angle) - 40; // 40是技能节点高度的一半
+      const x = centerX + radius * Math.cos(angle) - 68; // 68是技能节点宽度的一半
+      const y = centerY + radius * Math.sin(angle) - 56; // 56是技能节点高度的一半
 
       return {
         ...skill,
@@ -92,7 +113,7 @@ export function SkillsSection() {
       };
     });
     setSkills(updatedSkills);
-  }, []);
+  }, [containerSize]);
   const getSkillColor = color => {
     switch (color) {
       case 'blue':
@@ -199,8 +220,8 @@ export function SkillsSection() {
     const newY = e.clientY - rect.top - dragOffset.y;
 
     // 限制在容器内
-    const maxX = rect.width - 120; // 120是技能节点宽度
-    const maxY = rect.height - 80; // 80是技能节点高度
+    const maxX = rect.width - 136; // 136是技能节点宽度
+    const maxY = rect.height - 112; // 112是技能节点高度
     const constrainedX = Math.max(0, Math.min(newX, maxX));
     const constrainedY = Math.max(0, Math.min(newY, maxY));
     setSkills(prevSkills => prevSkills.map(skill => skill.id === draggingSkill ? {
@@ -322,19 +343,19 @@ export function SkillsSection() {
               <div className="absolute top-20 right-20 w-32 h-32 bg-purple-200 rounded-full opacity-20 blur-xl" />
               <div className="absolute bottom-20 left-20 w-24 h-24 bg-green-200 rounded-full opacity-20 blur-xl" />
               <div className="absolute bottom-10 right-10 w-16 h-16 bg-indigo-200 rounded-full opacity-20 blur-xl" />
-              {/* 中心光晕效果 */}
+              {/* 中心光晕效果 - 动态定位到画布中心 */}
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-indigo-200 to-purple-200 rounded-full opacity-30 blur-3xl" />
             </div>
 
-            {/* 连接线 - 从中心到各个技能 */}
+            {/* 连接线 - 从画布中心到各个技能 */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{
             zIndex: 1
           }}>
               {skills.map(skill => {
-              const centerX = 250;
-              const centerY = 250;
-              const skillCenterX = skill.x + 68; // 技能节点中心 (36宽度的一半)
-              const skillCenterY = skill.y + 56; // 技能节点中心 (28高度的一半)
+              const centerX = containerSize.width / 2; // 画布中心X
+              const centerY = containerSize.height / 2; // 画布中心Y
+              const skillCenterX = skill.x + 68; // 技能节点中心 (136宽度的一半)
+              const skillCenterY = skill.y + 56; // 技能节点中心 (112高度的一半)
               const colors = getSkillColor(skill.color);
               return <g key={skill.id}>
                     <line x1={centerX} y1={centerY} x2={skillCenterX} y2={skillCenterY} stroke="currentColor" strokeWidth="2" className={`${colors.line} opacity-40 transition-all duration-300`} strokeDasharray="5,5" />
@@ -343,7 +364,7 @@ export function SkillsSection() {
             })}
             </svg>
 
-            {/* 中心节点 */}
+            {/* 中心节点 - 定位到画布中心 */}
             <CenterNode />
 
             {/* 技能节点 */}
