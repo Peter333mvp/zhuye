@@ -1,7 +1,7 @@
 // @ts-ignore;
 import React, { useState, useRef, useEffect } from 'react';
 // @ts-ignore;
-import { ChevronLeft, ChevronRight, ExternalLink, Github, Trophy, Target, TrendingUp, Bot } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ExternalLink, Github, Trophy, Target, TrendingUp, Bot, Award } from 'lucide-react';
 
 export function ProjectsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -47,6 +47,16 @@ export function ProjectsSection() {
     tags: ['机器人系统', '太空技术', '运动学建模', '智能控制', 'MATLAB仿真'],
     icon: Bot,
     color: 'bg-purple-100 text-purple-800'
+  }, {
+    id: 5,
+    title: '中国大学生机械工程创新创意大赛',
+    subtitle: '第八届"精雕杯"毕业设计大赛',
+    description: '时间：2025年6月\n获得了全国三等奖、华东赛区一等奖',
+    responsibilities: ['创新设计', '工程实现', '竞赛答辩'],
+    image: 'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&h=600&fit=crop',
+    tags: ['机械工程', '创新设计', '毕业设计', '竞赛项目'],
+    icon: Award,
+    color: 'bg-red-100 text-red-800'
   }];
   const nextProject = () => {
     if (isAnimating) return;
@@ -131,7 +141,7 @@ export function ProjectsSection() {
 
                     {/* 项目内容 */}
                     <div className="p-6">
-                      <p className="text-gray-600 mb-6 leading-relaxed">
+                      <p className="text-gray-600 mb-6 leading-relaxed whitespace-pre-line">
                         {project.description}
                       </p>
 
